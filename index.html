@@ -164,15 +164,13 @@
     /* LIGHTBOX */
     .lightbox { display:none; position:fixed; inset:0; background:rgba(8,8,8,.97); z-index:500; align-items:center; justify-content:center; }
     .lightbox.open { display:flex; }
-    .lb-inner { width:min(920px,92vw); }
+    .lb-inner { width:min(920px,92vw); position:relative; }
     .lb-wrap { position:relative; padding-top:56.25%; border-radius:4px; overflow:hidden; background: transparent; }
     .lb-wrap.vertical { padding-top:177.78%; max-width:340px; margin:0 auto; background: transparent; }
     .lb-wrap iframe { position:absolute; inset:0; width:100%; height:100%; border:none; background:transparent; }
-    .lb-info { margin-top:20px; display:flex; justify-content:space-between; align-items:flex-end; }
+    .lb-info { margin-top:16px; }
     .lb-title { font-family:var(--font-display); font-size:1.9rem; letter-spacing:.06em; }
     .lb-cat { font-size:.66rem; letter-spacing:.2em; text-transform:uppercase; color:var(--grey); margin-top:4px; }
-    .lb-close { background:none; border:1px solid rgba(240,237,232,.22); color:var(--white); font-family:var(--font-body); font-size:.66rem; letter-spacing:.2em; text-transform:uppercase; padding:10px 22px; cursor:none; transition:border-color .2s,background .2s; }
-    .lb-close:hover { border-color:var(--white); background:rgba(240,237,232,.08); }
 
     /* SOBRE MI */
     .about { padding:0 48px 100px; display:grid; grid-template-columns:5fr 7fr; gap:72px; align-items:start; }
@@ -246,8 +244,36 @@
     footer { border-top:1px solid var(--dimmed); padding:24px 48px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
     footer span { font-size:.6rem; letter-spacing:.2em; text-transform:uppercase; color:var(--grey); }
 
-    /* THUMBNAILS */
-    .grid-item__thumb {
+    /* HERO BANNER — vídeo de presentación */
+    .hero-video {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      filter: brightness(.42) saturate(.8); z-index: 0;
+    }
+    /* Placeholder hero cuando no hay vídeo todavía */
+    .hero-video-placeholder {
+      position: absolute; inset: 0; z-index: 0;
+      background: #0a0a0a;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-video-placeholder span {
+      font-size:.62rem; letter-spacing:.28em; text-transform:uppercase;
+      color:rgba(240,237,232,.18);
+    }
+
+    /* LIGHTBOX X button */
+    .lb-x {
+      position: absolute; top: -48px; right: 0;
+      width: 40px; height: 40px;
+      background: none; border: 1px solid rgba(240,237,232,.25);
+      border-radius: 50%;
+      color: var(--white); cursor: none;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .2s, border-color .2s;
+      font-size: 1rem; line-height: 1;
+    }
+    .lb-x:hover { background: rgba(240,237,232,.12); border-color: var(--white); }
+    .lb-inner { width:min(920px,92vw); position: relative; }
       position: absolute; inset: 0;
       width: 100%; height: 100%;
       object-fit: cover; object-position: center;
@@ -299,10 +325,18 @@
   </div>
 </nav>
 
-<!-- HERO -->
+<!-- HERO CON VÍDEO BANNER -->
 <section id="inicio" class="hero">
-  <!-- Descomenta cuando tengas el reel: -->
-  <!-- <video class="hero-video" autoplay muted loop playsinline src="videos/reel.mp4"></video> -->
+  <!--
+    VÍDEO DE PRESENTACIÓN:
+    1. Sube tu reel a la carpeta /videos/ con el nombre reel.mp4
+    2. Quita los comentarios de las líneas de abajo
+    Recomendaciones: horizontal 16:9, sin audio, 10-20 seg en loop, comprimido <8MB
+  -->
+  <!-- <video class="hero-video" autoplay muted loop playsinline preload="auto">
+    <source src="videos/reel.mp4" type="video/mp4">
+  </video> -->
+  <div class="hero-video-placeholder"><span>Añade tu reel: /videos/reel.mp4</span></div>
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
@@ -355,63 +389,76 @@
 
     <!-- BODAS -->
     <div class="grid-item grid-item--wide" data-cat="boda" data-vimeo="1129259394" data-title="Julia × Luis" data-ratio="horizontal">
-      <div class="grid-item__ph" style="--c:#1c1510;"></div>
+      <div class="grid-item__ph loaded" style="--c:#1c1510;"></div>
+      <img class="grid-item__thumb" src="images/thumbs/julia_x_luis_highlights.webp" alt="Julia × Luis" loading="lazy">
       <div class="grid-item__ov"><div class="play-btn"><svg width="13" height="15" viewBox="0 0 13 15" fill="none"><path d="M1 1L12 7.5L1 14V1Z" fill="white"/></svg></div><div class="grid-item__title">Julia × Luis</div></div>
     </div>
     <div class="grid-item grid-item--wide" data-cat="boda" data-vimeo="1183179782" data-title="Valle y Álvaro" data-ratio="horizontal">
       <div class="grid-item__ph" style="--c:#1a1310;"></div>
+      <img class="grid-item__thumb" src="images/thumbs/valle_y_alvaro.webp" alt="Valle y Álvaro" loading="lazy">
       <div class="grid-item__ov"><div class="play-btn"><svg width="13" height="15" viewBox="0 0 13 15" fill="none"><path d="M1 1L12 7.5L1 14V1Z" fill="white"/></svg></div><div class="grid-item__title">Valle y Álvaro</div></div>
     </div>
     <div class="grid-item grid-item--tall" data-cat="boda" data-vimeo="1183164434" data-title="Wedding Party" data-ratio="vertical">
-      <div class="grid-item__ph" style="--c:#180f0a;"></div>
+      <div class="grid-item__ph loaded" style="--c:#180f0a;"></div>
+      <img class="grid-item__thumb" src="images/thumbs/wedding_party.webp" alt="Wedding Party" loading="lazy">
       <div class="grid-item__ov"><div class="play-btn"><svg width="13" height="15" viewBox="0 0 13 15" fill="none"><path d="M1 1L12 7.5L1 14V1Z" fill="white"/></svg></div><div class="grid-item__title">Wedding Party</div></div>
     </div>
 
     <!-- VIDEOCLIPS -->
     <div class="grid-item grid-item--wide" data-cat="videoclip" data-vimeo="1183164182" data-title="Chris — Contradicción" data-ratio="horizontal">
-      <div class="grid-item__ph" style="--c:#0e1418;"></div>
+      <div class="grid-item__ph loaded" style="--c:#0e1418;"></div>
+      <img class="grid-item__thumb" src="images/thumbs/videoclip_chris_contradiccion.webp" alt="Chris Contradicción" loading="lazy">
       <div class="grid-item__ov"><div class="play-btn"><svg width="13" height="15" viewBox="0 0 13 15" fill="none"><path d="M1 1L12 7.5L1 14V1Z" fill="white"/></svg></div><div class="grid-item__title">Chris — Contradicción</div></div>
     </div>
     <div class="grid-item grid-item--square" data-cat="videoclip" data-vimeo="1183164491" data-title="Sweet" data-ratio="horizontal">
-      <div class="grid-item__ph" style="--c:#12100e;"></div>
+      <div class="grid-item__ph loaded" style="--c:#12100e;"></div>
+      <img class="grid-item__thumb" src="images/thumbs/videoclip_sweet.webp" alt="Sweet" loading="lazy">
       <div class="grid-item__ov"><div class="play-btn"><svg width="13" height="15" viewBox="0 0 13 15" fill="none"><path d="M1 1L12 7.5L1 14V1Z" fill="white"/></svg></div><div class="grid-item__title">Sweet</div></div>
     </div>
     <div class="grid-item grid-item--wide" data-cat="videoclip" data-vimeo="1183165780" data-title="Chris — Dirty Love" data-ratio="horizontal">
-      <div class="grid-item__ph" style="--c:#0d0f14;"></div>
+      <div class="grid-item__ph loaded" style="--c:#0d0f14;"></div>
+      <img class="grid-item__thumb" src="images/thumbs/videoclip_chris_dirty_love.webp" alt="Dirty Love" loading="lazy">
       <div class="grid-item__ov"><div class="play-btn"><svg width="13" height="15" viewBox="0 0 13 15" fill="none"><path d="M1 1L12 7.5L1 14V1Z" fill="white"/></svg></div><div class="grid-item__title">Chris — Dirty Love</div></div>
     </div>
 
     <!-- AFTERMOVIES -->
     <div class="grid-item grid-item--tall" data-cat="aftermovie" data-vimeo="1183172559" data-title="Delirio" data-ratio="vertical">
-      <div class="grid-item__ph" style="--c:#111a0f;"></div>
+      <div class="grid-item__ph loaded" style="--c:#111a0f;"></div>
+      <img class="grid-item__thumb" src="images/thumbs/aftermovie_delirio.webp" alt="Delirio" loading="lazy">
       <div class="grid-item__ov"><div class="play-btn"><svg width="13" height="15" viewBox="0 0 13 15" fill="none"><path d="M1 1L12 7.5L1 14V1Z" fill="white"/></svg></div><div class="grid-item__title">Delirio</div></div>
     </div>
     <div class="grid-item grid-item--tall" data-cat="aftermovie" data-vimeo="1183176684" data-title="Iguana" data-ratio="vertical">
-      <div class="grid-item__ph" style="--c:#0f1a14;"></div>
+      <div class="grid-item__ph loaded" style="--c:#0f1a14;"></div>
+      <img class="grid-item__thumb" src="images/thumbs/aftermovie_iguana.webp" alt="Iguana" loading="lazy">
       <div class="grid-item__ov"><div class="play-btn"><svg width="13" height="15" viewBox="0 0 13 15" fill="none"><path d="M1 1L12 7.5L1 14V1Z" fill="white"/></svg></div><div class="grid-item__title">Iguana</div></div>
     </div>
 
     <!-- FASHION -->
     <div class="grid-item grid-item--wide" data-cat="fashion" data-vimeo="1183161487" data-title="Highlight Moda" data-ratio="horizontal">
-      <div class="grid-item__ph" style="--c:#18101a;"></div>
+      <div class="grid-item__ph loaded" style="--c:#18101a;"></div>
+      <img class="grid-item__thumb" src="images/thumbs/highlight_moda.webp" alt="Highlight Moda" loading="lazy">
       <div class="grid-item__ov"><div class="play-btn"><svg width="13" height="15" viewBox="0 0 13 15" fill="none"><path d="M1 1L12 7.5L1 14V1Z" fill="white"/></svg></div><div class="grid-item__title">Highlight Moda</div></div>
     </div>
     <div class="grid-item grid-item--tall" data-cat="fashion" data-vimeo="1183164149" data-title="Moda Corporativo I" data-ratio="vertical">
-      <div class="grid-item__ph" style="--c:#16101a;"></div>
+      <div class="grid-item__ph loaded" style="--c:#16101a;"></div>
+      <img class="grid-item__thumb" src="images/thumbs/moda_videocorporativo_1.webp" alt="Moda Corp I" loading="lazy">
       <div class="grid-item__ov"><div class="play-btn"><svg width="13" height="15" viewBox="0 0 13 15" fill="none"><path d="M1 1L12 7.5L1 14V1Z" fill="white"/></svg></div><div class="grid-item__title">Moda Corp. I</div></div>
     </div>
     <div class="grid-item grid-item--tall" data-cat="fashion" data-vimeo="1183164360" data-title="Moda Corporativo II" data-ratio="vertical">
-      <div class="grid-item__ph" style="--c:#140e18;"></div>
+      <div class="grid-item__ph loaded" style="--c:#140e18;"></div>
+      <img class="grid-item__thumb" src="images/thumbs/moda_videocorporativo_2.webp" alt="Moda Corp II" loading="lazy">
       <div class="grid-item__ov"><div class="play-btn"><svg width="13" height="15" viewBox="0 0 13 15" fill="none"><path d="M1 1L12 7.5L1 14V1Z" fill="white"/></svg></div><div class="grid-item__title">Moda Corp. II</div></div>
     </div>
 
     <!-- CORPORATIVO -->
     <div class="grid-item grid-item--wide" data-cat="corporativo" data-vimeo="1183164260" data-title="Forvide" data-ratio="horizontal">
-      <div class="grid-item__ph" style="--c:#101018;"></div>
+      <div class="grid-item__ph loaded" style="--c:#101018;"></div>
+      <img class="grid-item__thumb" src="images/thumbs/forvide.webp" alt="Forvide" loading="lazy">
       <div class="grid-item__ov"><div class="play-btn"><svg width="13" height="15" viewBox="0 0 13 15" fill="none"><path d="M1 1L12 7.5L1 14V1Z" fill="white"/></svg></div><div class="grid-item__title">Forvide</div></div>
     </div>
     <div class="grid-item grid-item--wide" data-cat="corporativo" data-vimeo="1183184326" data-title="Romeros de Alanís" data-ratio="horizontal">
-      <div class="grid-item__ph" style="--c:#1a1208;"></div>
+      <div class="grid-item__ph loaded" style="--c:#1a1208;"></div>
+      <img class="grid-item__thumb" src="images/thumbs/publi_romeros_de_alani_s.webp" alt="Romeros de Alanís" loading="lazy">
       <div class="grid-item__ov"><div class="play-btn"><svg width="13" height="15" viewBox="0 0 13 15" fill="none"><path d="M1 1L12 7.5L1 14V1Z" fill="white"/></svg></div><div class="grid-item__title">Romeros de Alanís</div></div>
     </div>
 
@@ -421,12 +468,12 @@
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox">
   <div class="lb-inner">
+    <button class="lb-x" id="lb-close" aria-label="Cerrar">✕</button>
     <div class="lb-wrap" id="lb-wrap">
       <iframe id="lb-iframe" src="" allow="autoplay; fullscreen; picture-in-picture"></iframe>
     </div>
     <div class="lb-info">
       <div><div class="lb-title" id="lb-title"></div><div class="lb-cat" id="lb-cat"></div></div>
-      <button class="lb-close" id="lb-close">Cerrar</button>
     </div>
   </div>
 </div>
@@ -655,37 +702,7 @@
       }).catch(() => alert('Error al enviar. Inténtalo de nuevo.'));
   });
 
-  // ── Vimeo thumbnail loader ──
-  // Uses the player embed URL via oEmbed — works for embeddable videos
-  // regardless of privacy setting, as long as the video allows embedding.
-  async function loadVimeoThumbnails() {
-    const items = document.querySelectorAll('.grid-item[data-vimeo]');
-    const fetches = Array.from(items).map(async item => {
-      const id = item.dataset.vimeo;
-      const ph = item.querySelector('.grid-item__ph');
-      try {
-        // Use player.vimeo.com URL — this works for embeddable videos
-        const url = `https://vimeo.com/api/oembed.json?url=https://player.vimeo.com/video/${id}&width=1280`;
-        const res = await fetch(url);
-        if (!res.ok) throw new Error('failed');
-        const data = await res.json();
-        if (!data.thumbnail_url) throw new Error('no thumb');
-        // Request HD version by replacing size suffix
-        const thumbHD = data.thumbnail_url.replace(/_\d+(\.\w+)$/, '_1280$1');
-        const img = new Image();
-        img.className = 'grid-item__thumb';
-        img.alt = item.dataset.title || '';
-        img.onload = () => { ph && ph.classList.add('loaded'); };
-        img.src = thumbHD;
-        const ov = item.querySelector('.grid-item__ov');
-        item.insertBefore(img, ov);
-      } catch (_) {
-        // Shimmer placeholder stays — silent fail
-      }
-    });
-    await Promise.allSettled(fetches);
-  }
-  loadVimeoThumbnails();
+  // Fade-up scroll
 
   // Fade-up scroll
   const io = new IntersectionObserver(entries => {
