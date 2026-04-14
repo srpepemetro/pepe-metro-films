@@ -224,10 +224,26 @@
     .contact-section { border-top:1px solid var(--dim); padding:80px 48px; display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:end; }
     @media (max-width:700px) { .contact-section { grid-template-columns:1fr; padding:60px 24px; } }
     .contact-big { font-family:var(--fd); font-size:clamp(3rem,7vw,6.5rem); line-height:.9; }
-    .contact-links a { display:block; font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:var(--grey); text-decoration:none; margin-bottom:14px; transition:color .25s; }
+    .contact-links { text-align:right; }
+    .contact-links a {
+      display:block; font-size:.7rem; letter-spacing:.2em; text-transform:uppercase;
+      color:var(--grey); text-decoration:none; margin-bottom:14px; transition:color .25s;
+    }
     .contact-links a:hover { color:var(--white); }
-    .wa-link { display:inline-flex; align-items:center; gap:8px; font-size:.66rem; letter-spacing:.15em; text-transform:uppercase; border:1px solid rgba(240,237,232,.18); color:rgba(240,237,232,.6); padding:10px 20px; text-decoration:none; margin-top:8px; transition:border-color .25s,color .25s; }
-    .wa-link:hover { border-color:var(--white); color:var(--white); }
+    .wa-link {
+      display:inline-flex; align-items:center; gap:12px;
+      font-size:.68rem; letter-spacing:.16em; text-transform:uppercase;
+      background: rgba(240,237,232,0.05);
+      border:1px solid rgba(240,237,232,.15);
+      border-radius: 50px;
+      color:rgba(240,237,232,.7);
+      padding:12px 22px 12px 16px;
+      text-decoration:none; margin-top:8px;
+      transition:border-color .3s, color .3s, background .3s;
+      backdrop-filter: blur(8px);
+    }
+    .wa-link:hover { border-color:rgba(240,237,232,.4); color:var(--white); background: rgba(240,237,232,.08); }
+    .wa-link svg { width:20px; height:20px; flex-shrink:0; }
     .area { font-size:.66rem; color:rgba(240,237,232,.3); margin-top:22px; line-height:1.8; }
     .social-row { margin-top:28px; display:flex; gap:16px; align-items:center; }
     .social-icon { width:28px; height:28px; fill:var(--white); opacity:.4; transition:opacity .25s; display:block; }
@@ -270,7 +286,7 @@
 <div class="reel-banner" id="reelBanner">
 
   <!-- DESCOMENTA ESTO cuando tengas el vídeo: -->
-  <video id="reelVideo" muted playsinline preload="metadata">
+  <video id="reelVideo" muted playsinline loop preload="metadata">
     <source src="videos/presentacion.mp4" type="video/mp4">
   </video>
 
@@ -579,7 +595,7 @@
     <a href="mailto:contacto.pepemetrofilms@gmail.com">contacto.pepemetrofilms@gmail.com</a>
     <a href="tel:+34629121591">+34 629 121 591</a>
     <a href="https://wa.me/34629121591?text=Hola%20Pepe%2C%20me%20interesa%20tu%20trabajo" target="_blank" rel="noopener" class="wa-link">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.025.507 3.934 1.395 5.61L0 24l6.545-1.371A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.007-1.373l-.36-.214-3.724.978.995-3.636-.234-.373A9.818 9.818 0 0112 2.182c5.42 0 9.818 4.398 9.818 9.818 0 5.421-4.398 9.818-9.818 9.818z"/></svg>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.025.507 3.934 1.395 5.61L0 24l6.545-1.371A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.007-1.373l-.36-.214-3.724.978.995-3.636-.234-.373A9.818 9.818 0 0112 2.182c5.42 0 9.818 4.398 9.818 9.818 0 5.421-4.398 9.818-9.818 9.818z"/></svg>
       WhatsApp directo
     </a>
     <p class="area">Sevilla · Andalucía · Desplazamiento nacional</p>
