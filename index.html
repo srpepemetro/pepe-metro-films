@@ -47,8 +47,6 @@
     .nav-logo { text-decoration: none; display: flex; align-items: center; flex-shrink: 0; }
     .nav-logo-img {
       height: 52px; width: auto; display: block;
-      /* mezcla el fondo negro del logo con la translucidez */
-      mix-blend-mode: screen;
       transition: opacity .3s, transform .3s;
     }
     .nav-logo-img:hover { opacity: .8; transform: scale(1.05); }
@@ -113,17 +111,6 @@
     .btn-ghost:hover { border-color:var(--white); color:var(--white); }
     .scroll-hint { position:absolute; right:48px; bottom:64px; writing-mode:vertical-rl; font-size:.62rem; letter-spacing:.28em; text-transform:uppercase; color:rgba(240,237,232,.45); animation:blink 2.8s ease-in-out infinite; }
     @keyframes blink { 0%,100%{opacity:.25} 50%{opacity:.85} }
-
-    /* SERVICES STRIP */
-    .services-strip { display:grid; grid-template-columns:repeat(4,1fr); border-top:1px solid var(--dimmed); }
-    @media (max-width:900px) { .services-strip { grid-template-columns:repeat(2,1fr); } }
-    @media (max-width:480px) { .services-strip { grid-template-columns:1fr; } }
-    .svc-card { padding:44px 32px; border-right:1px solid var(--dimmed); transition:background .3s; }
-    .svc-card:last-child { border-right:none; }
-    .svc-card:hover { background:var(--dimmed); }
-    .svc-icon { font-size:1.5rem; margin-bottom:18px; display:block; }
-    .svc-title { font-family:var(--font-display); font-size:1.4rem; letter-spacing:.05em; margin-bottom:10px; }
-    .svc-desc { font-size:.78rem; line-height:1.75; color:var(--grey); }
 
     /* SECTION HEADER */
     .sec-head { padding:90px 48px 44px; display:flex; align-items:baseline; gap:22px; }
@@ -244,23 +231,6 @@
     footer { border-top:1px solid var(--dimmed); padding:24px 48px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
     footer span { font-size:.6rem; letter-spacing:.2em; text-transform:uppercase; color:var(--grey); }
 
-    /* HERO BANNER — vídeo de presentación */
-    .hero-video {
-      position: absolute; inset: 0; width: 100%; height: 100%;
-      object-fit: cover; object-position: center;
-      filter: brightness(.42) saturate(.8); z-index: 0;
-    }
-    /* Placeholder hero cuando no hay vídeo todavía */
-    .hero-video-placeholder {
-      position: absolute; inset: 0; z-index: 0;
-      background: #0a0a0a;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .hero-video-placeholder span {
-      font-size:.62rem; letter-spacing:.28em; text-transform:uppercase;
-      color:rgba(240,237,232,.18);
-    }
-
     /* LIGHTBOX X button */
     .lb-x {
       position: absolute; top: -48px; right: 0;
@@ -274,17 +244,6 @@
     }
     .lb-x:hover { background: rgba(240,237,232,.12); border-color: var(--white); }
     .lb-inner { width:min(920px,92vw); position: relative; }
-      position: absolute; inset: 0;
-      width: 100%; height: 100%;
-      object-fit: cover; object-position: center;
-      display: block;
-      transition: transform .6s cubic-bezier(.25,.46,.45,.94), filter .4s ease;
-      filter: brightness(.78) saturate(.85);
-    }
-    .grid-item:hover .grid-item__thumb {
-      transform: scale(1.05);
-      filter: brightness(.42) saturate(.6);
-    }
     /* skeleton shimmer while thumb loads */
     .grid-item__ph {
       position: absolute; inset: 0;
@@ -310,8 +269,8 @@
   <div class="nav-inner">
     <a href="#inicio" class="nav-logo">
       <picture>
-        <source srcset="images/logo.webp" type="image/webp">
-        <img src="images/logo.png" alt="Pepe Metro Films" class="nav-logo-img">
+        <source srcset="images/logo_transparent.webp" type="image/webp">
+        <img src="images/logo_transparent.png" alt="Pepe Metro Films" class="nav-logo-img">
       </picture>
     </a>
     <button class="nav-toggle" id="navToggle" aria-label="Menú"><span></span><span></span><span></span></button>
@@ -325,18 +284,18 @@
   </div>
 </nav>
 
-<!-- HERO CON VÍDEO BANNER -->
+<!-- HERO — BANNER VÍDEO PRESENTACIÓN -->
 <section id="inicio" class="hero">
   <!--
-    VÍDEO DE PRESENTACIÓN:
-    1. Sube tu reel a la carpeta /videos/ con el nombre reel.mp4
-    2. Quita los comentarios de las líneas de abajo
-    Recomendaciones: horizontal 16:9, sin audio, 10-20 seg en loop, comprimido <8MB
+    ══ VÍDEO DE PRESENTACIÓN ══
+    1. Crea la carpeta /videos/ dentro de pepe-metro-films/
+    2. Pon tu reel ahí con el nombre reel.mp4
+       Especificaciones recomendadas: horizontal 16:9 · sin audio · 10-20s en loop · <10MB
+    3. Quita los comentarios de las líneas <video> y </video>
   -->
   <!-- <video class="hero-video" autoplay muted loop playsinline preload="auto">
     <source src="videos/reel.mp4" type="video/mp4">
   </video> -->
-  <div class="hero-video-placeholder"><span>Añade tu reel: /videos/reel.mp4</span></div>
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
@@ -349,30 +308,6 @@
   </div>
   <span class="scroll-hint">Scroll</span>
 </section>
-
-<!-- SERVICES STRIP -->
-<div class="services-strip">
-  <div class="svc-card fade-up">
-    <span class="svc-icon">◎</span>
-    <div class="svc-title">Bodas &amp; Eventos</div>
-    <p class="svc-desc">Cobertura completa y discreta de tus momentos más importantes, desde los preparativos hasta el último baile. También cobertura excepcional de la wedding party.</p>
-  </div>
-  <div class="svc-card fade-up">
-    <span class="svc-icon">▷</span>
-    <div class="svc-title">Videoclips</div>
-    <p class="svc-desc">Dirección y producción audiovisual para artistas. Spots comerciales y fashion films con criterio cinematográfico.</p>
-  </div>
-  <div class="svc-card fade-up">
-    <span class="svc-icon">◈</span>
-    <div class="svc-title">Corporativo</div>
-    <p class="svc-desc">Vídeos institucionales, testimoniales y presentaciones de producto que elevan la imagen de tu marca.</p>
-  </div>
-  <div class="svc-card fade-up">
-    <span class="svc-icon">⊹</span>
-    <div class="svc-title">Social Media</div>
-    <p class="svc-desc">Gestión integral del contenido audiovisual y estrategia de marca para redes sociales. Presencia que convierte.</p>
-  </div>
-</div>
 
 <!-- PROYECTOS -->
 <section id="proyectos">
