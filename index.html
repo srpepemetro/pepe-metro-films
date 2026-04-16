@@ -107,7 +107,38 @@
     .hero-eyebrow { font-size:.66rem; letter-spacing:.32em; text-transform:uppercase; color:rgba(240,237,232,.65); margin-bottom:18px; }
     .hero-title { font-family:var(--fd); font-size:clamp(4.5rem,13vw,14rem); line-height:.88; color:var(--white); }
     .hero-title em { font-style:italic; font-family:var(--fb); font-weight:300; font-size:.21em; letter-spacing:.1em; text-transform:uppercase; display:block; color:rgba(240,237,232,.52); margin-bottom:6px; }
-    .hero-ctas { display:flex; gap:14px; margin-top:36px; flex-wrap:wrap; }
+    .hero-sub { font-size:.88rem; line-height:1.7; color:rgba(240,237,232,.55); max-width:500px; margin-top:20px; }
+    .hero-ctas { display:flex; gap:14px; margin-top:28px; flex-wrap:wrap; }
+
+    /* ── PARA QUIÉN — 5 segmentos ── */
+    .para-quien { border-top:1px solid var(--dim); }
+    .para-quien-grid { display:grid; grid-template-columns:repeat(5,1fr); }
+    @media (max-width:1000px) { .para-quien-grid { grid-template-columns:repeat(3,1fr); } }
+    @media (max-width:600px)  { .para-quien-grid { grid-template-columns:1fr 1fr; } }
+    .pq-card {
+      padding:36px 28px; border-right:1px solid var(--dim);
+      transition:background .3s; cursor:none;
+    }
+    .pq-card:last-child { border-right:none; }
+    .pq-card:hover { background:var(--dim); }
+    .pq-card:hover .pq-cta { color:var(--white); }
+    .pq-num { font-size:.58rem; letter-spacing:.28em; text-transform:uppercase; color:rgba(240,237,232,.2); margin-bottom:16px; display:block; }
+    .pq-title { font-family:var(--fd); font-size:1.25rem; letter-spacing:.05em; margin-bottom:10px; line-height:1.1; }
+    .pq-desc { font-size:.75rem; line-height:1.7; color:var(--grey); margin-bottom:16px; }
+    .pq-cta { font-size:.62rem; letter-spacing:.18em; text-transform:uppercase; color:rgba(240,237,232,.3); transition:color .25s; text-decoration:none; display:inline-block; }
+
+    /* ── DIFERENCIACIÓN strip ── */
+    .diferenciacion {
+      display:grid; grid-template-columns:repeat(3,1fr);
+      border-top:1px solid var(--dim); border-bottom:1px solid var(--dim);
+      margin-bottom:0;
+    }
+    @media (max-width:700px) { .diferenciacion { grid-template-columns:1fr; } }
+    .dif-item { padding:40px 32px; border-right:1px solid var(--dim); }
+    .dif-item:last-child { border-right:none; }
+    .dif-icon { font-size:1.2rem; margin-bottom:14px; display:block; opacity:.6; }
+    .dif-title { font-family:var(--fd); font-size:1.2rem; letter-spacing:.05em; margin-bottom:8px; }
+    .dif-desc { font-size:.76rem; line-height:1.7; color:var(--grey); }
     .btn-primary { font-family:var(--fd); font-size:1rem; letter-spacing:.14em; background:var(--white); color:var(--black); padding:14px 36px; border:none; cursor:none; transition:background .25s; }
     .btn-primary:hover { background:rgba(240,237,232,.82); }
     .btn-ghost { font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:rgba(240,237,232,.65); background:none; border:1px solid rgba(240,237,232,.25); padding:14px 28px; cursor:none; transition:border-color .25s,color .25s; text-decoration:none; display:inline-flex; align-items:center; }
@@ -273,6 +304,7 @@
     </a>
     <button class="nav-toggle" id="navToggle" aria-label="Menú"><span></span><span></span><span></span></button>
     <ul class="nav-links" id="navLinks">
+      <li><a href="#para-quien">Para quién</a></li>
       <li><a href="#proyectos">Proyectos</a></li>
       <li><a href="#sobre-mi">Sobre mí</a></li>
       <li><a href="#testimonios">Testimonios</a></li>
@@ -321,15 +353,108 @@
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <p class="hero-eyebrow">Videografía</p>
-    <h1 class="hero-title"><em>Historias que</em>PERDURAN</h1>
+    <!--
+      ═══ MENSAJE PRINCIPAL — MODIFICAR AQUÍ ═══
+      Este es el texto más importante de toda la web.
+      Habla directamente al cliente ideal: negocios y marcas que
+      necesitan imagen profesional para crecer.
+      Opciones alternativas según temporada o campaña:
+      · "Tu negocio merece verse tan bueno como realmente es"
+      · "Contenido que posiciona, conecta y convierte"
+      · "Tu marca, en manos de alguien que entiende el resultado"
+      ══════════════════════════════════════════
+    -->
+    <p class="hero-eyebrow">Sevilla · Andalucía · Desplazamiento nacional</p>
+    <h1 class="hero-title"><em>Haz que tu marca</em>DESTAQUE</h1>
+    <p class="hero-sub">Producción audiovisual para negocios y marcas que quieren atraer clientes con contenido que convierte.</p>
     <div class="hero-ctas">
       <button class="btn-primary" id="heroBtn">Ver proyectos</button>
-      <a href="#presupuesto" class="btn-ghost">Solicitar presupuesto</a>
+      <a href="#para-quien" class="btn-ghost">¿Para quién trabajo?</a>
     </div>
   </div>
   <span class="scroll-hint">Scroll</span>
 </section>
+
+<!-- ══ PARA QUIÉN ══
+     ┌──────────────────────────────────────────────────────────────┐
+     │  MODIFICAR SEGMENTOS AQUÍ                                    │
+     │  Cada .pq-card es un segmento de cliente.                    │
+     │  Edita: pq-title (nombre), pq-desc (dolor/deseo),           │
+     │  pq-cta (enlace o texto de acción).                          │
+     │  Los 5 segmentos prioritarios (según análisis estratégico):  │
+     │  1. Negocios locales  2. Marcas personales  3. Inmobiliaria │
+     │  4. Eventos/Bodas  5. Pymes con marketing activo            │
+     └──────────────────────────────────────────────────────────────┘ -->
+<section id="para-quien" class="para-quien">
+  <div class="sec-head">
+    <span class="sec-num">—</span>
+    <h2 class="sec-title">Para quién trabajo</h2>
+  </div>
+  <div class="para-quien-grid">
+
+    <div class="pq-card fade-up">
+      <span class="pq-num">01</span>
+      <div class="pq-title">Negocios<br>locales</div>
+      <p class="pq-desc">Restaurantes, clínicas, gimnasios, peluquerías. Tu negocio es bueno — pero no lo parece online.</p>
+      <a href="#presupuesto" class="pq-cta">Quiero más clientes →</a>
+    </div>
+
+    <div class="pq-card fade-up">
+      <span class="pq-num">02</span>
+      <div class="pq-title">Marcas<br>personales</div>
+      <p class="pq-desc">Coaches, creadores, consultores. Tienes valor — necesitas contenido que lo demuestre y convierta.</p>
+      <a href="#presupuesto" class="pq-cta">Quiero posicionarme →</a>
+    </div>
+
+    <div class="pq-card fade-up">
+      <span class="pq-num">03</span>
+      <div class="pq-title">Sector<br>inmobiliario</div>
+      <p class="pq-desc">Agentes y agencias. Un vídeo bien hecho acelera decisiones y diferencia tu cartera.</p>
+      <a href="#presupuesto" class="pq-cta">Ver opciones →</a>
+    </div>
+
+    <div class="pq-card fade-up">
+      <span class="pq-num">04</span>
+      <div class="pq-title">Eventos<br>y bodas</div>
+      <p class="pq-desc">Bodas, wedding parties, eventos privados y corporativos. Cada momento merece durar para siempre.</p>
+      <a href="#presupuesto" class="pq-cta">Reservar fecha →</a>
+    </div>
+
+    <div class="pq-card fade-up">
+      <span class="pq-num">05</span>
+      <div class="pq-title">Pymes con<br>marketing activo</div>
+      <p class="pq-desc">Ya inviertes en marketing. Necesitas contenido audiovisual estratégico que esté a la altura.</p>
+      <a href="#presupuesto" class="pq-cta">Hablemos →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ DIFERENCIACIÓN ══
+     ┌──────────────────────────────────────────────────────────────┐
+     │  PROPUESTA DE VALOR — MODIFICAR AQUÍ                        │
+     │  Estas 3 tarjetas comunican POR QUÉ elegirte a ti.          │
+     │  Basado en análisis de océano azul: no vendes vídeos,       │
+     │  vendes un sistema que genera resultados.                    │
+     │  Actualiza con tus diferenciadores reales cuando los tengas. │
+     └──────────────────────────────────────────────────────────────┘ -->
+<div class="diferenciacion">
+  <div class="dif-item fade-up">
+    <span class="dif-icon">◎</span>
+    <div class="dif-title">No grabo vídeos.<br>Construyo imagen.</div>
+    <p class="dif-desc">Cada proyecto parte de entender tu negocio, tu cliente y tu objetivo. El resultado no es un vídeo bonito — es una herramienta que trabaja por ti.</p>
+  </div>
+  <div class="dif-item fade-up">
+    <span class="dif-icon">▷</span>
+    <div class="dif-title">Contenido listo<br>para publicar.</div>
+    <p class="dif-desc">Formato, resolución, ratio — todo optimizado para cada plataforma. Sin que tengas que preocuparte de nada técnico. Publicas el mismo día que recibes el material.</p>
+  </div>
+  <div class="dif-item fade-up">
+    <span class="dif-icon">◈</span>
+    <div class="dif-title">Proceso claro,<br>sin sorpresas.</div>
+    <p class="dif-desc">Briefing, rodaje, entrega. Comunicación directa en todo momento. Sabes exactamente qué esperar y cuándo. Sin fricciones, sin retrasos innecesarios.</p>
+  </div>
+</div>
 
 <!-- ══ PROYECTOS ══ -->
 <section id="proyectos">
@@ -455,14 +580,21 @@
       <span class="about-tag">Videógrafo · Sevilla</span>
     </div>
     <div class="about-content">
+      <!--
+        ═══ SOBRE MÍ — TEXTO COMERCIAL ═══
+        Mantén siempre el balance: humano + profesional.
+        La historia personal genera confianza.
+        Las credenciales eliminan la duda de "¿sabe lo que hace?".
+        El enfoque en resultados convierte la visita en contacto.
+        ══════════════════════════════════════════
+      -->
       <h3 class="about-name">Pepe<br>Metro</h3>
-      <p class="about-bio">Crecí en un entorno muy ligado a la imagen gracias a mi padre, fotógrafo, lo que despertó desde temprano mi interés por lo visual y lo creativo. Con el tiempo, esa curiosidad se convirtió en una pasión clara por la música y el cine, dos pilares que han marcado tanto mi vida personal como profesional.</p>
-      <p class="about-bio">Formado en comercio y marketing, y producción audiovisual. He trabajado en el cine español dentro del departamento de producción, lo que me ha permitido adquirir experiencia real en entornos profesionales exigentes.</p>
-      <p class="about-bio">Desde hace más de cinco años desarrollo mi actividad como freelance en el ámbito audiovisual, participando en proyectos de distinta naturaleza y formato. Me defino como una persona creativa, social y profesional, con una clara orientación al trabajo en equipo y a la resolución eficiente de cada proyecto, cuidando tanto el detalle como el resultado final.</p>
+      <p class="about-bio">Crecí rodeado de imagen gracias a mi padre, fotógrafo. Eso despertó en mí una obsesión temprana por lo visual y lo creativo que con el tiempo se convirtió en carrera: formación en producción audiovisual, experiencia en el cine español y más de cinco años trabajando como freelance con marcas, artistas y empresas.</p>
+      <p class="about-bio">Lo que me diferencia no es la cámara — es entender qué necesita tu negocio y traducirlo en imágenes que generan confianza, atraen clientes y te hacen destacar. No fabrico contenido en serie. Cada proyecto se piensa desde cero.</p>
       <div class="about-stats">
-        <div class="stat"><div class="stat-num">+100</div><div class="stat-label">Proyectos</div></div>
-        <div class="stat"><div class="stat-num">+1000</div><div class="stat-label">horas</div></div>
-        <div class="stat"><div class="stat-num">+5</div><div class="stat-label">Años de dedicación</div></div>
+        <div class="stat"><div class="stat-num">+80</div><div class="stat-label">Proyectos</div></div>
+        <div class="stat"><div class="stat-num">+40</div><div class="stat-label">Bodas</div></div>
+        <div class="stat"><div class="stat-num">5</div><div class="stat-label">Años</div></div>
       </div>
     </div>
   </div>
@@ -559,10 +691,18 @@
         <div class="form-field">
           <label>Tipo de proyecto</label>
           <select name="tipo" required>
-            <option value="">Selecciona</option>
-            <option>Boda</option><option>Evento personal</option><option>Videoclip</option>
-            <option>Aftermovie</option><option>Fashion Film</option>
-            <option>Vídeo corporativo</option><option>Gestión de redes sociales</option><option>Otro</option>
+            <option value="">¿En qué puedo ayudarte?</option>
+            <option>Negocio local (restaurante, clínica, gimnasio…)</option>
+            <option>Marca personal (coach, creador, consultor…)</option>
+            <option>Sector inmobiliario</option>
+            <option>Boda</option>
+            <option>Wedding Party / Evento</option>
+            <option>Videoclip</option>
+            <option>Aftermovie</option>
+            <option>Fashion Film</option>
+            <option>Vídeo corporativo / Pyme</option>
+            <option>Gestión de contenido mensual</option>
+            <option>Otro</option>
           </select>
         </div>
         <div class="form-field"><label>Fecha estimada</label><input type="date" name="fecha"></div>
@@ -579,7 +719,7 @@
       </div>
       <div class="form-row">
         <div class="form-field form-field--full"><label>Descripción del proyecto</label>
-          <textarea name="mensaje" required placeholder="Cuéntame: duración, formato, localización, fecha de entrega…"></textarea>
+          <textarea name="mensaje" required placeholder="Cuéntame tu negocio, qué quieres conseguir y qué tipo de proyecto tienes en mente…"></textarea>
         </div>
       </div>
       <button type="submit" id="submit-btn" class="btn-submit">Solicitar presupuesto</button>
@@ -590,7 +730,7 @@
 
 <!-- ══ CONTACTO ══ -->
 <section id="contacto" class="contact-section">
-  <div class="contact-big fade-up">Hablemos<br>de tu<br>proyecto.</div>
+  <div class="contact-big fade-up">Tu marca<br>merece más.<br>Hablemos.</div>
   <div class="contact-links fade-up">
     <div class="social-row">
       <a href="https://www.instagram.com/pepemetrofilms/" target="_blank" rel="noopener" aria-label="Instagram">
