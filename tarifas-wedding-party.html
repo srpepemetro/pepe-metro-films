@@ -125,6 +125,14 @@
     .fade-up { opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease; }
     .fade-up.in { opacity:1; transform:translateY(0); }
 
+    /* MUESTRA VISUAL */
+    .muestra-strip { display:flex; justify-content:center; gap:3px; padding:48px 48px 0; overflow:hidden; }
+    .muestra-item { flex:1; max-width:320px; aspect-ratio:9/16; overflow:hidden; position:relative; }
+    .muestra-item img { width:100%; height:100%; object-fit:cover; object-position:center; display:block; filter:brightness(.75) saturate(.9); transition:filter .4s; }
+    .muestra-item:hover img { filter:brightness(.9) saturate(1); }
+    @media (max-width:720px) { .muestra-strip { padding:32px 24px 0; gap:2px; } }
+    @media (max-width:480px) { .muestra-strip .muestra-item:last-child { display:none; } }
+
     @media (max-width:720px) {
       .page-hero, .servicio-wrap, .nota-box, .condiciones-section { padding-left:24px; padding-right:24px; }
       .divider { margin:0 24px; }
@@ -158,8 +166,23 @@
 <div class="page-hero">
   <p class="page-eyebrow">Servicio de Videografía · Documento privado</p>
   <h1 class="page-title"><em>Tarifa</em>WEDDING<br>PARTY</h1>
-  <p class="page-subtitle">Cobertura exclusiva de la barra libre. Toda la energía de la noche, editada para que dure para siempre.</p>
+  <p class="page-subtitle">La barra libre tiene su propio lenguaje. Bailes, brindis, risas sin filtro. Lo capto todo y lo edito para que lo revivas cuando quieras.</p>
 </div>
+
+<!-- MUESTRA VISUAL -->
+<div class="muestra-strip">
+  <div class="muestra-item">
+    <img src="images/thumbs/wedding_party.webp" alt="Wedding Party">
+  </div>
+  <div class="muestra-item">
+    <img src="images/thumbs/julia_x_luis_highlights.webp" alt="Boda Julia y Luis">
+  </div>
+  <div class="muestra-item">
+    <img src="images/thumbs/valle_y_alvaro.webp" alt="Boda Valle y Álvaro">
+  </div>
+</div>
+
+<div class="divider" style="margin-top:48px;"></div>
 
 <!-- SERVICIO -->
 <div class="servicio-wrap">
