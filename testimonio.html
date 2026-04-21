@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deja tu testimonio — Pepe Metro Films</title>
+  <meta name="description" content="Comparte tu experiencia trabajando con Pepe Metro Films.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #080808; --white: #f0ede8; --grey: #6b6b6b;
+      --dim: rgba(240,237,232,0.06);
+      --fd: 'Bebas Neue', sans-serif;
+      --fb: 'DM Sans', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--black); color: var(--white);
+      font-family: var(--fb); font-weight: 300;
+      min-height: 100vh; overflow-x: hidden;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: .45;
+    }
+
+    /* ── BRAND MARK ── */
+    .brand { text-align: center; padding: 56px 24px 0; position: relative; z-index: 1; }
+    .brand a { text-decoration: none; display: inline-block; }
+    .brand-name {
+      font-family: var(--fd); font-size: clamp(1.6rem, 4vw, 2.6rem);
+      letter-spacing: .22em; color: var(--white); opacity: .85;
+    }
+    .brand-sub {
+      font-size: .6rem; letter-spacing: .32em; text-transform: uppercase;
+      color: var(--grey); margin-top: 4px;
+    }
+
+    /* ── MAIN LAYOUT ── */
+    .page-wrap {
+      position: relative; z-index: 1;
+      max-width: 640px; margin: 0 auto;
+      padding: 64px 32px 100px;
+    }
+
+    /* ── HEADING ── */
+    .t-eyebrow {
+      font-size: .6rem; letter-spacing: .32em; text-transform: uppercase;
+      color: var(--grey); margin-bottom: 18px;
+    }
+    .t-title {
+      font-family: var(--fd);
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      letter-spacing: .04em; line-height: .92;
+      color: var(--white); margin-bottom: 22px;
+    }
+    .t-lead {
+      font-size: .88rem; line-height: 1.8; color: var(--grey);
+      max-width: 480px; margin-bottom: 52px;
+    }
+    .t-lead strong { color: rgba(240,237,232,.7); font-weight: 400; }
+
+    /* ── DIVIDER ── */
+    .divider { border: none; border-top: 1px solid var(--dim); margin-bottom: 48px; }
+
+    /* ── FORM ── */
+    .t-form { display: flex; flex-direction: column; gap: 28px; }
+
+    .field { display: flex; flex-direction: column; gap: 8px; }
+    .field label {
+      font-size: .6rem; letter-spacing: .28em; text-transform: uppercase;
+      color: rgba(240,237,232,.35);
+    }
+    .field input, .field textarea, .field select {
+      background: var(--dim);
+      border: 1px solid rgba(240,237,232,.1);
+      color: var(--white); font-family: var(--fb); font-weight: 300;
+      font-size: .88rem; padding: 14px 18px;
+      border-radius: 0; outline: none; width: 100%;
+      transition: border-color .25s, background .25s;
+      -webkit-appearance: none; appearance: none;
+    }
+    .field input::placeholder, .field textarea::placeholder { color: rgba(240,237,232,.2); }
+    .field input:focus, .field textarea:focus, .field select:focus {
+      border-color: rgba(240,237,232,.3);
+      background: rgba(240,237,232,.08);
+    }
+    .field textarea { resize: vertical; min-height: 140px; line-height: 1.7; }
+    .field select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b6b6b' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 18px center; padding-right: 44px; }
+    .field select option { background: #111; color: var(--white); }
+
+    /* ── STARS ── */
+    .stars-wrap { display: flex; gap: 6px; }
+    .star {
+      width: 32px; height: 32px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform .15s;
+    }
+    .star:hover { transform: scale(1.15); }
+    .star svg { fill: rgba(240,237,232,.15); transition: fill .15s; }
+    .star.on svg { fill: var(--white); }
+    input[name="valoracion"] { display: none; }
+
+    /* ── ROW ── */
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    @media (max-width: 480px) { .field-row { grid-template-columns: 1fr; } }
+
+    /* ── SUBMIT ── */
+    .btn-submit {
+      font-family: var(--fd); font-size: 1.05rem; letter-spacing: .16em;
+      background: var(--white); color: var(--black);
+      border: none; padding: 16px 44px;
+      cursor: pointer; transition: background .25s, transform .2s;
+      align-self: flex-start; margin-top: 8px;
+    }
+    .btn-submit:hover { background: rgba(240,237,232,.82); transform: translateY(-1px); }
+    .btn-submit:active { transform: translateY(0); }
+
+    .form-note {
+      font-size: .68rem; color: rgba(240,237,232,.22);
+      line-height: 1.6; margin-top: 4px;
+    }
+
+    /* ── SUCCESS STATE ── */
+    .success-msg {
+      display: none; text-align: center;
+      padding: 60px 24px;
+    }
+    .success-msg.show { display: block; }
+    .success-icon { font-size: 2.4rem; margin-bottom: 24px; opacity: .7; }
+    .success-title {
+      font-family: var(--fd); font-size: clamp(2.2rem, 5vw, 3.4rem);
+      letter-spacing: .05em; margin-bottom: 16px;
+    }
+    .success-sub { font-size: .84rem; color: var(--grey); line-height: 1.7; }
+    .success-back {
+      display: inline-block; margin-top: 32px;
+      font-size: .6rem; letter-spacing: .24em; text-transform: uppercase;
+      color: rgba(240,237,232,.4); text-decoration: none;
+      border-bottom: 1px solid rgba(240,237,232,.15);
+      padding-bottom: 3px; transition: color .25s, border-color .25s;
+    }
+    .success-back:hover { color: var(--white); border-color: var(--white); }
+
+    /* ── FOOTER ── */
+    .t-footer {
+      position: relative; z-index: 1;
+      text-align: center; padding: 0 24px 40px;
+    }
+    .t-footer a {
+      font-size: .6rem; letter-spacing: .22em; text-transform: uppercase;
+      color: rgba(240,237,232,.18); text-decoration: none; transition: color .25s;
+    }
+    .t-footer a:hover { color: var(--grey); }
+
+    /* ── FADE IN ── */
+    .fade-up { opacity: 0; transform: translateY(22px); animation: fadeUp .7s ease forwards; }
+    .fade-up:nth-child(1) { animation-delay: .1s; }
+    .fade-up:nth-child(2) { animation-delay: .2s; }
+    .fade-up:nth-child(3) { animation-delay: .3s; }
+    .fade-up:nth-child(4) { animation-delay: .38s; }
+    @keyframes fadeUp { to { opacity: 1; transform: none; } }
+  </style>
+</head>
+<body>
+
+  <div class="brand fade-up">
+    <a href="index.html">
+      <div class="brand-name">PEPE METRO FILMS</div>
+      <div class="brand-sub">Videógrafo en Sevilla</div>
+    </a>
+  </div>
+
+  <div class="page-wrap">
+    <div id="formSection">
+      <p class="t-eyebrow fade-up">Testimonio</p>
+      <h1 class="t-title fade-up">¿CÓMO FUE<br>TRABAJAR<br>CONMIGO?</h1>
+      <p class="t-lead fade-up">
+        Tu opinión ayuda a otras personas a conocer mi trabajo.<br>
+        <strong>Solo te llevará 2 minutos.</strong>
+      </p>
+      <hr class="divider">
+
+      <!-- Netlify Form -->
+      <form
+        name="testimonios"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        class="t-form"
+        id="testForm"
+      >
+        <input type="hidden" name="form-name" value="testimonios">
+        <p style="display:none;"><input name="bot-field"></p>
+
+        <div class="field-row">
+          <div class="field fade-up">
+            <label for="nombre">Tu nombre</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Ana García" required>
+          </div>
+          <div class="field fade-up">
+            <label for="empresa">Empresa o proyecto</label>
+            <input type="text" id="empresa" name="empresa" placeholder="Sala X / Boda de Ana &amp; Luis">
+          </div>
+        </div>
+
+        <div class="field fade-up">
+          <label for="tipo">Tipo de trabajo</label>
+          <select id="tipo" name="tipo" required>
+            <option value="" disabled selected>Selecciona</option>
+            <option>Boda</option>
+            <option>Videoclip</option>
+            <option>Aftermovie / DJ</option>
+            <option>Corporativo</option>
+            <option>Fashion / Editorial</option>
+            <option>Otro</option>
+          </select>
+        </div>
+
+        <div class="field fade-up">
+          <label>Valoración</label>
+          <div class="stars-wrap" role="group" aria-label="Valoración de 1 a 5 estrellas">
+            <span class="star" data-v="1" role="button" tabindex="0" aria-label="1 estrella">
+              <svg width="22" height="22" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </span>
+            <span class="star" data-v="2" role="button" tabindex="0" aria-label="2 estrellas">
+              <svg width="22" height="22" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </span>
+            <span class="star" data-v="3" role="button" tabindex="0" aria-label="3 estrellas">
+              <svg width="22" height="22" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </span>
+            <span class="star" data-v="4" role="button" tabindex="0" aria-label="4 estrellas">
+              <svg width="22" height="22" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </span>
+            <span class="star" data-v="5" role="button" tabindex="0" aria-label="5 estrellas">
+              <svg width="22" height="22" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </span>
+          </div>
+          <input type="hidden" name="valoracion" id="valoracion" value="">
+        </div>
+
+        <div class="field fade-up">
+          <label for="testimonio">Tu experiencia</label>
+          <textarea
+            id="testimonio" name="testimonio"
+            placeholder="Cuéntame cómo fue el proceso, qué destacarías del resultado final, si lo recomendarías…"
+            required
+          ></textarea>
+        </div>
+
+        <div class="field fade-up">
+          <label for="instagram">Instagram (opcional)</label>
+          <input type="text" id="instagram" name="instagram" placeholder="@tuusuario">
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:10px;" class="fade-up">
+          <button type="submit" class="btn-submit">Enviar testimonio</button>
+          <p class="form-note">Tu testimonio puede aparecer en la web. Si prefieres que no lo publique, indícalo en el texto.</p>
+        </div>
+      </form>
+
+      <div class="success-msg" id="successMsg">
+        <div class="success-icon">✦</div>
+        <h2 class="success-title">GRACIAS,<br>DE VERDAD.</h2>
+        <p class="success-sub">Tu mensaje ha llegado correctamente.<br>Me alegra mucho haber trabajado contigo.</p>
+        <a href="index.html" class="success-back">← Volver a la web</a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="t-footer">
+    <a href="index.html">pepemetrofilms.com</a>
+  </footer>
+
+  <script>
+    /* Stars */
+    const stars = document.querySelectorAll('.star');
+    const valInput = document.getElementById('valoracion');
+    let current = 0;
+
+    function paintStars(n) {
+      stars.forEach((s, i) => s.classList.toggle('on', i < n));
+    }
+
+    stars.forEach((s, i) => {
+      s.addEventListener('mouseenter', () => paintStars(i + 1));
+      s.addEventListener('mouseleave', () => paintStars(current));
+      s.addEventListener('click', () => {
+        current = i + 1;
+        valInput.value = current;
+        paintStars(current);
+      });
+      s.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          current = i + 1;
+          valInput.value = current;
+          paintStars(current);
+        }
+      });
+    });
+
+    /* Form submission — AJAX so we show success inline */
+    const form = document.getElementById('testForm');
+    const successMsg = document.getElementById('successMsg');
+
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const data = new FormData(form);
+      try {
+        await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(data).toString()
+        });
+      } catch (_) { /* submitted even if fetch errors due to redirect */ }
+      form.style.display = 'none';
+      successMsg.classList.add('show');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>
