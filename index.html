@@ -127,6 +127,20 @@
     .pq-desc { font-size:.75rem; line-height:1.7; color:var(--grey); margin-bottom:16px; }
     .pq-cta { font-size:.62rem; letter-spacing:.18em; text-transform:uppercase; color:rgba(240,237,232,.3); transition:color .25s; text-decoration:none; display:inline-block; }
 
+    /* ── PROBLEMA / TRANSFORMACIÓN ── */
+    .problema-section { border-top:1px solid var(--dim); padding:80px 48px; }
+    @media (max-width:720px) { .problema-section { padding:60px 24px; } }
+    .problema-inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+    @media (max-width:800px) { .problema-inner { grid-template-columns:1fr; gap:40px; } }
+    .problema-texto { font-family:var(--fd); font-size:clamp(2rem,4vw,3.4rem); line-height:1.05; letter-spacing:.04em; }
+    .problema-sub { font-size:.82rem; color:var(--grey); line-height:1.8; margin-top:20px; max-width:380px; }
+    .transform-list { display:flex; flex-direction:column; }
+    .transform-item { display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:16px; padding:16px 0; border-bottom:1px solid var(--dim); }
+    .transform-item:first-child { border-top:1px solid var(--dim); }
+    .transform-from { font-size:.78rem; color:rgba(240,237,232,.3); letter-spacing:.04em; }
+    .transform-arrow { font-size:.65rem; color:var(--grey); }
+    .transform-to { font-size:.78rem; font-weight:400; letter-spacing:.04em; color:var(--white); text-align:right; }
+
     /* ── DIFERENCIACIÓN strip ── */
     .diferenciacion {
       display:grid; grid-template-columns:repeat(3,1fr);
@@ -364,15 +378,47 @@
       · "Tu marca, en manos de alguien que entiende el resultado"
       ══════════════════════════════════════════
     -->
-    <p class="hero-eyebrow">Sevilla · Andalucía · Desplazamiento nacional</p>
+    <p class="hero-eyebrow">Videógrafo · Sevilla · Desplazamiento nacional</p>
     <h1 class="hero-title"><em>Haz que tu marca</em>DESTAQUE</h1>
-    <p class="hero-sub">Producción audiovisual para negocios y marcas que quieren atraer clientes con contenido que convierte.</p>
+    <p class="hero-sub">Vídeo estratégico para negocios, artistas y parejas que quieren más clientes, más impacto y una imagen que venda sola.</p>
     <div class="hero-ctas">
       <button class="btn-primary" id="heroBtn">Ver proyectos</button>
-      <a href="#para-quien" class="btn-ghost">¿Para quién trabajo?</a>
+      <a href="#presupuesto" class="btn-ghost">Pedir presupuesto</a>
     </div>
   </div>
   <span class="scroll-hint">Scroll</span>
+</section>
+
+<!-- ══ PROBLEMA / TRANSFORMACIÓN ══ -->
+<section class="problema-section">
+  <div class="problema-inner">
+    <div class="fade-up">
+      <h2 class="problema-texto">Tu negocio es bueno.<br>Pero si no se ve bien,<br>nadie lo sabe.</h2>
+      <p class="problema-sub">Hoy los clientes te evalúan antes de contactarte. La imagen que proyectas lo decide todo — y el vídeo es la herramienta más poderosa para proyectarla.</p>
+    </div>
+    <div class="transform-list fade-up">
+      <div class="transform-item">
+        <span class="transform-from">Invisible en redes</span>
+        <span class="transform-arrow">→</span>
+        <span class="transform-to">Marca que atrae</span>
+      </div>
+      <div class="transform-item">
+        <span class="transform-from">Contenido mediocre</span>
+        <span class="transform-arrow">→</span>
+        <span class="transform-to">Imagen premium</span>
+      </div>
+      <div class="transform-item">
+        <span class="transform-from">Clientes que dudan</span>
+        <span class="transform-arrow">→</span>
+        <span class="transform-to">Clientes que confían</span>
+      </div>
+      <div class="transform-item">
+        <span class="transform-from">Momentos que se olvidan</span>
+        <span class="transform-arrow">→</span>
+        <span class="transform-to">Historias que duran</span>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- ══ PARA QUIÉN ══
@@ -415,16 +461,16 @@
 
     <div class="pq-card fade-up">
       <span class="pq-num">04</span>
-      <div class="pq-title">Eventos<br>y bodas</div>
-      <p class="pq-desc">Bodas, wedding parties, eventos privados y corporativos. Cada momento merece durar para siempre.</p>
-      <a href="#presupuesto" class="pq-cta">Reservar fecha →</a>
+      <div class="pq-title">Novios<br>y parejas</div>
+      <p class="pq-desc">Bodas, wedding parties, eventos privados. Cada momento merece durar para siempre — y verse como lo sentiste.</p>
+      <a href="tarifas-bodas-2026.html" class="pq-cta">Ver tarifas →</a>
     </div>
 
     <div class="pq-card fade-up">
       <span class="pq-num">05</span>
-      <div class="pq-title">Pymes con<br>marketing activo</div>
-      <p class="pq-desc">Ya inviertes en marketing. Necesitas contenido audiovisual estratégico que esté a la altura.</p>
-      <a href="#presupuesto" class="pq-cta">Hablemos →</a>
+      <div class="pq-title">DJs,<br>artistas y salas</div>
+      <p class="pq-desc">Aftermovies, videoclips, sets. Llevo años en la cabina — sé lo que sientes ahí dentro y sé exactamente cómo filmarlo.</p>
+      <a href="tarifas-disco-2026.html" class="pq-cta">Ver tarifas →</a>
     </div>
 
   </div>
@@ -442,7 +488,7 @@
   <div class="dif-item fade-up">
     <span class="dif-icon">◎</span>
     <div class="dif-title">No grabo vídeos.<br>Construyo imagen.</div>
-    <p class="dif-desc">Cada proyecto parte de entender tu negocio, tu cliente y tu objetivo. El resultado no es un vídeo bonito — es una herramienta que trabaja por ti.</p>
+    <p class="dif-desc">Formación en marketing y producción audiovisual. Cada proyecto parte de entender tu negocio, tu cliente y tu objetivo — el resultado no es un vídeo bonito, es una herramienta que trabaja por ti.</p>
   </div>
   <div class="dif-item fade-up">
     <span class="dif-icon">▷</span>
@@ -451,8 +497,8 @@
   </div>
   <div class="dif-item fade-up">
     <span class="dif-icon">◈</span>
-    <div class="dif-title">Proceso claro,<br>sin sorpresas.</div>
-    <p class="dif-desc">Briefing, rodaje, entrega. Comunicación directa en todo momento. Sabes exactamente qué esperar y cuándo. Sin fricciones, sin retrasos innecesarios.</p>
+    <div class="dif-title">Trato directo.<br>Sin intermediarios.</div>
+    <p class="dif-desc">Hablas conmigo desde el primer mensaje hasta la entrega. Sin gestores, sin productoras entre medias. Sé lo que cuesta encontrar a alguien en quien confiar el trabajo — y lo que cuesta perderlo.</p>
   </div>
 </div>
 
@@ -467,6 +513,7 @@
     <button class="filter-btn" data-filter="boda">Bodas</button>
     <button class="filter-btn" data-filter="videoclip">Videoclips</button>
     <button class="filter-btn" data-filter="aftermovie">Aftermovies</button>
+    <button class="filter-btn" data-filter="dj">DJs</button>
     <button class="filter-btn" data-filter="fashion">Fashion</button>
     <button class="filter-btn" data-filter="corporativo">Corporativo</button>
   </div>
@@ -504,6 +551,13 @@
       <div class="grid-item__ph" style="--c:#0d0f14;"></div>
       <img class="grid-item__thumb" src="images/thumbs/videoclip_chris_dirty_love.webp" alt="Dirty Love">
       <div class="grid-item__ov"><div class="play-btn"><svg width="13" height="15" viewBox="0 0 13 15" fill="none"><path d="M1 1L12 7.5L1 14V1Z" fill="white"/></svg></div><div class="grid-item__title">Chris — Dirty Love</div></div>
+    </div>
+
+    <!-- DJS -->
+    <div class="grid-item grid-item--wide" data-cat="dj" data-title="DJ Franrox — Set" data-ratio="h">
+      <div class="grid-item__ph" style="--c:#0a0a14;"></div>
+      <img class="grid-item__thumb" src="images/thumbs/set_dj_franrox.webp" alt="DJ Franrox">
+      <div class="grid-item__ov"><div class="play-btn"><svg width="13" height="15" viewBox="0 0 13 15" fill="none"><path d="M1 1L12 7.5L1 14V1Z" fill="white"/></svg></div><div class="grid-item__title">DJ Franrox — Set</div></div>
     </div>
 
     <!-- AFTERMOVIES -->
@@ -589,8 +643,8 @@
         ══════════════════════════════════════════
       -->
       <h3 class="about-name">Pepe<br>Metro</h3>
-      <p class="about-bio">Crecí rodeado de imagen gracias a mi padre, fotógrafo. Eso despertó en mí una obsesión temprana por lo visual y lo creativo que con el tiempo se convirtió en carrera: formación en producción audiovisual, experiencia en el cine español y más de cinco años trabajando como freelance con marcas, artistas y empresas.</p>
-      <p class="about-bio">Lo que me diferencia no es la cámara — es entender qué necesita tu negocio y traducirlo en imágenes que generan confianza, atraen clientes y te hacen destacar. No fabrico contenido en serie. Cada proyecto se piensa desde cero.</p>
+      <p class="about-bio">Crecí entre cámaras analógicas de mi padre, fotógrafo, y las cabinas de las mejores salas de Sevilla. Llevo más de quince años en las dos: la oscuridad de las discotecas y la luz de los rodajes. Esa doble vida no es un detalle — es lo que me permite filmar desde dentro, no como observador.</p>
+      <p class="about-bio">Formación en producción audiovisual, experiencia en el cine español y cinco años dedicado a la videografía al cien por cien. Bodas, videoclips, aftermovies, moda, corporativo. Lo que me diferencia no es la cámara — es entender exactamente lo que necesitas y saber cómo conseguirlo.</p>
       <div class="about-stats">
         <div class="stat"><div class="stat-num">+80</div><div class="stat-label">Proyectos</div></div>
         <div class="stat"><div class="stat-num">+40</div><div class="stat-label">Bodas</div></div>
@@ -674,9 +728,10 @@
 <section id="presupuesto">
   <div class="sec-head center">
     <span class="sec-num">04</span>
-    <h2 class="sec-title">Presupuesto</h2>
+    <h2 class="sec-title">Cuéntame tu proyecto</h2>
   </div>
   <div class="pricing-wrap">
+    <p class="fade-up" style="font-size:.88rem; line-height:1.8; color:rgba(240,237,232,.5); margin-bottom:40px; max-width:520px;">Sin compromiso. Cuéntame qué tienes en mente y te respondo en menos de 24 horas con una propuesta adaptada a lo que necesitas.</p>
     <form id="presupuesto-form" name="presupuesto-form" method="POST" data-netlify="true">
       <input type="hidden" name="form-name" value="presupuesto-form">
       <div class="form-row">
@@ -730,7 +785,7 @@
 
 <!-- ══ CONTACTO ══ -->
 <section id="contacto" class="contact-section">
-  <div class="contact-big fade-up">Tu marca<br>merece más.<br>Hablemos.</div>
+  <div class="contact-big fade-up">¿Tienes algo<br>en mente?<br>Escríbeme.</div>
   <div class="contact-links fade-up">
     <div class="social-row">
       <a href="https://www.instagram.com/pepemetrofilms/" target="_blank" rel="noopener" aria-label="Instagram">
