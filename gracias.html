@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gracias — Pepe Metro Films</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --black: #080808; --white: #f0ede8; --grey: #6b6b6b; --fd: 'Bebas Neue', sans-serif; --fb: 'DM Sans', sans-serif; }
+    body { background: var(--black); color: var(--white); font-family: var(--fb); font-weight: 300; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px 24px; }
+    .icon { font-size: 2.4rem; margin-bottom: 28px; opacity: .7; }
+    h1 { font-family: var(--fd); font-size: clamp(2.8rem, 8vw, 5rem); letter-spacing: .05em; line-height: .92; margin-bottom: 20px; }
+    p { font-size: .88rem; color: var(--grey); line-height: 1.75; max-width: 380px; }
+    a { display: inline-block; margin-top: 36px; font-size: .6rem; letter-spacing: .24em; text-transform: uppercase; color: rgba(240,237,232,.4); text-decoration: none; border-bottom: 1px solid rgba(240,237,232,.15); padding-bottom: 3px; transition: color .25s, border-color .25s; }
+    a:hover { color: var(--white); border-color: var(--white); }
+    .fade { animation: fadeUp .7s ease forwards; opacity: 0; }
+    @keyframes fadeUp { to { opacity: 1; transform: none; } from { transform: translateY(20px); } }
+  </style>
+</head>
+<body>
+  <div class="fade">
+    <div class="icon">✦</div>
+    <h1>GRACIAS,<br>DE VERDAD.</h1>
+    <p>Tu testimonio ha llegado correctamente.<br>Me alegra mucho haber trabajado contigo.</p>
+    <a href="index.html">← Volver a la web</a>
+  </div>
+</body>
+</html>

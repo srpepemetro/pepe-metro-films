@@ -192,6 +192,7 @@
       <form
         name="testimonios"
         method="POST"
+        action="/gracias.html"
         data-netlify="true"
         netlify-honeypot="bot-field"
         class="t-form"
@@ -314,12 +315,12 @@
       e.preventDefault();
       const data = new FormData(form);
       try {
-        await fetch('/', {
+        await fetch('/testimonio.html', {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           body: new URLSearchParams(data).toString()
         });
-      } catch (_) { /* submitted even if fetch errors due to redirect */ }
+      } catch (_) {}
       form.style.display = 'none';
       successMsg.classList.add('show');
       window.scrollTo({ top: 0, behavior: 'smooth' });
