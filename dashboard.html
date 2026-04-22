@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — Pepe Metro Films</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #080808;
+      --white: #f0ede8;
+      --grey: #6b6b6b;
+      --dim: rgba(240,237,232,0.05);
+      --dim2: rgba(240,237,232,0.03);
+      --border: rgba(240,237,232,0.08);
+      --border-h: rgba(240,237,232,0.2);
+      --fd: 'Bebas Neue', sans-serif;
+      --fb: 'DM Sans', sans-serif;
+      --green: rgba(126,200,122,0.9);
+      --green-bg: rgba(126,200,122,0.1);
+      --red: #e05c5c;
+      --red-bg: rgba(224,92,92,0.1);
+      --amber: rgba(255,196,84,0.85);
+      --amber-bg: rgba(255,196,84,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--fb);
+      font-weight: 300;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: .45;
+    }
+
+    .wrap {
+      position: relative; z-index: 1;
+      max-width: 1080px; margin: 0 auto;
+      padding: 44px 40px 100px;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      margin-bottom: 36px; gap: 20px;
+    }
+
+    .brand-name {
+      font-family: var(--fd); font-size: 1.5rem;
+      letter-spacing: .2em; color: var(--white); opacity: .85; line-height: 1;
+    }
+    .brand-sub {
+      font-size: .55rem; letter-spacing: .32em; text-transform: uppercase;
+      color: var(--grey); margin-top: 6px;
+    }
+
+    .header-right { display: flex; align-items: center; gap: 18px; }
+
+    .date-now {
+      font-size: .58rem; letter-spacing: .2em; text-transform: uppercase;
+      color: rgba(240,237,232,.25); text-align: right; line-height: 1.8;
+    }
+
+    .btn-refresh {
+      background: none; border: 1px solid var(--border);
+      color: var(--grey); font-family: var(--fb); font-weight: 300;
+      font-size: .6rem; letter-spacing: .2em; text-transform: uppercase;
+      padding: 9px 18px; cursor: pointer;
+      transition: border-color .25s, color .25s, background .25s;
+      white-space: nowrap;
+    }
+    .btn-refresh:hover { border-color: var(--border-h); color: var(--white); background: var(--dim); }
+    .btn-refresh.spinning { animation: spin .8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── RULE ── */
+    .rule { border: none; border-top: 1px solid var(--border); margin-bottom: 32px; }
+
+    /* ── TABS ── */
+    .tabs {
+      display: flex; gap: 0; margin-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+    }
+    .tab {
+      font-family: var(--fb); font-weight: 300;
+      font-size: .58rem; letter-spacing: .28em; text-transform: uppercase;
+      color: var(--grey); padding: 10px 22px 13px;
+      cursor: pointer; border: none; border-bottom: 2px solid transparent;
+      background: none; margin-bottom: -1px;
+      transition: color .2s, border-color .2s;
+    }
+    .tab.active { color: var(--white); border-bottom-color: var(--white); }
+    .tab:hover:not(.active) { color: rgba(240,237,232,.55); }
+
+    /* ── GRID ── */
+    .cards-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 14px; margin-bottom: 14px;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--dim); border: 1px solid var(--border);
+      padding: 26px 22px 22px; position: relative; overflow: hidden;
+      transition: border-color .3s, box-shadow .3s;
+    }
+    .card:hover { border-color: var(--border-h); box-shadow: 0 0 40px rgba(240,237,232,.03); }
+
+    .card-label {
+      font-size: .52rem; letter-spacing: .3em; text-transform: uppercase;
+      color: var(--grey); margin-bottom: 14px;
+    }
+    .card-value {
+      font-family: var(--fd);
+      font-size: clamp(1.9rem, 3vw, 2.8rem);
+      letter-spacing: .02em; line-height: 1; color: var(--white);
+    }
+    .card-sub {
+      font-size: .6rem; color: rgba(240,237,232,.25);
+      margin-top: 10px; letter-spacing: .08em;
+    }
+
+    .card.neto-pos .card-value { color: var(--white); }
+    .card.neto-pos { box-shadow: inset 0 1px 0 rgba(240,237,232,.06); }
+    .card.neto-neg { background: var(--red-bg); border-color: rgba(224,92,92,.18); }
+    .card.neto-neg .card-value { color: var(--red); }
+
+    .card.card-iva .card-value { color: rgba(240,237,232,.55); }
+    .card.card-pending .card-value { color: var(--amber); }
+
+    /* ── SKELETON ── */
+    @keyframes shimmer {
+      0%   { background-position: 200% center; }
+      100% { background-position: -200% center; }
+    }
+    .skel {
+      background: linear-gradient(90deg, var(--dim) 25%, rgba(240,237,232,.09) 50%, var(--dim) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.6s ease infinite;
+      border-radius: 2px;
+    }
+    .skel-val { height: 46px; width: 55%; margin-bottom: 12px; }
+    .skel-sub { height: 10px; width: 38%; }
+    .skel-lbl { height: 9px; width: 42%; margin-bottom: 16px; }
+
+    /* ── SECTION ── */
+    .section { margin-top: 52px; }
+
+    .section-head {
+      font-size: .52rem; letter-spacing: .32em; text-transform: uppercase;
+      color: var(--grey); margin-bottom: 26px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .section-head::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    /* ── BAR CHART ── */
+    .chart-wrap { overflow-x: auto; padding-bottom: 4px; }
+
+    .chart {
+      display: grid; grid-template-columns: repeat(6, 1fr);
+      gap: 10px; align-items: end; min-height: 180px;
+    }
+
+    .chart-col {
+      display: flex; flex-direction: column; align-items: center; gap: 0;
+    }
+
+    .bars {
+      display: flex; gap: 4px; align-items: flex-end;
+      width: 100%; justify-content: center; padding-bottom: 10px;
+    }
+
+    .bar {
+      width: 20px; min-height: 3px; border-radius: 1px 1px 0 0;
+      transition: opacity .2s, filter .2s;
+    }
+    .bar:hover { opacity: .72; }
+    .bar-in { background: var(--white); }
+    .bar-out { background: rgba(240,237,232,.2); }
+
+    .col-label {
+      font-family: var(--fd); font-size: .8rem;
+      letter-spacing: .1em; color: var(--grey);
+      border-top: 1px solid var(--border); width: 100%;
+      text-align: center; padding-top: 10px;
+    }
+    .chart-col.is-current .col-label { color: var(--white); }
+    .chart-col.is-current .bar-in { filter: drop-shadow(0 0 6px rgba(240,237,232,.25)); }
+
+    .chart-legend {
+      display: flex; gap: 22px; margin-top: 18px;
+    }
+    .leg {
+      display: flex; align-items: center; gap: 8px;
+      font-size: .58rem; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--grey);
+    }
+    .leg-dot { width: 10px; height: 10px; border-radius: 1px; flex-shrink: 0; }
+    .leg-in { background: var(--white); }
+    .leg-out { background: rgba(240,237,232,.22); }
+
+    /* ── TABLE ── */
+    .table-wrap { overflow-x: auto; }
+
+    table { width: 100%; border-collapse: collapse; }
+
+    thead th {
+      font-family: var(--fb); font-weight: 400;
+      font-size: .5rem; letter-spacing: .28em; text-transform: uppercase;
+      color: var(--grey); text-align: left;
+      padding: 0 14px 14px; border-bottom: 1px solid var(--border);
+    }
+    thead th.right { text-align: right; }
+
+    tbody tr { border-bottom: 1px solid rgba(240,237,232,.035); transition: background .15s; }
+    tbody tr:hover { background: rgba(240,237,232,.025); }
+    tbody tr:last-child { border-bottom: none; }
+
+    tbody td {
+      padding: 13px 14px;
+      font-size: .8rem; color: rgba(240,237,232,.65);
+      vertical-align: middle;
+    }
+    tbody td.right { text-align: right; color: var(--white); font-weight: 400; }
+    tbody td.date { color: rgba(240,237,232,.3); font-size: .72rem; letter-spacing: .04em; }
+
+    .badge {
+      font-size: .48rem; letter-spacing: .2em; text-transform: uppercase;
+      padding: 3px 9px; border-radius: 2px; white-space: nowrap;
+    }
+    .badge-in  { background: var(--green-bg); color: var(--green); }
+    .badge-out { background: var(--red-bg);   color: var(--red);   }
+
+    .estado { font-size: .68rem; letter-spacing: .06em; }
+    .estado-cob { color: rgba(240,237,232,.28); }
+    .estado-pen { color: var(--amber); }
+
+    /* ── FADE UP ── */
+    .fu { opacity: 0; transform: translateY(16px); animation: fu .65s ease forwards; }
+    @keyframes fu { to { opacity: 1; transform: none; } }
+    .d1{animation-delay:.05s} .d2{animation-delay:.12s} .d3{animation-delay:.19s}
+    .d4{animation-delay:.26s} .d5{animation-delay:.33s} .d6{animation-delay:.4s}
+    .d7{animation-delay:.47s} .d8{animation-delay:.54s}
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 720px) {
+      .wrap { padding: 28px 20px 70px; }
+      .cards-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .cards-grid .card:last-child { grid-column: 1 / -1; }
+      .bar { width: 14px; }
+    }
+    @media (max-width: 480px) {
+      .cards-grid { grid-template-columns: 1fr; }
+      .cards-grid .card:last-child { grid-column: auto; }
+      .header { flex-direction: column; gap: 14px; }
+      .header-right { align-self: flex-end; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <header class="header fu d1">
+    <div>
+      <div class="brand-name">PEPE METRO FILMS</div>
+      <div class="brand-sub">Dashboard financiero</div>
+    </div>
+    <div class="header-right">
+      <div class="date-now" id="dateNow"></div>
+      <button class="btn-refresh" id="btnRefresh" title="Actualizar datos">⟳ Actualizar</button>
+    </div>
+  </header>
+
+  <hr class="rule fu d2">
+
+  <!-- TABS -->
+  <div class="tabs fu d2">
+    <button class="tab active" data-tab="mes">Este mes</button>
+    <button class="tab" data-tab="año">Este año</button>
+  </div>
+
+  <!-- TOP STATS -->
+  <div class="cards-grid fu d3" id="topCards"></div>
+
+  <!-- SECOND ROW -->
+  <div class="cards-grid fu d4" id="secondCards"></div>
+
+  <!-- CHART -->
+  <div class="section fu d5">
+    <div class="section-head">Ingresos vs gastos — últimos 6 meses</div>
+    <div class="chart-wrap">
+      <div class="chart" id="chart"></div>
+    </div>
+    <div class="chart-legend">
+      <div class="leg"><div class="leg-dot leg-in"></div>Ingresos</div>
+      <div class="leg"><div class="leg-dot leg-out"></div>Gastos</div>
+    </div>
+  </div>
+
+  <!-- TABLE -->
+  <div class="section fu d7">
+    <div class="section-head">Últimas transacciones</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Descripción</th>
+            <th>Tipo</th>
+            <th>Estado</th>
+            <th class="right">Importe</th>
+          </tr>
+        </thead>
+        <tbody id="txBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* ─────────────────── MOCK DATA ─────────────────── */
+const MOCK_TX = [
+  { fecha:'2026-04-20', descripcion:'Boda Rodríguez & Morales',    tipo:'Ingreso', importe_neto:2200,  iva_eur:462,   estado:'Cobrado' },
+  { fecha:'2026-04-18', descripcion:'Videoclip Cápsula 33',         tipo:'Ingreso', importe_neto:800,   iva_eur:168,   estado:'Cobrado' },
+  { fecha:'2026-04-15', descripcion:'Adobe Creative Cloud',         tipo:'Gasto',   importe_neto:54.99, iva_eur:11.55, estado:'Cobrado' },
+  { fecha:'2026-04-12', descripcion:'Aftermovie Club Madera',       tipo:'Ingreso', importe_neto:1100,  iva_eur:231,   estado:'Cobrado' },
+  { fecha:'2026-04-10', descripcion:'Corporativo Farmacia Sur',     tipo:'Ingreso', importe_neto:650,   iva_eur:136.5, estado:'Pendiente' },
+  { fecha:'2026-04-08', descripcion:'Gasolina abril',               tipo:'Gasto',   importe_neto:89,    iva_eur:18.69, estado:'Cobrado' },
+  { fecha:'2026-04-05', descripcion:'Seguro equipo anual',          tipo:'Gasto',   importe_neto:210,   iva_eur:0,     estado:'Cobrado' },
+  { fecha:'2026-04-02', descripcion:'Fashion Editorial Giralda',    tipo:'Ingreso', importe_neto:500,   iva_eur:105,   estado:'Pendiente' },
+  { fecha:'2026-03-28', descripcion:'Boda Gómez & Pérez',           tipo:'Ingreso', importe_neto:2500,  iva_eur:525,   estado:'Cobrado' },
+  { fecha:'2026-03-20', descripcion:'Adobe Creative Cloud',         tipo:'Gasto',   importe_neto:54.99, iva_eur:11.55, estado:'Cobrado' },
+  { fecha:'2026-03-15', descripcion:'Videoclip Antología',          tipo:'Ingreso', importe_neto:700,   iva_eur:147,   estado:'Cobrado' },
+  { fecha:'2026-03-10', descripcion:'Gasolina marzo',               tipo:'Gasto',   importe_neto:95,    iva_eur:19.95, estado:'Cobrado' },
+  { fecha:'2026-03-05', descripcion:'Gestoría (cuota mensual)',     tipo:'Gasto',   importe_neto:200,   iva_eur:42,    estado:'Cobrado' },
+  { fecha:'2026-03-01', descripcion:'Aftermovie Bestiario',         tipo:'Ingreso', importe_neto:900,   iva_eur:189,   estado:'Cobrado' },
+  { fecha:'2026-02-22', descripcion:'Boda Torres & Vega',           tipo:'Ingreso', importe_neto:1800,  iva_eur:378,   estado:'Cobrado' },
+  { fecha:'2026-02-15', descripcion:'Adobe Creative Cloud',         tipo:'Gasto',   importe_neto:54.99, iva_eur:11.55, estado:'Cobrado' },
+  { fecha:'2026-02-10', descripcion:'Gasolina febrero',             tipo:'Gasto',   importe_neto:75,    iva_eur:15.75, estado:'Cobrado' },
+  { fecha:'2026-02-05', descripcion:'Corporativo Grupo Inova',      tipo:'Ingreso', importe_neto:950,   iva_eur:199.5, estado:'Cobrado' },
+  { fecha:'2026-01-25', descripcion:'Videoclip Zaka',               tipo:'Ingreso', importe_neto:750,   iva_eur:157.5, estado:'Cobrado' },
+  { fecha:'2026-01-20', descripcion:'Boda Navarro & López',         tipo:'Ingreso', importe_neto:2000,  iva_eur:420,   estado:'Cobrado' },
+  { fecha:'2026-01-15', descripcion:'Adobe Creative Cloud',         tipo:'Gasto',   importe_neto:54.99, iva_eur:11.55, estado:'Cobrado' },
+  { fecha:'2026-01-10', descripcion:'Batería drone (reemplazo)',    tipo:'Gasto',   importe_neto:180,   iva_eur:37.8,  estado:'Cobrado' },
+  { fecha:'2026-01-05', descripcion:'Gestoría (cuota mensual)',     tipo:'Gasto',   importe_neto:200,   iva_eur:42,    estado:'Cobrado' },
+  { fecha:'2025-12-28', descripcion:'Boda Herrera & Santos',        tipo:'Ingreso', importe_neto:2800,  iva_eur:588,   estado:'Cobrado' },
+  { fecha:'2025-12-20', descripcion:'Aftermovie NYE Bestiario',     tipo:'Ingreso', importe_neto:1400,  iva_eur:294,   estado:'Cobrado' },
+  { fecha:'2025-12-15', descripcion:'Fashion Navidad',              tipo:'Ingreso', importe_neto:600,   iva_eur:126,   estado:'Cobrado' },
+  { fecha:'2025-12-10', descripcion:'Gasolina diciembre',           tipo:'Gasto',   importe_neto:110,   iva_eur:23.1,  estado:'Cobrado' },
+  { fecha:'2025-12-05', descripcion:'Tarjeta SD 256 GB ×2',        tipo:'Gasto',   importe_neto:80,    iva_eur:16.8,  estado:'Cobrado' },
+  { fecha:'2025-12-01', descripcion:'Adobe Creative Cloud',         tipo:'Gasto',   importe_neto:54.99, iva_eur:11.55, estado:'Cobrado' },
+  { fecha:'2025-11-25', descripcion:'Boda Castillo & Ruiz',         tipo:'Ingreso', importe_neto:2200,  iva_eur:462,   estado:'Cobrado' },
+  { fecha:'2025-11-18', descripcion:'Videoclip Medina',             tipo:'Ingreso', importe_neto:900,   iva_eur:189,   estado:'Cobrado' },
+  { fecha:'2025-11-10', descripcion:'Aftermovie Jueves Santos',     tipo:'Ingreso', importe_neto:500,   iva_eur:105,   estado:'Cobrado' },
+  { fecha:'2025-11-08', descripcion:'Adobe Creative Cloud',         tipo:'Gasto',   importe_neto:54.99, iva_eur:11.55, estado:'Cobrado' },
+  { fecha:'2025-11-05', descripcion:'Gasolina noviembre',           tipo:'Gasto',   importe_neto:98,    iva_eur:20.58, estado:'Cobrado' },
+  { fecha:'2025-11-01', descripcion:'Gestoría (cuota mensual)',     tipo:'Gasto',   importe_neto:200,   iva_eur:42,    estado:'Cobrado' },
+];
+
+/* ─────────────────── STATE ─────────────────── */
+let currentTab = 'mes';
+let txData = null;
+let isMock = false;
+
+const now   = new Date();
+const thisM = now.getMonth();
+const thisY = now.getFullYear();
+const thisQ = Math.floor(thisM / 3);
+
+/* ─────────────────── HELPERS ─────────────────── */
+const eur  = n => new Intl.NumberFormat('es-ES', { style:'currency', currency:'EUR', minimumFractionDigits:0, maximumFractionDigits:0 }).format(n);
+const eurD = n => new Intl.NumberFormat('es-ES', { style:'currency', currency:'EUR', minimumFractionDigits:2, maximumFractionDigits:2 }).format(n);
+const sum  = (arr, key) => arr.reduce((a, t) => a + (t[key] || 0), 0);
+
+function parseMY(dateStr) {
+  const d = new Date(dateStr);
+  return { m: d.getMonth(), y: d.getFullYear() };
+}
+
+/* ─────────────────── METRICS ─────────────────── */
+function metrics(tx) {
+  const fMes   = t => { const {m,y} = parseMY(t.fecha); return m === thisM && y === thisY; };
+  const fYear  = t => parseMY(t.fecha).y === thisY;
+  const fQ     = t => { const {m,y} = parseMY(t.fecha); return Math.floor(m/3) === thisQ && y === thisY; };
+
+  const inMes   = tx.filter(t => t.tipo==='Ingreso' && fMes(t));
+  const outMes  = tx.filter(t => t.tipo==='Gasto'   && fMes(t));
+  const inYear  = tx.filter(t => t.tipo==='Ingreso' && fYear(t));
+  const outYear = tx.filter(t => t.tipo==='Gasto'   && fYear(t));
+  const inQ     = tx.filter(t => t.tipo==='Ingreso' && fQ(t));
+  const pend    = tx.filter(t => t.tipo==='Ingreso' && t.estado==='Pendiente');
+
+  return {
+    ingresosMes:  sum(inMes,  'importe_neto'),
+    gastosMes:    sum(outMes, 'importe_neto'),
+    netoMes:      sum(inMes,  'importe_neto') - sum(outMes, 'importe_neto'),
+    ingresosYear: sum(inYear, 'importe_neto'),
+    gastosYear:   sum(outYear,'importe_neto'),
+    netoYear:     sum(inYear, 'importe_neto') - sum(outYear,'importe_neto'),
+    ingresosQ:    sum(inQ,    'importe_neto'),
+    ivaQ:         sum(inQ,    'iva_eur'),
+    pendientes:   sum(pend,   'importe_neto'),
+  };
+}
+
+/* ─────────────────── MONTHLY (chart) ─────────────────── */
+function monthly(tx) {
+  return Array.from({length:6}, (_,i) => {
+    const d = new Date(thisY, thisM - (5-i), 1);
+    const m = d.getMonth(), y = d.getFullYear();
+    const txI = tx.filter(t => { const {m:tm,y:ty}=parseMY(t.fecha); return tm===m && ty===y && t.tipo==='Ingreso'; });
+    const txO = tx.filter(t => { const {m:tm,y:ty}=parseMY(t.fecha); return tm===m && ty===y && t.tipo==='Gasto';   });
+    return {
+      label:   d.toLocaleString('es-ES',{month:'short'}).toUpperCase().replace('.',''),
+      ingreso: sum(txI,'importe_neto'),
+      gasto:   sum(txO,'importe_neto'),
+      current: i === 5,
+    };
+  });
+}
+
+/* ─────────────────── RENDER CARDS ─────────────────── */
+function renderCards(m) {
+  const isMes = currentTab === 'mes';
+  const ing  = isMes ? m.ingresosMes  : m.ingresosYear;
+  const gas  = isMes ? m.gastosMes    : m.gastosYear;
+  const net  = isMes ? m.netoMes      : m.netoYear;
+  const lbl  = isMes ? 'este mes'     : 'este año';
+
+  document.getElementById('topCards').innerHTML = `
+    <div class="card">
+      <div class="card-label">Ingresos</div>
+      <div class="card-value">${eur(ing)}</div>
+      <div class="card-sub">${lbl}</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Gastos</div>
+      <div class="card-value">${eur(gas)}</div>
+      <div class="card-sub">${lbl}</div>
+    </div>
+    <div class="card ${net >= 0 ? 'neto-pos' : 'neto-neg'}">
+      <div class="card-label">Neto</div>
+      <div class="card-value">${eur(net)}</div>
+      <div class="card-sub">${lbl}</div>
+    </div>`;
+
+  document.getElementById('secondCards').innerHTML = `
+    <div class="card">
+      <div class="card-label">Ingresos trimestre</div>
+      <div class="card-value">${eur(m.ingresosQ)}</div>
+      <div class="card-sub">T${thisQ+1} ${thisY}</div>
+    </div>
+    <div class="card card-iva">
+      <div class="card-label">IVA a declarar</div>
+      <div class="card-value">${eur(m.ivaQ)}</div>
+      <div class="card-sub">Modelo 303 — T${thisQ+1}</div>
+    </div>
+    <div class="card card-pending">
+      <div class="card-label">Cobros pendientes</div>
+      <div class="card-value">${eur(m.pendientes)}</div>
+      <div class="card-sub">facturas sin cobrar</div>
+    </div>`;
+}
+
+/* ─────────────────── RENDER CHART ─────────────────── */
+function renderChart(tx) {
+  const cols = monthly(tx);
+  const max  = Math.max(...cols.map(c => Math.max(c.ingreso, c.gasto)), 1);
+  const H    = 150;
+
+  document.getElementById('chart').innerHTML = cols.map(c => {
+    const hI = Math.max(Math.round((c.ingreso / max) * H), 3);
+    const hG = Math.max(Math.round((c.gasto   / max) * H), 3);
+    return `
+      <div class="chart-col ${c.current ? 'is-current' : ''}">
+        <div class="bars">
+          <div class="bar bar-in"  style="height:${hI}px" title="Ingresos: ${eur(c.ingreso)}"></div>
+          <div class="bar bar-out" style="height:${hG}px" title="Gastos: ${eur(c.gasto)}"></div>
+        </div>
+        <div class="col-label">${c.label}</div>
+      </div>`;
+  }).join('');
+}
+
+/* ─────────────────── RENDER TABLE ─────────────────── */
+function renderTable(tx) {
+  const rows = [...tx]
+    .sort((a,b) => new Date(b.fecha) - new Date(a.fecha))
+    .slice(0, 8);
+
+  document.getElementById('txBody').innerHTML = rows.map(t => {
+    const d = new Date(t.fecha);
+    const ds = d.toLocaleDateString('es-ES', {day:'2-digit', month:'short'}).replace('.','');
+    const badge  = t.tipo === 'Ingreso'
+      ? `<span class="badge badge-in">Ingreso</span>`
+      : `<span class="badge badge-out">Gasto</span>`;
+    const estCls = t.estado === 'Cobrado' ? 'estado-cob' : 'estado-pen';
+    return `
+      <tr>
+        <td class="date">${ds}</td>
+        <td>${t.descripcion}</td>
+        <td>${badge}</td>
+        <td><span class="estado ${estCls}">${t.estado}</span></td>
+        <td class="right">${eurD(t.importe_neto)}</td>
+      </tr>`;
+  }).join('');
+}
+
+/* ─────────────────── SKELETONS ─────────────────── */
+function skeletonGrid() {
+  return Array(3).fill(0).map(() => `
+    <div class="card">
+      <div class="skel skel-lbl"></div>
+      <div class="skel skel-val"></div>
+      <div class="skel skel-sub"></div>
+    </div>`).join('');
+}
+
+/* ─────────────────── FULL RENDER ─────────────────── */
+function render(tx) {
+  const m = metrics(tx);
+  renderCards(m);
+  renderChart(tx);
+  renderTable(tx);
+}
+
+/* ─────────────────── DATE HEADER ─────────────────── */
+document.getElementById('dateNow').innerHTML =
+  now.toLocaleDateString('es-ES', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+
+/* ─────────────────── TABS ─────────────────── */
+document.querySelectorAll('.tab').forEach(t => {
+  t.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    currentTab = t.dataset.tab;
+    if (txData) render(txData);
+  });
+});
+
+/* ─────────────────── LOAD DATA ─────────────────── */
+async function loadData() {
+  document.getElementById('topCards').innerHTML    = skeletonGrid();
+  document.getElementById('secondCards').innerHTML = skeletonGrid();
+  document.getElementById('btnRefresh').textContent = '⟳';
+
+  try {
+    const res = await fetch('/api/notion-data', { signal: AbortSignal.timeout(6000) });
+    if (!res.ok) throw new Error('api-error');
+    const json = await res.json();
+    txData  = json.transactions;
+    isMock  = false;
+  } catch (_) {
+    txData = MOCK_TX;
+    isMock = true;
+  }
+
+  render(txData);
+  document.getElementById('btnRefresh').textContent = isMock ? '⟳ Demo' : '⟳ Actualizar';
+}
+
+document.getElementById('btnRefresh').addEventListener('click', loadData);
+
+/* ─────────────────── INIT ─────────────────── */
+loadData();
+</script>
+</body>
+</html>
