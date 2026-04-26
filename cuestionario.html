@@ -314,11 +314,25 @@
         <label>Fecha de la boda <span class="req">*</span></label>
         <input type="date" name="fecha_boda" required>
       </div>
+
+      <div class="field" style="margin-top:4px">
+        <label>Teléfono de contacto <span class="req">*</span>
+          <span class="hint">Para cualquier gestión el día de la boda.</span>
+        </label>
+        <input type="tel" name="telefono" required placeholder="Ej: 629 121 591">
+      </div>
     </div>
 
     <!-- 02 PREPARATIVOS -->
     <div class="form-section">
       <div class="section-label">02 · Los preparativos</div>
+
+      <div class="field">
+        <label>¿A qué hora empezáis a arreglaros? <span class="req">*</span>
+          <span class="hint">Necesito saber cuándo tengo que estar allí.</span>
+        </label>
+        <input type="time" name="hora_preparativos" required>
+      </div>
 
       <div class="field">
         <label>
@@ -362,6 +376,13 @@
       </div>
 
       <div class="field">
+        <label>¿Dónde son las fotos de pareja?
+          <span class="hint">Jardines de la finca, una locación externa, el centro... Así planifico los desplazamientos.</span>
+        </label>
+        <input type="text" name="fotos_pareja" placeholder="Ej: Jardines de la finca / Parque de María Luisa, Sevilla">
+      </div>
+
+      <div class="field">
         <label>
           ¿Hay algo especial en la ceremonia que no me puedo perder?
           <span class="hint">Lecturas, sorpresas, momentos concretos, detalles que os importan.</span>
@@ -377,6 +398,18 @@
       <div class="field">
         <label>¿Dónde es la celebración? <span class="req">*</span></label>
         <input type="text" name="celebracion_lugar" required placeholder="Ej: Finca La Cortesana, Alcalá de Guadaíra">
+      </div>
+
+      <div class="field">
+        <label>Número aproximado de invitados</label>
+        <input type="number" name="num_invitados" placeholder="Ej: 150" min="1">
+      </div>
+
+      <div class="field">
+        <label>¿Tenéis fotógrafo?
+          <span class="hint">Si es que sí, dime con quién. Coordinarme con el fotógrafo desde antes evita que nos estorbemos el día.</span>
+        </label>
+        <input type="text" name="fotografo" placeholder="Ej: Sí, con Laura Sánchez / No tenemos">
       </div>
 
       <div class="field">
@@ -411,6 +444,14 @@
           <span class="hint">Algo que, si no aparece, el vídeo no sería completo para vosotros.</span>
         </label>
         <textarea name="momentos_imprescindibles" placeholder="Ej: El momento que mi padre me ve vestida / El baile sorpresa que tenemos preparado..."></textarea>
+      </div>
+
+      <div class="field">
+        <label>
+          ¿Hay alguien que preferiríais que no aparezca o que aparezca lo menos posible?
+          <span class="hint">Situaciones delicadas, separaciones familiares... Queda entre nosotros.</span>
+        </label>
+        <textarea name="no_aparecer" placeholder="Si hay algo que deba saber, cuéntamelo aquí con total confianza."></textarea>
       </div>
 
       <div class="field">
