@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <script>(function(){var K='pmf_disco';if(sessionStorage.getItem(K)!=='ok'){document.documentElement.style.display='none';var p=prompt('Documento privado · Pepe Metro Films\n\nContraseña:');if(p==='955845646'){sessionStorage.setItem(K,'ok');document.documentElement.style.display='';}else{document.write('<body style="background:#080808;color:#f0ede8;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;text-align:center;flex-direction:column"><p style="font-size:18px">Acceso denegado</p><small style="color:#6b6b6b">Contacta con Pepe Metro Films</small></body>');document.close();}}})();</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tarifas Disco 2026 — Pepe Metro Films</title>
+  <!-- Página privada: no indexar en buscadores -->
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #080808; --white: #f0ede8; --grey: #6b6b6b;
+      --dim: rgba(240,237,232,0.06);
+      --fd: 'Bebas Neue', sans-serif;
+      --fb: 'DM Sans', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--white); font-family: var(--fb); font-weight: 300; cursor: none; overflow-x: hidden; }
+
+    /* ── CURSOR ── */
+    #cursor { width:6px; height:6px; background:rgba(240,237,232,.7); border-radius:50%; position:fixed; top:0; left:0; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); }
+
+    /* ── NAV ISLETA ── */
+    nav { position:fixed; top:20px; left:50%; transform:translateX(-50%); z-index:200; }
+    .nav-inner {
+      display:flex; align-items:center; gap:28px;
+      background:rgba(8,8,8,.32); backdrop-filter:blur(22px) saturate(1.4); -webkit-backdrop-filter:blur(22px) saturate(1.4);
+      border:1px solid rgba(240,237,232,.07); border-radius:60px;
+      padding:8px 24px 8px 8px; box-shadow:0 4px 32px rgba(0,0,0,.25);
+    }
+    .nav-logo { text-decoration:none; display:flex; align-items:center; }
+    .nav-logo img { height:48px; width:auto; display:block; }
+    .nav-back {
+      font-size:.66rem; letter-spacing:.18em; text-transform:uppercase;
+      color:rgba(240,237,232,.55); text-decoration:none; transition:color .25s; white-space:nowrap;
+    }
+    .nav-back:hover { color:var(--white); }
+    .nav-tag {
+      font-size:.6rem; letter-spacing:.14em; text-transform:uppercase;
+      background:var(--dim); border:1px solid rgba(240,237,232,.1);
+      color:rgba(240,237,232,.4); padding:4px 14px; border-radius:20px;
+      white-space:nowrap;
+    }
+
+    /* ── HERO CABECERA ── */
+    .page-hero {
+      min-height: 52vh; display:flex; flex-direction:column;
+      align-items:center; justify-content:flex-end;
+      padding: 120px 48px 64px; text-align:center; position:relative;
+      background: radial-gradient(ellipse at 50% 80%, rgba(55,50,44,.35) 0%, transparent 65%), var(--black);
+    }
+    .page-eyebrow { font-size:.64rem; letter-spacing:.34em; text-transform:uppercase; color:var(--grey); margin-bottom:16px; }
+    .page-title { font-family:var(--fd); font-size:clamp(4rem,11vw,11rem); line-height:.88; color:var(--white); }
+    .page-title em { font-style:italic; font-family:var(--fb); font-weight:300; font-size:.2em; letter-spacing:.12em; text-transform:uppercase; display:block; color:rgba(240,237,232,.45); margin-bottom:8px; }
+    .page-subtitle { margin-top:24px; font-size:.82rem; line-height:1.7; color:rgba(240,237,232,.45); max-width:480px; }
+
+    /* ── REEL ABANICO ── */
+    .reel-strip {
+      display:flex; justify-content:center; align-items:flex-end;
+      padding:60px 48px 0; gap:0; perspective:1200px;
+      overflow:visible;
+    }
+    .reel-item {
+      position:relative; width:180px; height:320px;
+      margin-left:-80px; cursor:none; flex-shrink:0;
+      transition:z-index .1s;
+    }
+    .reel-item:first-child { margin-left:0; }
+    .reel-inner {
+      width:100%; height:100%; border-radius:1.2rem;
+      transform:rotateY(60deg) scale(1); transform-origin:center center;
+      transform-style:preserve-3d;
+      transition:transform .35s cubic-bezier(.25,.46,.45,.94), box-shadow .35s;
+      position:relative; overflow:hidden;
+      box-shadow:0 8px 30px rgba(0,0,0,.5);
+    }
+    .reel-inner img { width:100%; height:100%; object-fit:cover; border-radius:inherit; display:block; }
+    .reel-side {
+      position:absolute; top:0; left:0; width:18px; height:100%;
+      background:linear-gradient(to right, rgba(200,200,200,.25), transparent);
+      border-radius:1.2rem 0 0 1.2rem; pointer-events:none; transition:opacity .3s;
+    }
+    .reel-item:hover { z-index:100; }
+
+    /* ── DIVISOR ── */
+    .divider { height:1px; background:var(--dim); margin:80px 48px 0; }
+
+    /* ── TARIFAS ── */
+    .tarifas-wrap { max-width:780px; margin:0 auto; padding:80px 48px 40px; }
+    .tarifas-header { margin-bottom:56px; }
+    .tarifas-header h2 { font-family:var(--fd); font-size:clamp(2rem,4vw,3.5rem); letter-spacing:.06em; margin-bottom:12px; }
+    .tarifas-header p { font-size:.82rem; color:var(--grey); line-height:1.7; }
+
+    .tarifa-bloque {
+      border-top:1px solid var(--dim); padding:36px 0;
+      display:grid; grid-template-columns:1fr auto; gap:12px 40px; align-items:start;
+    }
+    .tarifa-bloque:last-of-type { border-bottom:1px solid var(--dim); }
+    .tarifa-nombre { font-family:var(--fd); font-size:1.6rem; letter-spacing:.06em; grid-column:1; }
+    .tarifa-precio { font-family:var(--fd); font-size:2rem; letter-spacing:.04em; color:var(--white); text-align:right; grid-column:2; grid-row:1; white-space:nowrap; }
+    .tarifa-desc { font-size:.8rem; line-height:1.75; color:var(--grey); grid-column:1 / -1; margin-top:4px; }
+    .tarifa-lotes { list-style:none; margin-top:8px; grid-column:1 / -1; }
+    .tarifa-lotes li {
+      display:flex; justify-content:space-between; align-items:center;
+      padding:10px 0; border-bottom:1px solid rgba(240,237,232,.04);
+      font-size:.82rem; color:rgba(240,237,232,.7);
+    }
+    .tarifa-lotes li:last-child { border-bottom:none; }
+    .tarifa-lotes .lote-precio { font-family:var(--fd); font-size:1.1rem; color:var(--white); }
+    .tarifa-nota {
+      grid-column:1 / -1; margin-top:8px;
+      font-size:.75rem; font-style:italic; color:rgba(240,237,232,.35);
+      line-height:1.7;
+    }
+
+    .nota-general-box {
+      margin:40px 0 0; padding:24px 28px;
+      background:var(--dim); border-left:2px solid rgba(240,237,232,.15);
+      font-size:.82rem; line-height:1.8; color:rgba(240,237,232,.6);
+    }
+    .nota-general-box strong { color:var(--white); font-weight:400; }
+
+    /* ── EJEMPLOS ── */
+    .ejemplos-section { padding:80px 48px; }
+    .ejemplos-section h2 { font-family:var(--fd); font-size:clamp(1.8rem,3.5vw,3rem); letter-spacing:.06em; margin-bottom:40px; }
+    .ejemplos-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; }
+    @media (max-width:700px) { .ejemplos-grid { grid-template-columns:1fr; } }
+    .ejemplo-card {
+      background:var(--dim); padding:32px 28px;
+      transition:background .3s;
+    }
+    .ejemplo-card:hover { background:rgba(240,237,232,.09); }
+    .ejemplo-card h3 { font-family:var(--fd); font-size:1.4rem; letter-spacing:.06em; margin-bottom:20px; }
+    .ejemplo-links { display:flex; flex-direction:column; gap:8px; }
+    .ejemplo-links a {
+      font-size:.7rem; letter-spacing:.16em; text-transform:uppercase;
+      color:var(--grey); text-decoration:none;
+      display:flex; align-items:center; gap:8px;
+      transition:color .25s;
+    }
+    .ejemplo-links a::before { content:'↗'; font-size:.8rem; }
+    .ejemplo-links a:hover { color:var(--white); }
+
+    /* ── CONDICIONES ── */
+    .condiciones-section { padding:0 48px 80px; }
+    .condiciones-section h2 { font-family:var(--fd); font-size:clamp(1.8rem,3.5vw,3rem); letter-spacing:.06em; margin-bottom:40px; }
+    .condicion-item {
+      border-top:1px solid var(--dim); padding:20px 0;
+      font-size:.82rem; line-height:1.8; color:rgba(240,237,232,.55);
+      display:grid; grid-template-columns:32px 1fr; gap:16px; align-items:start;
+      opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease;
+    }
+    .condicion-item.visible { opacity:1; transform:translateY(0); }
+    .condicion-item:last-child { border-bottom:1px solid var(--dim); }
+    .condicion-num { font-family:var(--fd); font-size:1rem; color:rgba(240,237,232,.2); padding-top:2px; }
+
+    /* ── CONTACTO PIE ── */
+    .contact-footer {
+      border-top:1px solid var(--dim); padding:60px 48px;
+      display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:24px;
+    }
+    .contact-footer-left { font-family:var(--fd); font-size:clamp(1.8rem,3vw,2.8rem); line-height:.95; }
+    .contact-footer-right { display:flex; flex-direction:column; gap:10px; text-align:right; }
+    .contact-footer-right a {
+      font-size:.7rem; letter-spacing:.2em; text-transform:uppercase;
+      color:var(--grey); text-decoration:none; transition:color .25s;
+    }
+    .contact-footer-right a:hover { color:var(--white); }
+    .wa-link { color:#25D366 !important; }
+    .wa-link:hover { color:#1db954 !important; }
+
+    footer { border-top:1px solid var(--dim); padding:22px 48px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+    footer span { font-size:.6rem; letter-spacing:.2em; text-transform:uppercase; color:var(--grey); }
+
+    @media (max-width:720px) {
+      .page-hero, .tarifas-wrap, .ejemplos-section, .condiciones-section { padding-left:24px; padding-right:24px; }
+      .reel-strip { padding:40px 24px 0; }
+      .divider { margin:60px 24px 0; }
+      .tarifa-bloque { grid-template-columns:1fr; }
+      .tarifa-precio { text-align:left; }
+      .contact-footer { padding:40px 24px; flex-direction:column; text-align:center; }
+      .contact-footer-right { text-align:center; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="cursor"></div>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <picture>
+        <source srcset="../images/logo_transparent.webp" type="image/webp">
+        <img src="../images/logo_transparent.png" alt="Pepe Metro Films">
+      </picture>
+    </a>
+    <a href="/" class="nav-back">← Inicio</a>
+    <span class="nav-tag">Documento privado</span>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<div class="page-hero">
+  <p class="page-eyebrow">Documento privado · Solo para clientes</p>
+  <h1 class="page-title"><em>Tarifas</em>DISCO</h1>
+  <p class="page-subtitle">Presupuesto personalizado preparado para ti. Cualquier duda, escríbeme directamente.</p>
+</div>
+
+<!-- ── REEL ABANICO — sustituye los src por tus GIFs o imágenes reales ── -->
+<div class="reel-strip" id="reelStrip">
+  <div class="reel-item">
+    <div class="reel-inner">
+      <div class="reel-side"></div>
+      <img src="../images/thumbs/set_dj_franrox.webp" alt="DJ Set" loading="lazy">
+    </div>
+  </div>
+  <div class="reel-item">
+    <div class="reel-inner">
+      <div class="reel-side"></div>
+      <img src="../images/thumbs/aftermovie_delirio.webp" alt="Aftermovie Delirio" loading="lazy">
+    </div>
+  </div>
+  <div class="reel-item">
+    <div class="reel-inner">
+      <div class="reel-side"></div>
+      <img src="../images/thumbs/aftermovie_iguana.webp" alt="Aftermovie Iguana" loading="lazy">
+    </div>
+  </div>
+  <div class="reel-item">
+    <div class="reel-inner">
+      <div class="reel-side"></div>
+      <img src="../images/thumbs/videoclip_chris_contradiccion.webp" alt="Videoclip" loading="lazy">
+    </div>
+  </div>
+  <div class="reel-item">
+    <div class="reel-inner">
+      <div class="reel-side"></div>
+      <img src="../images/thumbs/highlight_moda.webp" alt="Highlight" loading="lazy">
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ── TARIFAS ── -->
+<div class="tarifas-wrap">
+  <div class="tarifas-header">
+    <h2>Servicios &amp; precios</h2>
+    <p>Precios sin IVA. Desplazamiento no incluido fuera de Sevilla capital.</p>
+  </div>
+
+  <!-- GRABACIÓN -->
+  <div class="tarifa-bloque">
+    <div class="tarifa-nombre">Grabación</div>
+    <div class="tarifa-precio">350€</div>
+    <p class="tarifa-desc">Jornada de grabación de 3–4 horas. Entrega con colorización estándar incluida.</p>
+    <p class="tarifa-nota">* Horas extras de grabación: 100€/hora adicional.</p>
+  </div>
+
+  <!-- AFTERMOVIES -->
+  <div class="tarifa-bloque">
+    <div class="tarifa-nombre">Aftermovie / Reel editado</div>
+    <div class="tarifa-precio">500€</div>
+    <p class="tarifa-desc">Grabación incluida. Montaje con color grading, edición de ritmo y formato a elegir. Música del cliente o indicación de estilo.</p>
+    <p class="tarifa-nota">* Consultar otras opciones de formato o duración.</p>
+  </div>
+
+  <!-- BRUTOS / CLIPS -->
+  <div class="tarifa-bloque">
+    <div class="tarifa-nombre">Brutos / Clips</div>
+    <div class="tarifa-precio"></div>
+    <ul class="tarifa-lotes">
+      <li><span>Lote 1 — 10 clips colorizados</span><span class="lote-precio">150€</span></li>
+      <li><span>Lote MAX — material completo</span><span class="lote-precio">300€</span></li>
+    </ul>
+    <p class="tarifa-nota">* Los brutos se exportan con corrección de color incluida. El cliente especificará qué tomas grabar.</p>
+  </div>
+
+  <!-- FOTOGRAFÍA -->
+  <div class="tarifa-bloque">
+    <div class="tarifa-nombre">Fotografía <span style="font-size:.7em;opacity:.5">— Exclusivo DJs</span></div>
+    <div class="tarifa-precio"></div>
+    <ul class="tarifa-lotes">
+      <li><span>Lote 10 unidades editadas</span><span class="lote-precio">100€</span></li>
+      <li><span>Lote 20 unidades editadas</span><span class="lote-precio">150€</span></li>
+    </ul>
+    <p class="tarifa-nota">* Las fotografías serán seleccionadas por el cliente y entregadas ya editadas.</p>
+  </div>
+
+  <!-- PACK MENSUAL -->
+  <div class="tarifa-bloque" style="background:rgba(240,237,232,.04); border:1px solid rgba(240,237,232,.1); padding:28px 24px;">
+    <div class="tarifa-nombre">Pack mensual <span style="font-size:.7em; opacity:.5">— Clubs & promotoras</span></div>
+    <div class="tarifa-precio">900€/mes</div>
+    <p class="tarifa-desc">Para locales con actividad semanal. Incluye hasta 4 grabaciones al mes, 4 reels editados listos para publicar y entrega priorizada. Precio cerrado, sin sorpresas.</p>
+    <p class="tarifa-nota">* Contrato mínimo 3 meses. Ideal para clubs, promotoras y salas con programación regular.</p>
+  </div>
+
+  <!-- EXTRAS -->
+  <div class="tarifa-bloque">
+    <div class="tarifa-nombre">Extras</div>
+    <div class="tarifa-precio"></div>
+    <ul class="tarifa-lotes">
+      <li><span>Drone (planos aéreos exteriores)</span><span class="lote-precio">+200€</span></li>
+      <li><span>Entrega exprés — 48 horas</span><span class="lote-precio">+150€</span></li>
+      <li><span>Adaptación stories verticales adicionales</span><span class="lote-precio">+80€</span></li>
+    </ul>
+  </div>
+
+  <!-- NOTA GENERAL -->
+  <div class="nota-general-box">
+    <strong>Indicación general:</strong> No se realizan eventos de vídeo y foto el mismo día. Las horas extras de grabación se facturan a 100€/hora. Precios sin IVA.
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ── EJEMPLOS ── -->
+<div class="ejemplos-section">
+  <h2>Ejemplos de trabajo</h2>
+  <div class="ejemplos-grid">
+    <div class="ejemplo-card">
+      <h3>Aftermovies</h3>
+      <div class="ejemplo-links">
+        <a href="https://www.instagram.com/ejemplo1" target="_blank" rel="noopener">Ejemplo 1</a>
+        <a href="https://www.instagram.com/ejemplo2" target="_blank" rel="noopener">Ejemplo 2</a>
+        <a href="https://www.instagram.com/ejemplo3" target="_blank" rel="noopener">Ejemplo 3</a>
+      </div>
+    </div>
+    <div class="ejemplo-card">
+      <h3>Brutos</h3>
+      <div class="ejemplo-links">
+        <a href="https://www.instagram.com/ejemplo1" target="_blank" rel="noopener">Ejemplo 1</a>
+        <a href="https://www.instagram.com/ejemplo2" target="_blank" rel="noopener">Ejemplo 2</a>
+        <a href="https://www.instagram.com/ejemplo3" target="_blank" rel="noopener">Ejemplo 3</a>
+      </div>
+    </div>
+    <div class="ejemplo-card">
+      <h3>Fotografía</h3>
+      <div class="ejemplo-links">
+        <a href="https://www.instagram.com/ejemplo1" target="_blank" rel="noopener">Ejemplo 1</a>
+        <a href="https://www.instagram.com/ejemplo2" target="_blank" rel="noopener">Ejemplo 2</a>
+        <a href="https://www.instagram.com/ejemplo3" target="_blank" rel="noopener">Ejemplo 3</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ── CONDICIONES ── -->
+<div class="condiciones-section">
+  <h2>Condiciones</h2>
+  <div class="condicion-item"><span class="condicion-num">01</span><span>Los pagos deben realizarse según el calendario acordado. Cualquier retraso puede afectar la fecha de entrega.</span></div>
+  <div class="condicion-item"><span class="condicion-num">02</span><span>El cliente facilita toda la información necesaria (horarios, persona de contacto, tomas a grabar) con antelación suficiente.</span></div>
+  <div class="condicion-item"><span class="condicion-num">03</span><span>Se permite un número limitado de revisiones según lo pactado. Revisiones adicionales pueden generar costes extra.</span></div>
+  <div class="condicion-item"><span class="condicion-num">04</span><span>Pepe Metro Films se reserva el derecho de mostrar fragmentos del proyecto en su portfolio o redes sociales, salvo indicación expresa en contrario.</span></div>
+  <div class="condicion-item"><span class="condicion-num">05</span><span>Los cambios de última hora o solicitudes fuera del alcance original pueden afectar tanto a la fecha de entrega como al presupuesto.</span></div>
+</div>
+
+<!-- ── CONTACTO PIE ── -->
+<div class="contact-footer">
+  <div class="contact-footer-left">¿Alguna<br>duda?</div>
+  <div class="contact-footer-right">
+    <a href="mailto:contacto.pepemetrofilms@gmail.com">contacto.pepemetrofilms@gmail.com</a>
+    <a href="tel:+34629121591">+34 629 121 591</a>
+    <a href="https://wa.me/34629121591?text=Hola%20Pepe%2C%20tengo%20una%20duda%20sobre%20las%20tarifas" target="_blank" rel="noopener" class="wa-link">WhatsApp directo →</a>
+  </div>
+</div>
+
+<footer>
+  <span>© 2026 Pepe Metro Films</span>
+  <span>Documento privado — no compartir</span>
+</footer>
+
+<script>
+  // Cursor
+  const cur = document.getElementById('cursor');
+  document.addEventListener('mousemove', e => {
+    cur.style.left = e.clientX + 'px';
+    cur.style.top  = e.clientY + 'px';
+  });
+
+  // Reel abanico
+  const items = document.querySelectorAll('.reel-item');
+  const ANGLE = 60, MAX_SCALE = 1.28, DIST = 0.14;
+  items.forEach(item => {
+    item.querySelector('.reel-inner').style.transform = `rotateY(${ANGLE}deg) scale(1)`;
+  });
+  items.forEach((item, idx) => {
+    item.addEventListener('mouseenter', () => {
+      items.forEach((other, i) => {
+        const inner = other.querySelector('.reel-inner');
+        const side  = inner.querySelector('.reel-side');
+        const dist  = Math.abs(i - idx);
+        const scale = Math.max(MAX_SCALE - dist * DIST, 1);
+        if (i === idx) {
+          inner.style.transform = `rotateY(0deg) scale(${scale})`;
+          inner.style.boxShadow = '0 20px 60px rgba(0,0,0,.7)';
+          side.style.opacity = '0';
+        } else {
+          const offset = (i - idx) * 35;
+          inner.style.transform = `rotateY(${ANGLE}deg) scale(${scale}) translateX(${offset}px)`;
+          inner.style.boxShadow = '0 8px 30px rgba(0,0,0,.5)';
+          side.style.opacity = '1';
+        }
+      });
+    });
+    item.addEventListener('mouseleave', () => {
+      items.forEach(other => {
+        const inner = other.querySelector('.reel-inner');
+        inner.querySelector('.reel-side').style.opacity = '1';
+        inner.style.transform = `rotateY(${ANGLE}deg) scale(1)`;
+        inner.style.boxShadow = '0 8px 30px rgba(0,0,0,.5)';
+      });
+    });
+  });
+
+  // Condiciones fade-in en scroll
+  const condObs = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 120);
+        condObs.unobserve(e.target);
+      }
+    });
+  }, {threshold: 0.15});
+  document.querySelectorAll('.condicion-item').forEach(el => condObs.observe(el));
+</script>
+</body>
+</html>

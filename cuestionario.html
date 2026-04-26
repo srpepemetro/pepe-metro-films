@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cuestionario de boda — Pepe Metro Films</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #080808;
+      --white: #f0ede8;
+      --grey: #6b6b6b;
+      --dim: rgba(240,237,232,0.06);
+      --dim2: rgba(240,237,232,0.09);
+      --fd: 'Bebas Neue', sans-serif;
+      --fb: 'DM Sans', sans-serif;
+    }
+
+    html { background: var(--black); scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--fb);
+      font-weight: 300;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* grain */
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding: 80px 24px 64px;
+      border-bottom: 1px solid var(--dim);
+      position: relative;
+      background: radial-gradient(ellipse at 50% 100%, rgba(55,45,40,.35) 0%, transparent 65%);
+    }
+
+    .brand {
+      display: block;
+      font-family: var(--fd);
+      font-size: 13px;
+      letter-spacing: .3em;
+      color: var(--grey);
+      margin-bottom: 32px;
+    }
+
+    .hero-title {
+      font-family: var(--fd);
+      font-size: clamp(3rem, 10vw, 7rem);
+      line-height: .9;
+      letter-spacing: .04em;
+      margin-bottom: 20px;
+    }
+
+    .hero-title em {
+      display: block;
+      font-family: var(--fb);
+      font-style: italic;
+      font-weight: 300;
+      font-size: .22em;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: rgba(240,237,232,.4);
+      margin-bottom: 10px;
+    }
+
+    .hero-sub {
+      font-size: .84rem;
+      line-height: 1.75;
+      color: rgba(240,237,232,.45);
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    /* FORM WRAP */
+    .form-wrap {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 64px 24px 100px;
+    }
+
+    /* SECTION */
+    .form-section {
+      margin-bottom: 56px;
+    }
+
+    .section-label {
+      font-size: .58rem;
+      letter-spacing: .32em;
+      text-transform: uppercase;
+      color: var(--grey);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--dim);
+    }
+
+    /* FIELD */
+    .field {
+      margin-bottom: 4px;
+    }
+
+    .field label {
+      display: block;
+      font-size: .72rem;
+      font-weight: 400;
+      letter-spacing: .06em;
+      color: rgba(240,237,232,.7);
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+
+    .field label .hint {
+      display: block;
+      font-size: .65rem;
+      font-weight: 300;
+      font-style: italic;
+      color: rgba(240,237,232,.28);
+      margin-top: 3px;
+      letter-spacing: .03em;
+    }
+
+    .field input[type="text"],
+    .field input[type="date"],
+    .field textarea {
+      width: 100%;
+      background: var(--dim);
+      border: 1px solid rgba(240,237,232,.08);
+      color: var(--white);
+      font-family: var(--fb);
+      font-weight: 300;
+      font-size: .85rem;
+      padding: 14px 18px;
+      outline: none;
+      transition: border-color .2s, background .2s;
+      -webkit-appearance: none;
+      border-radius: 0;
+    }
+
+    .field input[type="date"] {
+      color-scheme: dark;
+    }
+
+    .field input:focus,
+    .field textarea:focus {
+      border-color: rgba(240,237,232,.28);
+      background: rgba(240,237,232,.08);
+    }
+
+    .field textarea {
+      resize: vertical;
+      min-height: 100px;
+      line-height: 1.7;
+    }
+
+    .field textarea.tall {
+      min-height: 160px;
+    }
+
+    /* TWO COL */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+    }
+
+    @media (max-width: 520px) {
+      .two-col { grid-template-columns: 1fr; }
+    }
+
+    /* SUBMIT */
+    .submit-wrap {
+      margin-top: 48px;
+      text-align: center;
+    }
+
+    .btn-submit {
+      display: inline-block;
+      background: var(--white);
+      color: var(--black);
+      font-family: var(--fd);
+      font-size: 1.1rem;
+      letter-spacing: .15em;
+      padding: 18px 56px 16px;
+      border: none;
+      cursor: pointer;
+      transition: opacity .2s, transform .18s;
+    }
+
+    .btn-submit:hover { opacity: .85; transform: translateY(-2px); }
+    .btn-submit:active { transform: translateY(0); }
+    .btn-submit:disabled { opacity: .4; cursor: not-allowed; transform: none; }
+
+    .submit-note {
+      margin-top: 16px;
+      font-size: .65rem;
+      letter-spacing: .1em;
+      color: rgba(240,237,232,.2);
+    }
+
+    /* SUCCESS */
+    #stateSuccess {
+      display: none;
+      text-align: center;
+      padding: 100px 24px;
+    }
+
+    .success-icon {
+      font-family: var(--fd);
+      font-size: 5rem;
+      letter-spacing: .06em;
+      color: rgba(240,237,232,.12);
+      margin-bottom: 24px;
+    }
+
+    .success-title {
+      font-family: var(--fd);
+      font-size: clamp(2rem, 6vw, 4rem);
+      letter-spacing: .06em;
+      margin-bottom: 16px;
+    }
+
+    .success-text {
+      font-size: .88rem;
+      line-height: 1.8;
+      color: rgba(240,237,232,.45);
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    /* FOOTER */
+    .site-footer {
+      border-top: 1px solid var(--dim);
+      padding: 24px;
+      text-align: center;
+      font-size: .58rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(240,237,232,.2);
+    }
+
+    /* REQUIRED MARK */
+    .req { color: rgba(240,237,232,.3); }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <span class="brand">Pepe Metro Films</span>
+  <h1 class="hero-title">
+    <em>Cuestionario de</em>
+    BODA
+  </h1>
+  <p class="hero-sub">Cuanto más me contéis, mejor podré capturar vuestro día exactamente como lo imaginabais. Tomad vuestro tiempo.</p>
+</div>
+
+<!-- FORM -->
+<div class="form-wrap">
+
+  <!-- SUCCESS STATE -->
+  <div id="stateSuccess">
+    <div class="success-icon">✓</div>
+    <h2 class="success-title">Recibido</h2>
+    <p class="success-text">Muchas gracias. He recibido vuestro cuestionario y lo tendré todo preparado para el día. Si queda algo pendiente, os escribo por WhatsApp.</p>
+  </div>
+
+  <!-- FORM FIELDS -->
+  <form id="mainForm" method="POST">
+    <input type="hidden" name="access_key" value="2bce7c91-c0da-4d30-83d5-d0eb7a600fee">
+    <input type="hidden" name="subject" value="Nuevo cuestionario de boda — Pepe Metro Films">
+    <input type="hidden" name="from_name" value="Cuestionario de Boda">
+    <input type="text" name="botcheck" style="display:none">
+
+    <!-- 01 LA PAREJA -->
+    <div class="form-section">
+      <div class="section-label">01 · La pareja</div>
+
+      <div class="two-col">
+        <div class="field">
+          <label>Nombre completo — novio/a 1 <span class="req">*</span></label>
+          <input type="text" name="nombre_1" required placeholder="Nombre y apellidos">
+        </div>
+        <div class="field">
+          <label>Nombre completo — novio/a 2 <span class="req">*</span></label>
+          <input type="text" name="nombre_2" required placeholder="Nombre y apellidos">
+        </div>
+      </div>
+
+      <div class="field" style="margin-top:4px">
+        <label>Fecha de la boda <span class="req">*</span></label>
+        <input type="date" name="fecha_boda" required>
+      </div>
+    </div>
+
+    <!-- 02 PREPARATIVOS -->
+    <div class="form-section">
+      <div class="section-label">02 · Los preparativos</div>
+
+      <div class="field">
+        <label>
+          ¿Dónde os arreglaréis cada uno?
+          <span class="hint">Dirección de cada casa o lugar. Si es el mismo sitio, ponedlo una sola vez.</span>
+        </label>
+        <textarea name="lugar_preparativos" placeholder="Ej: Novio — Calle Betis 12, Sevilla / Novia — Hotel Alfonso XIII"></textarea>
+      </div>
+
+      <div class="field">
+        <label>
+          ¿Quién os acompañará mientras os preparáis?
+          <span class="hint">Personas en cada casa. Así sé a quién buscar con la cámara.</span>
+        </label>
+        <textarea name="acompanantes_preparativos" placeholder="Ej: Con la novia: madre, hermana y dos amigas / Con el novio: padre y tres amigos"></textarea>
+      </div>
+    </div>
+
+    <!-- 03 LA FAMILIA -->
+    <div class="form-section">
+      <div class="section-label">03 · La familia</div>
+
+      <div class="field">
+        <label>Nombres de los padres y madres de ambos</label>
+        <textarea name="padres" placeholder="Ej: Padres de Ana — José y María / Padres de Luis — Pedro y Carmen"></textarea>
+      </div>
+
+      <div class="field">
+        <label>¿Quiénes son el padrino y la madrina?</label>
+        <input type="text" name="padrinos" placeholder="Nombre de cada uno">
+      </div>
+    </div>
+
+    <!-- 04 LA CEREMONIA -->
+    <div class="form-section">
+      <div class="section-label">04 · La ceremonia</div>
+
+      <div class="field">
+        <label>¿Dónde y a qué hora es la ceremonia? <span class="req">*</span></label>
+        <input type="text" name="ceremonia_lugar_hora" required placeholder="Ej: Iglesia de San Lorenzo, Sevilla — 13:00h">
+      </div>
+
+      <div class="field">
+        <label>
+          ¿Hay algo especial en la ceremonia que no me puedo perder?
+          <span class="hint">Lecturas, sorpresas, momentos concretos, detalles que os importan.</span>
+        </label>
+        <textarea name="ceremonia_detalles" placeholder="Ej: Mi hermano da una lectura, hay una canción en directo al final de la ceremonia..."></textarea>
+      </div>
+    </div>
+
+    <!-- 05 LA CELEBRACIÓN -->
+    <div class="form-section">
+      <div class="section-label">05 · La celebración</div>
+
+      <div class="field">
+        <label>¿Dónde es la celebración? <span class="req">*</span></label>
+        <input type="text" name="celebracion_lugar" required placeholder="Ej: Finca La Cortesana, Alcalá de Guadaíra">
+      </div>
+
+      <div class="field">
+        <label>
+          ¿Qué momentos habrá en el banquete que quieras que queden bien recogidos?
+          <span class="hint">Brindis, discursos, baile de los novios, hora loca, etc.</span>
+        </label>
+        <textarea name="celebracion_momentos" placeholder="Ej: Hay un discurso sorpresa de los padrinos, baile de los novios con 'Perfect' de Ed Sheeran..."></textarea>
+      </div>
+    </div>
+
+    <!-- 06 LOS MOMENTOS -->
+    <div class="form-section">
+      <div class="section-label">06 · Los momentos</div>
+
+      <div class="field">
+        <label>
+          ¿Hay alguien especial al que quieras que preste atención?
+          <span class="hint">Un familiar mayor, alguien que viene de lejos, alguien que significa mucho para vosotros.</span>
+        </label>
+        <textarea name="personas_importantes" placeholder="Ej: Mi abuela de 85 años, viene desde Argentina / Mi mejor amigo que no podía venir a la previa..."></textarea>
+      </div>
+
+      <div class="field">
+        <label>¿Cuál es el momento del día que más ilusión os hace?</label>
+        <textarea name="momento_mas_ilusión" placeholder="Ej: Cuando me vea entrar por la iglesia / El primer baile / La primera vez que nos veamos el día de la boda..."></textarea>
+      </div>
+
+      <div class="field">
+        <label>
+          ¿Hay algún momento concreto que sea imprescindible en el vídeo?
+          <span class="hint">Algo que, si no aparece, el vídeo no sería completo para vosotros.</span>
+        </label>
+        <textarea name="momentos_imprescindibles" placeholder="Ej: El momento que mi padre me ve vestida / El baile sorpresa que tenemos preparado..."></textarea>
+      </div>
+
+      <div class="field">
+        <label>
+          ¿Hay alguna sorpresa preparada?
+          <span class="hint">Cuéntamela para estar listo en el momento exacto. Queda entre nosotros.</span>
+        </label>
+        <textarea name="sorpresas" placeholder="Ej: El novio tiene preparado un baile sorpresa a las 23:00h..."></textarea>
+      </div>
+    </div>
+
+    <!-- 07 LA MÚSICA -->
+    <div class="form-section">
+      <div class="section-label">07 · Vuestra música</div>
+
+      <div class="field">
+        <label>
+          ¿Cuáles son vuestras 10 canciones favoritas como pareja?
+          <span class="hint">Artista + título, en el orden que queráis. No importa el género.<br>Las uso para crear la banda sonora personalizada de vuestro vídeo — las interpreto, adapto y mezclo para que cada escena tenga vuestra esencia. Vuestra canción favorita de rock puede acabar siendo la más épica de la película.</span>
+        </label>
+        <textarea name="canciones" class="tall" placeholder="1. Artista — Título&#10;2. Artista — Título&#10;3. Artista — Título&#10;4. Artista — Título&#10;5. Artista — Título&#10;6. Artista — Título&#10;7. Artista — Título&#10;8. Artista — Título&#10;9. Artista — Título&#10;10. Artista — Título"></textarea>
+      </div>
+    </div>
+
+    <!-- SUBMIT -->
+    <div class="submit-wrap">
+      <button type="submit" class="btn-submit" id="submitBtn">Enviar cuestionario →</button>
+      <p class="submit-note">Lo recibiré al instante. Si olvidáis algo, escríbeme por WhatsApp.</p>
+    </div>
+
+  </form>
+</div>
+
+<footer class="site-footer">
+  © 2026 Pepe Metro Films · Documento privado
+</footer>
+
+<script>
+  const form = document.getElementById('mainForm');
+  const btn  = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(new FormData(form)).toString()
+      });
+      const data = await res.json();
+      if (!data.success) throw new Error(data.message);
+
+      form.style.display = 'none';
+      document.getElementById('stateSuccess').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    } catch {
+      btn.disabled = false;
+      btn.textContent = 'Enviar cuestionario →';
+      alert('Ha habido un error al enviar. Por favor, inténtalo de nuevo o escríbeme por WhatsApp.');
+    }
+  });
+</script>
+</body>
+</html>

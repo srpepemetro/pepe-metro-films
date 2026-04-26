@@ -78,26 +78,12 @@
 
     /* ── PARA QUIÉN — lista editorial ── */
     .para-quien { border-top:1px solid var(--dim); }
-    .pq-list { display:flex; flex-direction:column; }
-    .pq-item {
-      display:grid; grid-template-columns:56px 1fr 2fr 140px;
-      align-items:center; gap:32px;
-      padding:28px 48px; border-bottom:1px solid var(--dim);
-      transition:background .3s; cursor:none;
-    }
-    .pq-item:hover { background:var(--dim); }
-    .pq-item:hover .pq-cta { color:var(--white); }
-    @media (max-width:960px) {
-      .pq-item { grid-template-columns:36px 1fr; grid-template-rows:auto auto auto; gap:6px 20px; padding:24px; }
-      .pq-desc { grid-column:2; }
-      .pq-cta  { grid-column:2; margin-top:4px; }
-    }
-    @media (max-width:600px) { .pq-item { padding:20px 24px; } }
-    .pq-num { font-size:.55rem; letter-spacing:.28em; text-transform:uppercase; color:rgba(240,237,232,.2); }
-    .pq-title { font-family:var(--fd); font-size:clamp(1.6rem,2.4vw,2.2rem); letter-spacing:.04em; line-height:1; }
-    .pq-desc { font-size:.78rem; line-height:1.75; color:var(--grey); }
-    .pq-cta { font-size:.6rem; letter-spacing:.2em; text-transform:uppercase; color:rgba(240,237,232,.3); transition:color .25s; text-decoration:none; white-space:nowrap; justify-self:end; }
-    @media (max-width:960px) { .pq-cta { justify-self:start; } }
+    .pq-rows { display:flex; flex-direction:column; }
+    .pq-row { display:flex; align-items:center; gap:32px; padding:24px 48px; border-bottom:1px solid var(--dim); transition:background .25s; cursor:none; }
+    .pq-row:hover { background:var(--dim); }
+    .pq-row-num { font-size:.55rem; letter-spacing:.28em; text-transform:uppercase; color:rgba(240,237,232,.18); flex-shrink:0; width:28px; }
+    .pq-row-name { font-family:var(--fd); font-size:clamp(2rem,4vw,3.8rem); letter-spacing:.04em; line-height:1; }
+    @media (max-width:600px) { .pq-row { padding:20px 24px; } }
 
     /* ── PROBLEMA / TRANSFORMACIÓN ── */
     .problema-section { border-top:1px solid var(--dim); padding:80px 48px; }
@@ -121,6 +107,8 @@
     .dif-icon { font-size:1.2rem; margin-bottom:14px; display:block; opacity:.6; }
     .dif-title { font-family:var(--fd); font-size:1.2rem; letter-spacing:.05em; margin-bottom:8px; }
     .dif-desc { font-size:.76rem; line-height:1.7; color:var(--grey); }
+
+
     .btn-primary { font-family:var(--fd); font-size:1rem; letter-spacing:.14em; background:var(--white); color:var(--black); padding:14px 36px; border:none; cursor:none; transition:background .25s; }
     .btn-primary:hover { background:rgba(240,237,232,.82); }
     .btn-ghost { font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:rgba(240,237,232,.65); background:none; border:1px solid rgba(240,237,232,.25); padding:14px 28px; cursor:none; transition:border-color .25s,color .25s; text-decoration:none; display:inline-flex; align-items:center; }
@@ -320,7 +308,7 @@
   <div class="hero-content">
     <p class="hero-eyebrow">Videógrafo · Sevilla · Desplazamiento nacional</p>
     <h1 class="hero-title"><em>Haz que tu marca</em>DESTAQUE</h1>
-    <p class="hero-sub">Vídeo estratégico para negocios, artistas y parejas que quieren más clientes, más impacto y una imagen que venda sola.</p>
+    <p class="hero-sub">Para negocios, artistas y parejas que quieren una imagen que venda sola.</p>
     <div class="hero-ctas">
       <button class="btn-primary" id="heroBtn">Ver proyectos</button>
       <a href="#presupuesto" class="btn-ghost">Pedir presupuesto</a>
@@ -334,7 +322,7 @@
   <div class="problema-inner">
     <div class="fade-up">
       <h2 class="problema-texto">Tu negocio es bueno.<br>Pero si no se ve bien,<br>nadie lo sabe.</h2>
-      <p class="problema-sub">Hoy los clientes te evalúan antes de contactarte. La imagen que proyectas lo decide todo — y el vídeo es la herramienta más poderosa para proyectarla.</p>
+      <p class="problema-sub">Los clientes te evalúan antes de contactarte. La imagen lo decide todo.</p>
     </div>
     <div class="transform-list fade-up">
       <div class="transform-item">
@@ -367,43 +355,27 @@
     <span class="sec-num">—</span>
     <h2 class="sec-title">Para quién trabajo</h2>
   </div>
-  <div class="pq-list">
-
-    <div class="pq-item fade-up">
-      <span class="pq-num">01</span>
-      <div class="pq-title">Negocios<br>locales</div>
-      <p class="pq-desc">Restaurantes, clínicas, gimnasios, peluquerías. Tu negocio es bueno — pero no lo parece online.</p>
-      <a href="#presupuesto" class="pq-cta">Quiero más clientes →</a>
+  <div class="pq-rows">
+    <div class="pq-row fade-up">
+      <span class="pq-row-num">01</span>
+      <span class="pq-row-name">Negocios locales</span>
     </div>
-
-    <div class="pq-item fade-up">
-      <span class="pq-num">02</span>
-      <div class="pq-title">Marcas<br>personales</div>
-      <p class="pq-desc">Coaches, creadores, consultores. Tienes valor — necesitas contenido que lo demuestre y convierta.</p>
-      <a href="#presupuesto" class="pq-cta">Quiero posicionarme →</a>
+    <div class="pq-row fade-up">
+      <span class="pq-row-num">02</span>
+      <span class="pq-row-name">Marcas personales</span>
     </div>
-
-    <div class="pq-item fade-up">
-      <span class="pq-num">03</span>
-      <div class="pq-title">Sector<br>inmobiliario</div>
-      <p class="pq-desc">Agentes y agencias. Un vídeo bien hecho acelera decisiones y diferencia tu cartera del resto.</p>
-      <a href="#presupuesto" class="pq-cta">Ver opciones →</a>
+    <div class="pq-row fade-up">
+      <span class="pq-row-num">03</span>
+      <span class="pq-row-name">Sector inmobiliario</span>
     </div>
-
-    <div class="pq-item fade-up">
-      <span class="pq-num">04</span>
-      <div class="pq-title">Novios<br>y parejas</div>
-      <p class="pq-desc">Bodas, wedding parties, eventos privados. Cada momento merece durar para siempre — y verse como lo sentiste.</p>
-      <a href="#presupuesto" class="pq-cta">Pedir presupuesto →</a>
+    <div class="pq-row fade-up">
+      <span class="pq-row-num">04</span>
+      <span class="pq-row-name">Novios y parejas</span>
     </div>
-
-    <div class="pq-item fade-up">
-      <span class="pq-num">05</span>
-      <div class="pq-title">DJs,<br>artistas y salas</div>
-      <p class="pq-desc">Aftermovies, videoclips, sets. Llevo años en la cabina — sé lo que sientes ahí dentro y sé exactamente cómo filmarlo.</p>
-      <a href="#presupuesto" class="pq-cta">Pedir presupuesto →</a>
+    <div class="pq-row fade-up">
+      <span class="pq-row-num">05</span>
+      <span class="pq-row-name">DJs, artistas y salas</span>
     </div>
-
   </div>
 </section>
 
@@ -422,9 +394,10 @@
   <div class="dif-item fade-up">
     <span class="dif-icon">◈</span>
     <div class="dif-title">Trato directo.<br>Sin intermediarios.</div>
-    <p class="dif-desc">Hablas conmigo desde el primer mensaje hasta la entrega. Sin gestores, sin productoras entre medias. Sé lo que cuesta encontrar a alguien en quien confiar el trabajo — y lo que cuesta perderlo.</p>
+    <p class="dif-desc">Hablas conmigo desde el primer mensaje hasta la entrega. Sin gestores, sin productoras entre medias.</p>
   </div>
 </div>
+
 
 <!-- ══ PROYECTOS ══ -->
 <section id="proyectos">
@@ -546,7 +519,7 @@
     <div class="about-content">
       <h3 class="about-name">Pepe<br>Metro</h3>
       <p class="about-bio">Crecí entre cámaras analógicas de mi padre, fotógrafo, y las cabinas de las mejores salas de Sevilla. Más de diez años en las dos: la oscuridad de las discotecas y la luz de los rodajes. Esa doble vida no es un detalle — es lo que me permite filmar desde dentro, no como observador.</p>
-      <p class="about-bio">Formación en producción audiovisual, experiencia en el cine español y más de cien proyectos entre videoclips, aftermovies, moda, corporativo y eventos. Lo que me diferencia no es la cámara — es entender exactamente lo que necesitas y saber cómo conseguirlo.</p>
+      <p class="about-bio">Más de cien proyectos. Lo que me diferencia no es la cámara — es entender lo que necesitas y saber cómo conseguirlo.</p>
       <div class="about-stats">
         <div class="stat"><div class="stat-num">+100</div><div class="stat-label">Proyectos</div></div>
         <div class="stat"><div class="stat-num">+10</div><div class="stat-label">Años</div></div>
@@ -593,7 +566,7 @@
         <div class="test-card">
           <div>
             <div class="test-stars">★★★★★</div>
-            <p class="test-quote">"Le encargamos la gestión de nuestras redes y en dos meses triplicamos el engagement y empezamos a recibir consultas directas desde Instagram. Profesional, creativo y muy organizado."</p>
+            <p class="test-quote">"El vídeo que hizo para nuestra colección superó todo lo que esperábamos. Llegó con criterio propio, entendió la estética de la marca desde el primer momento y el resultado habla solo."</p>
           </div>
           <div>
             <div class="test-name">Sofía M.</div>
@@ -624,9 +597,11 @@
     <h2 class="sec-title">Cuéntame tu proyecto</h2>
   </div>
   <div class="pricing-wrap">
-    <p class="fade-up" style="font-size:.88rem; line-height:1.8; color:rgba(240,237,232,.5); margin-bottom:40px; max-width:520px;">Sin compromiso. Cuéntame qué tienes en mente y te respondo en menos de 24 horas con una propuesta adaptada a lo que necesitas.</p>
-    <form id="presupuesto-form" name="presupuesto-form" method="POST" data-netlify="true">
-      <input type="hidden" name="form-name" value="presupuesto-form">
+    <p class="fade-up" style="font-size:.88rem; line-height:1.8; color:rgba(240,237,232,.5); margin-bottom:40px; max-width:520px;">Cuéntame qué tienes en mente. Te respondo en menos de 24 horas.</p>
+    <form id="presupuesto-form" name="presupuesto-form" method="POST">
+      <input type="hidden" name="access_key" value="2bce7c91-c0da-4d30-83d5-d0eb7a600fee">
+      <input type="hidden" name="subject" value="Nueva solicitud de presupuesto — Pepe Metro Films">
+      <input type="text" name="botcheck" style="display:none">
       <div class="form-row">
         <div class="form-field"><label>Nombre completo</label><input type="text" name="nombre" required placeholder="Tu nombre"></div>
         <div class="form-field"><label>Email</label><input type="email" name="email" required placeholder="tu@email.com"></div>
@@ -654,16 +629,6 @@
           </select>
         </div>
         <div class="form-field"><label>Fecha estimada</label><input type="date" name="fecha"></div>
-      </div>
-      <div class="form-row">
-        <div class="form-field"><label>Presupuesto aproximado</label><input type="text" name="presupuesto" placeholder="Ej. 1.500 €"></div>
-        <div class="form-field">
-          <label>¿Cómo nos encontraste?</label>
-          <select name="origen">
-            <option value="">Selecciona</option>
-            <option>Instagram</option><option>TikTok</option><option>Recomendación</option><option>Google</option><option>Vimeo</option><option>Otro</option>
-          </select>
-        </div>
       </div>
       <div class="form-row">
         <div class="form-field form-field--full"><label>Descripción del proyecto</label>
@@ -790,9 +755,10 @@
   const form = document.getElementById('presupuesto-form');
   form.addEventListener('submit', function(e) {
     e.preventDefault();
-    fetch('/', {method:'POST', body:new FormData(form), headers:{'Accept':'application/x-www-form-urlencoded'}})
-      .then(r => {
-        if (r.ok) {
+    fetch('https://api.web3forms.com/submit', {method:'POST', body:new URLSearchParams(new FormData(form)).toString(), headers:{'Content-Type':'application/x-www-form-urlencoded'}})
+      .then(r => r.json())
+      .then(data => {
+        if (data.success) {
           document.getElementById('submit-btn').textContent = '✓ Enviado';
           document.getElementById('submit-btn').disabled = true;
           document.getElementById('form-success').style.display = 'block';

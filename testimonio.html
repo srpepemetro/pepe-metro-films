@@ -188,18 +188,15 @@
       </p>
       <hr class="divider">
 
-      <!-- Netlify Form -->
       <form
         name="testimonios"
         method="POST"
-        action="/gracias.html"
-        data-netlify="true"
-        netlify-honeypot="bot-field"
         class="t-form"
         id="testForm"
       >
-        <input type="hidden" name="form-name" value="testimonios">
-        <p style="display:none;"><input name="bot-field"></p>
+        <input type="hidden" name="access_key" value="2bce7c91-c0da-4d30-83d5-d0eb7a600fee">
+        <input type="hidden" name="subject" value="Nuevo testimonio — Pepe Metro Films">
+        <input type="text" name="botcheck" style="display:none">
 
         <div class="field-row">
           <div class="field fade-up">
@@ -315,7 +312,7 @@
       e.preventDefault();
       const data = new FormData(form);
       try {
-        await fetch('/testimonio.html', {
+        await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           body: new URLSearchParams(data).toString()

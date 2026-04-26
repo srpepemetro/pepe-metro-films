@@ -1,0 +1,61 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Pepe Metro Films//Recordatorios Fiscales//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Recordatorios Fiscales PMF
+X-WR-TIMEZONE:Europe/Madrid
+
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260405
+DTEND;VALUE=DATE:20260406
+RRULE:FREQ=YEARLY;BYMONTH=4;BYMONTHDAY=5
+SUMMARY:⚠️ T1 — Prepara facturas para la gestoría
+DESCRIPTION:Faltan 15 días para el cierre del T1 (20 abril).\nRevisa que tienes todas las facturas e ingresos registrados en Notion y envíaselos a la gestoría.
+BEGIN:VALARM
+TRIGGER:-PT0S
+ACTION:DISPLAY
+DESCRIPTION:Recordatorio fiscal T1
+END:VALARM
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260705
+DTEND;VALUE=DATE:20260706
+RRULE:FREQ=YEARLY;BYMONTH=7;BYMONTHDAY=5
+SUMMARY:⚠️ T2 — Prepara facturas para la gestoría
+DESCRIPTION:Faltan 15 días para el cierre del T2 (20 julio).\nRevisa que tienes todas las facturas e ingresos registrados en Notion y envíaselos a la gestoría.
+BEGIN:VALARM
+TRIGGER:-PT0S
+ACTION:DISPLAY
+DESCRIPTION:Recordatorio fiscal T2
+END:VALARM
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20261005
+DTEND;VALUE=DATE:20261006
+RRULE:FREQ=YEARLY;BYMONTH=10;BYMONTHDAY=5
+SUMMARY:⚠️ T3 — Prepara facturas para la gestoría
+DESCRIPTION:Faltan 15 días para el cierre del T3 (20 octubre).\nRevisa que tienes todas las facturas e ingresos registrados en Notion y envíaselos a la gestoría.
+BEGIN:VALARM
+TRIGGER:-PT0S
+ACTION:DISPLAY
+DESCRIPTION:Recordatorio fiscal T3
+END:VALARM
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20270115
+DTEND;VALUE=DATE:20270116
+RRULE:FREQ=YEARLY;BYMONTH=1;BYMONTHDAY=15
+SUMMARY:⚠️ T4 — Prepara facturas para la gestoría
+DESCRIPTION:Faltan 15 días para el cierre del T4 (30 enero).\nRevisa que tienes todas las facturas e ingresos registrados en Notion y envíaselos a la gestoría.
+BEGIN:VALARM
+TRIGGER:-PT0S
+ACTION:DISPLAY
+DESCRIPTION:Recordatorio fiscal T4
+END:VALARM
+END:VEVENT
+
+END:VCALENDAR

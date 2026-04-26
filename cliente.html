@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tu proyecto — Pepe Metro Films</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black: #080808;
+      --white: #f0ede8;
+      --grey: #6b6b6b;
+      --gold: #c9a96e;
+      --gold-dim: rgba(201,169,110,0.12);
+      --gold-glow: rgba(201,169,110,0.28);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { background: var(--black); }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Film grain */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.035;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .wrap {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 56px 24px 80px;
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      text-align: center;
+      margin-bottom: 72px;
+    }
+
+    .brand {
+      display: block;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.3em;
+      color: var(--grey);
+      margin-bottom: 5px;
+    }
+
+    .tagline {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(107,107,107,0.5);
+    }
+
+    /* ── PROJECT TITLE ── */
+    .title-wrap {
+      text-align: center;
+      margin-bottom: 52px;
+    }
+
+    .title-rule {
+      width: 28px;
+      height: 1px;
+      background: rgba(201,169,110,0.35);
+      margin: 0 auto 20px;
+    }
+
+    .project-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(56px, 11vw, 88px);
+      line-height: 0.93;
+      letter-spacing: 0.025em;
+      color: var(--white);
+    }
+
+    /* ── STATUS BAR ── */
+    .status-section {
+      margin-bottom: 52px;
+    }
+
+    .status-label {
+      text-align: center;
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(107,107,107,0.55);
+      margin-bottom: 22px;
+    }
+
+    .progress-wrap {
+      position: relative;
+    }
+
+    .progress-track {
+      position: absolute;
+      top: 4px;
+      left: 12.5%;
+      right: 12.5%;
+      height: 1px;
+      background: rgba(107,107,107,0.2);
+      z-index: 0;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--gold);
+      width: 0%;
+      transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0.7;
+    }
+
+    .progress-dots {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      position: relative;
+      z-index: 1;
+    }
+
+    .pdot {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .pdot-circle {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 1px solid rgba(107,107,107,0.3);
+      background: var(--black);
+      transition: all 0.5s ease;
+    }
+
+    .pdot-label {
+      font-size: 8.5px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(107,107,107,0.4);
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .pdot.completed .pdot-circle {
+      background: rgba(201,169,110,0.35);
+      border-color: rgba(201,169,110,0.6);
+    }
+
+    .pdot.completed .pdot-label {
+      color: rgba(201,169,110,0.55);
+    }
+
+    .pdot.current .pdot-circle {
+      background: var(--gold);
+      border-color: var(--gold);
+      box-shadow: 0 0 14px var(--gold-glow), 0 0 28px rgba(201,169,110,0.12);
+    }
+
+    .pdot.current .pdot-label {
+      color: var(--white);
+      font-weight: 400;
+    }
+
+    /* ── DETAILS GRID ── */
+    .details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 44px;
+    }
+
+    .detail-item {
+      background: #0c0c0c;
+      padding: 18px 22px;
+    }
+
+    .detail-label {
+      display: block;
+      font-size: 8.5px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(107,107,107,0.6);
+      margin-bottom: 6px;
+    }
+
+    .detail-value {
+      font-size: 13.5px;
+      color: var(--white);
+      font-weight: 400;
+      line-height: 1.4;
+    }
+
+    .detail-value a {
+      color: var(--gold);
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+    }
+
+    .detail-value a:hover { text-decoration: underline; }
+
+    /* ── VIDEO CARD ── */
+    .video-card {
+      position: relative;
+      border: 1px solid rgba(201,169,110,0.25);
+      padding: 44px 36px 40px;
+      text-align: center;
+      margin-bottom: 44px;
+      overflow: hidden;
+      background: #0a0906;
+    }
+
+    .video-card::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 320px;
+      height: 240px;
+      background: radial-gradient(ellipse at center, rgba(201,169,110,0.13) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .video-card-badge {
+      display: inline-block;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+
+    .video-card-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 38px;
+      letter-spacing: 0.05em;
+      color: var(--white);
+      margin-bottom: 30px;
+      line-height: 1;
+    }
+
+    .btn-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--gold);
+      color: #0c0a07;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 15px;
+      letter-spacing: 0.15em;
+      padding: 14px 36px 12px;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.18s;
+    }
+
+    .btn-download:hover {
+      opacity: 0.88;
+      transform: translateY(-2px);
+    }
+
+    /* ── MESSAGE ── */
+    .message-block {
+      border-left: 2px solid rgba(201,169,110,0.3);
+      padding: 4px 0 4px 26px;
+      margin-bottom: 44px;
+    }
+
+    .message-text {
+      font-size: 15.5px;
+      line-height: 1.75;
+      font-style: italic;
+      font-weight: 300;
+      color: rgba(240,237,232,0.82);
+      margin-bottom: 14px;
+    }
+
+    .message-sig {
+      font-size: 11.5px;
+      letter-spacing: 0.1em;
+      color: var(--grey);
+    }
+
+    /* ── CTA ── */
+    .cta-block {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 44px;
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .cta-text {
+      font-size: 14px;
+      color: rgba(107,107,107,0.75);
+      margin-bottom: 18px;
+      letter-spacing: 0.01em;
+    }
+
+    .btn-outline {
+      display: inline-block;
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(240,237,232,0.6);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 12px 26px;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .btn-outline:hover {
+      border-color: rgba(201,169,110,0.45);
+      color: var(--gold);
+    }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      text-align: center;
+      font-size: 10.5px;
+      letter-spacing: 0.14em;
+      color: rgba(107,107,107,0.4);
+    }
+
+    .site-footer a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ── SKELETON ── */
+    .skel {
+      background: linear-gradient(90deg,
+        rgba(255,255,255,0.03) 0%,
+        rgba(255,255,255,0.07) 50%,
+        rgba(255,255,255,0.03) 100%);
+      background-size: 200% 100%;
+      animation: shimmer 1.6s infinite;
+    }
+
+    @keyframes shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    .skel-h { height: 12px; border-radius: 2px; }
+    .skel-title { height: 76px; width: 75%; margin: 0 auto 52px; border-radius: 2px; }
+    .skel-steps { height: 56px; width: 100%; border-radius: 2px; margin-bottom: 52px; }
+    .skel-grid { height: 128px; width: 100%; margin-bottom: 44px; border-radius: 0; }
+    .skel-card { height: 172px; width: 100%; margin-bottom: 44px; border-radius: 0; }
+
+    /* ── ERROR STATE ── */
+    .error-wrap {
+      text-align: center;
+      padding: 56px 0;
+    }
+
+    .error-code {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 88px;
+      letter-spacing: 0.05em;
+      color: rgba(107,107,107,0.15);
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+
+    .error-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 0.1em;
+      color: rgba(107,107,107,0.7);
+      margin-bottom: 10px;
+    }
+
+    .error-text {
+      font-size: 13.5px;
+      color: rgba(107,107,107,0.5);
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    .error-link {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(201,169,110,0.3);
+      padding-bottom: 2px;
+    }
+
+    /* ── VISIBILITY ── */
+    #stateLoading { display: block; }
+    #stateError   { display: none; }
+    #mainContent  { display: none; }
+
+    /* ── FADE IN ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      opacity: 0;
+      animation: fadeUp 0.65s ease forwards;
+    }
+    .d1 { animation-delay: 0.05s; }
+    .d2 { animation-delay: 0.15s; }
+    .d3 { animation-delay: 0.25s; }
+    .d4 { animation-delay: 0.35s; }
+    .d5 { animation-delay: 0.45s; }
+    .d6 { animation-delay: 0.55s; }
+    .d7 { animation-delay: 0.65s; }
+
+    @media (max-width: 420px) {
+      .pdot-label { font-size: 7.5px; letter-spacing: 0.06em; }
+      .details { grid-template-columns: 1fr; }
+      .video-card { padding: 36px 24px 32px; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="site-header">
+    <span class="brand">Pepe Metro Films</span>
+    <span class="tagline">Videógrafo en Sevilla</span>
+  </header>
+
+  <!-- LOADING -->
+  <div id="stateLoading">
+    <div class="skel skel-title"></div>
+    <div class="skel skel-steps"></div>
+    <div class="skel skel-grid"></div>
+    <div class="skel skel-card"></div>
+  </div>
+
+  <!-- ERROR -->
+  <div id="stateError">
+    <div class="error-wrap">
+      <div class="error-code">404</div>
+      <h2 class="error-title">Enlace no válido</h2>
+      <p class="error-text">Este enlace no es válido o ha expirado.<br>Si crees que es un error, contacta con Pepe.</p>
+      <a href="https://pepemetrofilms.com" class="error-link">Volver a la web →</a>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div id="mainContent">
+
+    <div class="title-wrap fade-in d1">
+      <div class="title-rule"></div>
+      <h1 class="project-title" id="projectTitle"></h1>
+    </div>
+
+    <div class="status-section fade-in d2">
+      <p class="status-label">Estado del proyecto</p>
+      <div class="progress-wrap">
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-dots">
+          <div class="pdot" data-step="1">
+            <div class="pdot-circle"></div>
+            <span class="pdot-label">Confirmado</span>
+          </div>
+          <div class="pdot" data-step="2">
+            <div class="pdot-circle"></div>
+            <span class="pdot-label">En rodaje</span>
+          </div>
+          <div class="pdot" data-step="3">
+            <div class="pdot-circle"></div>
+            <span class="pdot-label">En edición</span>
+          </div>
+          <div class="pdot" data-step="4">
+            <div class="pdot-circle"></div>
+            <span class="pdot-label">Entregado</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="details fade-in d3" id="detailsGrid"></div>
+
+    <div class="video-card fade-in d4" id="videoCard" style="display:none">
+      <span class="video-card-badge">✦ &nbsp; Listo para ti</span>
+      <h2 class="video-card-title">Tu vídeo está listo</h2>
+      <a class="btn-download" id="videoLink" href="#" target="_blank" rel="noopener">
+        Ver y descargar &nbsp;→
+      </a>
+    </div>
+
+    <div class="message-block fade-in d5" id="messageBlock" style="display:none">
+      <p class="message-text" id="messageText"></p>
+      <span class="message-sig">— Pepe</span>
+    </div>
+
+    <div class="cta-block fade-in d6">
+      <p class="cta-text">¿Te gustó el resultado?</p>
+      <a href="/testimonio.html" class="btn-outline">Déjame tu reseña</a>
+    </div>
+
+  </div><!-- /mainContent -->
+
+  <footer class="site-footer">
+    <a href="https://pepemetrofilms.com">pepemetrofilms.com</a>
+  </footer>
+
+</div>
+
+<script>
+  const STEP_MAP = {
+    'Pipeline': 0, 'Presupuestado': 0,
+    'Confirmado': 1, 'En rodaje': 2, 'En edición': 3,
+    'Entregado': 4, 'Archivado': 4, 'Cancelado': 0,
+  };
+
+  const FILL_PCT = [0, 0, 33.33, 66.66, 100];
+
+  function formatDate(iso) {
+    if (!iso) return '—';
+    const months = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+    if (!iso.includes('T')) {
+      const [y, m, d] = iso.split('-').map(Number);
+      return `${d} ${months[m - 1]} ${y}`;
+    }
+    const dt = new Date(iso);
+    const h = String(dt.getHours()).padStart(2, '0');
+    const min = String(dt.getMinutes()).padStart(2, '0');
+    return `${dt.getDate()} ${months[dt.getMonth()]} ${dt.getFullYear()}, ${h}:${min}h`;
+  }
+
+  function showError() {
+    document.getElementById('stateLoading').style.display = 'none';
+    document.getElementById('stateError').style.display = 'block';
+  }
+
+  function render(d) {
+    document.getElementById('stateLoading').style.display = 'none';
+    document.getElementById('mainContent').style.display = 'block';
+
+    document.title = `${d.proyecto} — Pepe Metro Films`;
+    document.getElementById('projectTitle').textContent = d.proyecto;
+
+    // Progress bar
+    const step = STEP_MAP[d.estado] ?? 0;
+    document.getElementById('progressFill').style.width = FILL_PCT[step] + '%';
+    document.querySelectorAll('.pdot').forEach(el => {
+      const s = parseInt(el.dataset.step);
+      if (s < step) el.classList.add('completed');
+      else if (s === step && step > 0) el.classList.add('current');
+    });
+
+    // Details grid
+    const details = [
+      { label: 'Tipo',             value: d.tipo || '—' },
+      { label: 'Fecha de rodaje',  value: formatDate(d.fecha_rodaje) },
+      { label: 'Fecha de entrega', value: formatDate(d.fecha_entrega) },
+      {
+        label: 'Localización',
+        value: d.localizacion
+          ? `<a href="${d.localizacion}" target="_blank" rel="noopener">Ver en mapa →</a>`
+          : '—',
+      },
+    ];
+    document.getElementById('detailsGrid').innerHTML = details.map(item => `
+      <div class="detail-item">
+        <span class="detail-label">${item.label}</span>
+        <span class="detail-value">${item.value}</span>
+      </div>
+    `).join('');
+
+    // Video card
+    if (d.link_entrega) {
+      const card = document.getElementById('videoCard');
+      card.style.display = '';
+      document.getElementById('videoLink').href = d.link_entrega;
+    }
+
+    // Personal message
+    if (d.mensaje_cliente) {
+      const block = document.getElementById('messageBlock');
+      block.style.display = '';
+      document.getElementById('messageText').textContent = d.mensaje_cliente;
+    }
+  }
+
+  async function init() {
+    const id = new URLSearchParams(window.location.search).get('id');
+    if (!id) return showError();
+
+    try {
+      const res = await fetch(`/api/cliente?id=${encodeURIComponent(id)}`);
+      if (!res.ok) return showError();
+      const data = await res.json();
+      if (!data.proyecto) return showError();
+      render(data);
+    } catch {
+      showError();
+    }
+  }
+
+  init();
+</script>
+</body>
+</html>

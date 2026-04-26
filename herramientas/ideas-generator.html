@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ideas · Pepe Metro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black:  #080808;
+  --white:  #f0ede8;
+  --grey:   #6b6b6b;
+  --accent: #C8B89A;
+  --dim:    rgba(240,237,232,0.06);
+  --border: rgba(240,237,232,0.10);
+  --pill-border: rgba(240,237,232,0.22);
+  --pill-hover:  rgba(240,237,232,0.07);
+}
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app {
+  max-width: 660px;
+  margin: 0 auto;
+  padding: 48px 20px 100px;
+}
+
+/* ── HEADER ── */
+header {
+  text-align: center;
+  margin-bottom: 52px;
+}
+
+.brand {
+  display: block;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 11px;
+  letter-spacing: 5px;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+header h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(40px, 9vw, 64px);
+  letter-spacing: 3px;
+  line-height: 1;
+  color: var(--white);
+}
+
+header h1 em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+header p.subtitle {
+  margin-top: 14px;
+  color: var(--grey);
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+}
+
+/* ── SELECTORS ── */
+.selectors {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-bottom: 12px;
+}
+
+.selector-group {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 24px;
+}
+
+.selector-group:last-child {
+  border-bottom: none;
+}
+
+.group-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.group-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--accent);
+  background: rgba(200,184,154,0.12);
+  padding: 2px 7px;
+  border-radius: 2px;
+}
+
+.group-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 14px;
+  letter-spacing: 3px;
+  color: rgba(240,237,232,0.7);
+}
+
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pill {
+  padding: 7px 15px;
+  border: 1px solid var(--pill-border);
+  background: transparent;
+  color: rgba(240,237,232,0.75);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s, color 0.12s;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.pill:hover {
+  background: var(--pill-hover);
+  border-color: rgba(240,237,232,0.45);
+  color: var(--white);
+}
+
+.pill.active {
+  background: var(--white);
+  color: var(--black);
+  border-color: var(--white);
+  font-weight: 500;
+}
+
+/* ── CONTEXT FIELD ── */
+.context-wrap {
+  margin-top: 24px;
+  margin-bottom: 36px;
+}
+
+.context-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--grey);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.context-input {
+  width: 100%;
+  background: var(--dim);
+  border: 1px solid var(--border);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  padding: 12px 16px;
+  outline: none;
+  border-radius: 2px;
+  transition: border-color 0.15s;
+}
+
+.context-input::placeholder {
+  color: rgba(240,237,232,0.25);
+}
+
+.context-input:focus {
+  border-color: rgba(240,237,232,0.35);
+}
+
+/* ── GENERATE BUTTON ── */
+.generate-wrap {
+  text-align: center;
+  margin-bottom: 0;
+}
+
+.btn-generate {
+  width: 100%;
+  padding: 18px 40px;
+  background: var(--white);
+  color: var(--black);
+  border: none;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px;
+  letter-spacing: 4px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  border-radius: 2px;
+}
+
+.btn-generate:hover {
+  background: var(--accent);
+}
+
+.btn-generate:active {
+  transform: scale(0.99);
+}
+
+/* ── DIVIDER ── */
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 48px 0;
+}
+
+/* ── RESULTS ── */
+#resultados { display: none; }
+
+.resultados-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.resultados-header h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 3px;
+  color: var(--white);
+}
+
+.header-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-regen, .btn-whatsapp {
+  background: transparent;
+  border: 1px solid var(--pill-border);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  padding: 6px 14px;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all 0.15s;
+}
+
+.btn-regen {
+  color: var(--white);
+}
+
+.btn-regen:hover {
+  border-color: var(--white);
+  background: rgba(240,237,232,0.05);
+}
+
+.btn-whatsapp {
+  color: var(--accent);
+  border-color: rgba(200,184,154,0.35);
+}
+
+.btn-whatsapp:hover {
+  background: rgba(200,184,154,0.08);
+  border-color: var(--accent);
+}
+
+/* ── IDEA CARDS ── */
+.ideas-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.idea-card {
+  background: var(--dim);
+  border: 1px solid var(--border);
+  padding: 24px;
+  border-radius: 4px;
+  opacity: 0;
+  animation: slideIn 0.35s ease forwards;
+}
+
+.idea-card:nth-child(1) { animation-delay: 0.04s; }
+.idea-card:nth-child(2) { animation-delay: 0.10s; }
+.idea-card:nth-child(3) { animation-delay: 0.16s; }
+.idea-card:nth-child(4) { animation-delay: 0.22s; }
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.idea-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--accent);
+}
+
+.idea-titulo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px;
+  letter-spacing: 1px;
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.idea-formato {
+  font-size: 12px;
+  color: var(--grey);
+  margin-bottom: 20px;
+  font-weight: 300;
+}
+
+.row {
+  margin-bottom: 14px;
+}
+
+.row-label {
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  color: var(--accent);
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 7px;
+}
+
+.grabar-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.grabar-list li {
+  font-size: 13px;
+  color: rgba(240,237,232,0.78);
+  padding-left: 18px;
+  position: relative;
+  line-height: 1.5;
+}
+
+.grabar-list li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--grey);
+}
+
+.idea-hook {
+  font-size: 13px;
+  color: rgba(240,237,232,0.88);
+  font-style: italic;
+  border-left: 2px solid var(--accent);
+  padding-left: 12px;
+  line-height: 1.55;
+}
+
+.idea-porque {
+  font-size: 13px;
+  color: rgba(240,237,232,0.62);
+  line-height: 1.55;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+
+.btn-copy {
+  background: transparent;
+  border: 1px solid var(--pill-border);
+  color: var(--grey);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  letter-spacing: 1px;
+  padding: 5px 14px;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all 0.15s;
+}
+
+.btn-copy:hover {
+  color: var(--white);
+  border-color: rgba(240,237,232,0.5);
+}
+
+.btn-copy.copied {
+  color: var(--accent);
+  border-color: rgba(200,184,154,0.5);
+}
+
+/* ── WHATSAPP PANEL ── */
+.wa-panel {
+  display: none;
+  margin-top: 0;
+  background: rgba(200,184,154,0.06);
+  border: 1px solid rgba(200,184,154,0.2);
+  border-radius: 4px;
+  padding: 20px;
+}
+
+.wa-panel.visible { display: block; }
+
+.wa-panel label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--accent);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.wa-text {
+  width: 100%;
+  background: rgba(240,237,232,0.03);
+  border: 1px solid var(--border);
+  color: rgba(240,237,232,0.75);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  line-height: 1.6;
+  padding: 14px;
+  min-height: 180px;
+  outline: none;
+  resize: vertical;
+  border-radius: 2px;
+}
+
+.wa-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.btn-copy-wa {
+  padding: 9px 20px;
+  background: var(--accent);
+  color: var(--black);
+  border: none;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 14px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: opacity 0.15s;
+}
+
+.btn-copy-wa:hover { opacity: 0.85; }
+
+.btn-close-wa {
+  padding: 9px 20px;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--grey);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 14px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all 0.15s;
+}
+
+.btn-close-wa:hover {
+  color: var(--white);
+  border-color: rgba(240,237,232,0.4);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 420px) {
+  .app { padding: 32px 16px 80px; }
+  header h1 { font-size: 36px; }
+  .idea-titulo { font-size: 20px; }
+  .resultados-header h2 { font-size: 18px; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- HEADER -->
+  <header>
+    <span class="brand">PEPE METRO · GENERADOR DE IDEAS</span>
+    <h1>BRAINSTORM<br><em>CLIENTE</em></h1>
+    <p class="subtitle">Selecciona el contexto y recibe ideas concretas para proponer</p>
+  </header>
+
+  <!-- SELECTORS -->
+  <section class="selectors">
+
+    <div class="selector-group">
+      <div class="group-label">
+        <span class="group-num">01</span>
+        <span class="group-title">TIPO DE CLIENTE</span>
+      </div>
+      <div class="pills" data-group="cliente">
+        <button class="pill" data-value="sastreria">Sastrería / Moda</button>
+        <button class="pill" data-value="discoteca">Discoteca / Sala</button>
+        <button class="pill" data-value="dj">DJ / Artista</button>
+        <button class="pill" data-value="restaurante">Restaurante</button>
+        <button class="pill" data-value="boda">Boda / Pareja</button>
+        <button class="pill" data-value="fitness">Fitness / Coach</button>
+        <button class="pill" data-value="marca_personal">Marca Personal</button>
+      </div>
+    </div>
+
+    <div class="selector-group">
+      <div class="group-label">
+        <span class="group-num">02</span>
+        <span class="group-title">QUÉ TIENES PARA GRABAR</span>
+      </div>
+      <div class="pills" data-group="trabajo">
+        <button class="pill" data-value="clip_movil">Clip de móvil</button>
+        <button class="pill" data-value="camara_360">Cámara 360</button>
+        <button class="pill" data-value="fotos">Solo fotos</button>
+        <button class="pill" data-value="fotos_video">Fotos + vídeo mix</button>
+        <button class="pill" data-value="video_profesional">Vídeo profesional</button>
+      </div>
+    </div>
+
+    <div class="selector-group">
+      <div class="group-label">
+        <span class="group-num">03</span>
+        <span class="group-title">PLATAFORMA</span>
+      </div>
+      <div class="pills" data-group="plataforma">
+        <button class="pill" data-value="tiktok">TikTok</button>
+        <button class="pill" data-value="reels">Instagram Reels</button>
+        <button class="pill" data-value="stories">Instagram Stories</button>
+        <button class="pill" data-value="youtube">YouTube Shorts</button>
+        <button class="pill" data-value="linkedin">LinkedIn</button>
+        <button class="pill" data-value="multi">Multi-plataforma</button>
+      </div>
+    </div>
+
+    <div class="selector-group">
+      <div class="group-label">
+        <span class="group-num">04</span>
+        <span class="group-title">OBJETIVO</span>
+      </div>
+      <div class="pills" data-group="objetivo">
+        <button class="pill" data-value="viralizar">Viralizar</button>
+        <button class="pill" data-value="captacion">Captar clientes</button>
+        <button class="pill" data-value="marca">Imagen de marca</button>
+        <button class="pill" data-value="engagement">Engagement</button>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- CONTEXT FIELD -->
+  <div class="context-wrap">
+    <span class="context-label">Contexto adicional (opcional)</span>
+    <input type="text" class="context-input" id="contexto"
+      placeholder="Ej: Feria de Sevilla, traje flamenca, cliente premium…">
+  </div>
+
+  <!-- GENERATE -->
+  <div class="generate-wrap">
+    <button class="btn-generate" id="btn-generar">GENERAR IDEAS</button>
+  </div>
+
+  <!-- RESULTS -->
+  <section id="resultados">
+    <div class="divider"></div>
+
+    <div class="resultados-header">
+      <h2>IDEAS PARA TU CLIENTE</h2>
+      <div class="header-actions">
+        <button class="btn-regen" id="btn-regen">↺ OTRAS IDEAS</button>
+        <button class="btn-whatsapp" id="btn-wa">✉ PROPUESTA</button>
+      </div>
+    </div>
+
+    <div class="ideas-grid" id="ideas-grid"></div>
+
+    <!-- WhatsApp panel -->
+    <div class="wa-panel" id="wa-panel">
+      <label>PROPUESTA LISTA PARA ENVIAR (WhatsApp / DM)</label>
+      <textarea class="wa-text" id="wa-text" readonly></textarea>
+      <div class="wa-actions">
+        <button class="btn-copy-wa" id="btn-copy-wa">COPIAR MENSAJE</button>
+        <button class="btn-close-wa" id="btn-close-wa">CERRAR</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+/* ── IDEAS BANK ── */
+const IDEAS = [
+  {
+    id: 1,
+    titulo: "La transformación silenciosa",
+    formato: "12–15 seg · Sin voz · Beat drop en el corte",
+    que_grabar: [
+      "Prenda en hanger o tela sobre la mesa, sin persona",
+      "Modelo vestido/a en locación real: calle, evento, interior",
+      "Close-up de detalles: botón, solapa, tejido en movimiento"
+    ],
+    hook: "Frame 1: tela sin vida. Corte seco. Frame 2: persona vestida en su elemento. La música cambia en el corte.",
+    porque: "El cerebro procesa transformaciones visuales en milisegundos. Sin palabras = más shares. Tú ya lo comprobaste con el modelo de la sastrería.",
+    clientes: ["sastreria"],
+    trabajos: ["clip_movil","fotos_video","video_profesional","fotos"],
+    plataformas: ["tiktok","reels","multi"],
+    objetivos: ["viralizar","captacion"],
+    boost: 10
+  },
+  {
+    id: 2,
+    titulo: "El detalle que nadie ve",
+    formato: "20–30 seg · Macro shots · Música atmosférica",
+    que_grabar: [
+      "Macro extremo de tejido, costuras u ojales",
+      "Las manos del sastre trabajando",
+      "El nombre bordado o la etiqueta artesanal"
+    ],
+    hook: "Zoom en la costura más pequeña del traje. Nadie graba esto. Tú sí.",
+    porque: "Los detalles generan autoridad. El espectador siente que ve algo que normalmente no se ve — y eso es lo que para el scroll.",
+    clientes: ["sastreria"],
+    trabajos: ["clip_movil","video_profesional"],
+    plataformas: ["tiktok","reels","linkedin","multi"],
+    objetivos: ["marca","engagement"],
+    boost: 8
+  },
+  {
+    id: 3,
+    titulo: "El traje en su elemento",
+    formato: "15–25 seg · Locación real · Sin texto",
+    que_grabar: [
+      "Modelo en el entorno donde llevaría el traje: Feria, boda, cena de empresa",
+      "Plano entero con movimiento natural entre la gente",
+      "Reacción espontánea del entorno si la hay"
+    ],
+    hook: "Un hombre en traje a medida pasa entre la multitud. La cámara le sigue. Sin explicación.",
+    porque: "Mostrar el producto en contexto real elimina la distancia entre 'esto es bonito' y 'yo me veo con esto'.",
+    clientes: ["sastreria"],
+    trabajos: ["clip_movil","camara_360","video_profesional"],
+    plataformas: ["tiktok","reels","multi"],
+    objetivos: ["captacion","marca"],
+    boost: 9
+  },
+  {
+    id: 4,
+    titulo: "¿Cuánto tarda un traje a medida?",
+    formato: "30–45 seg · Fast-cut o timelapse · Texto en pantalla",
+    que_grabar: [
+      "Cada fase del proceso: medidas, corte, costura, prueba, resultado final",
+      "Planos de 3–4 segundos de cada paso",
+      "Plano final: cliente saliendo vestido"
+    ],
+    hook: "Texto en pantalla: '¿Cuánto tiempo lleva un traje hecho a mano?' Fade in al taller.",
+    porque: "El proceso es el producto. Mostrar el 'cómo' justifica el precio y convierte curiosos en clientes.",
+    clientes: ["sastreria"],
+    trabajos: ["video_profesional","clip_movil"],
+    plataformas: ["tiktok","reels","youtube","multi"],
+    objetivos: ["marca","engagement","captacion"],
+    boost: 8
+  },
+  {
+    id: 5,
+    titulo: "La reacción real del cliente",
+    formato: "15–20 seg · Raw · Sin edición pesada",
+    que_grabar: [
+      "El momento exacto en que el cliente se ve por primera vez con el resultado",
+      "Reacción facial espontánea delante del espejo",
+      "Plano de la prenda en movimiento justo después"
+    ],
+    hook: "El cliente frente al espejo, sin saber bien que le están grabando. La cara lo dice todo.",
+    porque: "La prueba social en vídeo tiene 10× más impacto que cualquier texto. La emoción real se comparte sola.",
+    clientes: ["sastreria"],
+    trabajos: ["clip_movil","video_profesional"],
+    plataformas: ["tiktok","reels","stories","multi"],
+    objetivos: ["viralizar","captacion"],
+    boost: 9
+  },
+  {
+    id: 6,
+    titulo: "El momento que nadie captura",
+    formato: "10–15 seg · Raw · Audio original de la sala",
+    que_grabar: [
+      "El crowd en el momento exacto del drop: caras, manos, movimiento",
+      "Un solo plano amplio o una panorámica rápida",
+      "Sin texto ni filtro — solo el momento"
+    ],
+    hook: "Audio original: el drop. Vídeo: la reacción del crowd. Sin texto. Sin filtro.",
+    porque: "El audio real de una sala llena es el mejor anuncio de esa sala. Quien lo ve, quiere estar ahí.",
+    clientes: ["discoteca"],
+    trabajos: ["clip_movil","camara_360"],
+    plataformas: ["tiktok","reels","multi"],
+    objetivos: ["viralizar","captacion"],
+    boost: 9
+  },
+  {
+    id: 7,
+    titulo: "Sala vacía vs sala llena",
+    formato: "8–12 seg · Match cut mismo ángulo · Sin texto",
+    que_grabar: [
+      "Plano fijo de la sala vacía durante el montaje o la tarde",
+      "Exactamente el mismo ángulo cuando está llena en el pico de la noche"
+    ],
+    hook: "Silencio total → ruido total. Mismo plano, mundos distintos.",
+    porque: "El contraste extremo es el patrón de contenido más retenido en TikTok. 80% de los replays vienen de este formato.",
+    clientes: ["discoteca"],
+    trabajos: ["clip_movil","video_profesional"],
+    plataformas: ["tiktok","reels","multi"],
+    objetivos: ["viralizar"],
+    boost: 10
+  },
+  {
+    id: 8,
+    titulo: "POV: bienvenido a la sala",
+    formato: "20–30 seg · POV caminando · Sin narración",
+    que_grabar: [
+      "Entrada exterior desde la cola o la calle",
+      "Recorrido por el pasillo hacia el interior",
+      "Llegada al punto central: pista, barra o cabina"
+    ],
+    hook: "POV. Sin hablar. La cámara camina hacia dentro. El espectador entra contigo.",
+    porque: "El formato POV activa el cerebro como si fuera real. Retención altísima desde el primer segundo.",
+    clientes: ["discoteca"],
+    trabajos: ["clip_movil","camara_360"],
+    plataformas: ["tiktok","stories","reels"],
+    objetivos: ["captacion","engagement"],
+    boost: 8
+  },
+  {
+    id: 9,
+    titulo: "El aftermovie de 60 segundos",
+    formato: "60 seg · Narrative arc completo · Plataforma larga",
+    que_grabar: [
+      "Llegada y preparativos: cola, entrada, artista preparando equipo",
+      "Pico de la noche: crowd, artista, luces al máximo",
+      "Cierre: últimas personas, lights on, silencio después del ruido"
+    ],
+    hook: "Fade in con el primer coche llegando. Música: el track de apertura de esa noche.",
+    porque: "El aftermovie bien hecho se convierte en el anuncio de la próxima fecha. La gente lo comparte para decir 'estuve ahí'.",
+    clientes: ["discoteca","dj"],
+    trabajos: ["video_profesional","fotos_video"],
+    plataformas: ["youtube","reels","multi"],
+    objetivos: ["marca","captacion"],
+    boost: 9
+  },
+  {
+    id: 10,
+    titulo: "Lo que pasa antes de que abran",
+    formato: "20–30 seg · BTS relajado · Texto mínimo",
+    que_grabar: [
+      "Personal montando la sala, luces en prueba",
+      "DJ haciendo soundcheck en la cabina",
+      "Detalles: copas en fila, barra preparada, pista vacía"
+    ],
+    hook: "Son las 22h. La sala aún no ha abierto. Así se ve por dentro.",
+    porque: "El detrás de escena crea pertenencia. El espectador siente que sabe algo que otros no.",
+    clientes: ["discoteca"],
+    trabajos: ["clip_movil","video_profesional"],
+    plataformas: ["tiktok","stories","reels"],
+    objetivos: ["engagement","marca"],
+    boost: 7
+  },
+  {
+    id: 11,
+    titulo: "Studio to stage",
+    formato: "25–35 seg · Secuencia temporal · Música del artista",
+    que_grabar: [
+      "Plano en el estudio: auriculares, pantallas, producción",
+      "Plano en el escenario: el mismo artista, diferente contexto",
+      "Detalle de las manos en ambos momentos (slider → mano al aire)"
+    ],
+    hook: "Corte entre estudio y escenario en el mismo gesto. La misma persona, dos mundos.",
+    porque: "Muestra el proceso completo del artista. Genera respeto y hype para su próxima fecha.",
+    clientes: ["dj"],
+    trabajos: ["clip_movil","video_profesional"],
+    plataformas: ["tiktok","reels","multi"],
+    objetivos: ["marca","captacion"],
+    boost: 8
+  },
+  {
+    id: 12,
+    titulo: "360° desde dentro de la cabina",
+    formato: "15 seg · Cámara 360 en la cabina · Sin edición extra",
+    que_grabar: [
+      "Coloca la 360 encima del equipo o en la cabina",
+      "Graba el momento del drop: crowd + artista + toda la sala en un solo plano"
+    ],
+    hook: "Un plano que nunca has visto: la sala entera desde dentro de la cabina.",
+    porque: "El 360 en cabina es rarísimo en contenido de discotecas. La novedad visual garantiza atención.",
+    clientes: ["dj","discoteca"],
+    trabajos: ["camara_360"],
+    plataformas: ["tiktok","reels","youtube","multi"],
+    objetivos: ["viralizar","engagement"],
+    boost: 10
+  },
+  {
+    id: 13,
+    titulo: "El set que nadie grabó",
+    formato: "10–15 seg · Raw, sin editar · Una sola toma",
+    que_grabar: [
+      "El mejor momento del set: crowd máximo, artista en su pico",
+      "Una sola toma, sin corte, desde posición ventajosa"
+    ],
+    hook: "Sin texto. Sin intro. Directamente al momento más potente del set.",
+    porque: "La ausencia de producción hace que parezca más real. Lo real genera más engagement que lo producido.",
+    clientes: ["dj"],
+    trabajos: ["clip_movil"],
+    plataformas: ["tiktok","stories","multi"],
+    objetivos: ["viralizar","engagement"],
+    boost: 9
+  },
+  {
+    id: 14,
+    titulo: "Teaser de próxima fecha",
+    formato: "15–20 seg · Clips anteriores + fecha + sala",
+    que_grabar: [
+      "2–3 clips de sets anteriores del DJ (crowd, cabina, luces)",
+      "1 plano de la sala o el cartel del próximo evento"
+    ],
+    hook: "Clips rápidos al ritmo del artista. Texto final: fecha + sala.",
+    porque: "El teaser con imágenes reales convierte mejor que cualquier flyer estático.",
+    clientes: ["dj","discoteca"],
+    trabajos: ["clip_movil","fotos_video"],
+    plataformas: ["reels","stories","tiktok"],
+    objetivos: ["captacion"],
+    boost: 8
+  },
+  {
+    id: 15,
+    titulo: "¿Cómo preparo un set?",
+    formato: "30–45 seg · Tutorial relajado · Texto en pantalla",
+    que_grabar: [
+      "DJ frente al ordenador/equipo eligiendo tracks",
+      "Pantalla con el software o la biblioteca musical",
+      "DJ con auriculares en el previo"
+    ],
+    hook: "'Lo que hago las 3 horas antes de subir al escenario.' Fade in al proceso.",
+    porque: "El contenido del proceso genera seguidores de calidad: otros artistas y potenciales clientes.",
+    clientes: ["dj"],
+    trabajos: ["clip_movil","video_profesional"],
+    plataformas: ["tiktok","youtube","reels"],
+    objetivos: ["engagement","marca"],
+    boost: 7
+  },
+  {
+    id: 16,
+    titulo: "El plato en su segundo exacto",
+    formato: "8–12 seg · Macro · Audio real de cocina",
+    que_grabar: [
+      "El plato en el momento exacto de presentación: vapor, salsa, guarnición",
+      "Audio ambiente real sin narración (sizzle, líquidos)"
+    ],
+    hook: "Close-up extremo del plato. El audio hace el resto.",
+    porque: "El ASMR gastronómico tiene millones de vistas. Clave: audio real, sin música de fondo.",
+    clientes: ["restaurante"],
+    trabajos: ["clip_movil","video_profesional"],
+    plataformas: ["tiktok","reels","multi"],
+    objetivos: ["captacion","viralizar"],
+    boost: 9
+  },
+  {
+    id: 17,
+    titulo: "De cocina a mesa",
+    formato: "20 seg · Journey del plato · Sin texto necesario",
+    que_grabar: [
+      "El chef terminando el plato en cocina",
+      "El camarero llevándolo entre mesas",
+      "El cliente recibiéndolo y reaccionando"
+    ],
+    hook: "La cámara sigue el plato desde que sale de cocina hasta que llega a la mesa.",
+    porque: "La narrativa del viaje conecta emocionalmente. El espectador llega hambriento al final.",
+    clientes: ["restaurante"],
+    trabajos: ["clip_movil","video_profesional"],
+    plataformas: ["tiktok","reels"],
+    objetivos: ["captacion","marca"],
+    boost: 8
+  },
+  {
+    id: 18,
+    titulo: "El ambiente que no sale en Google",
+    formato: "25–35 seg · Hora dorada · Sin palabras",
+    que_grabar: [
+      "Terraza o interior en la hora de mayor luz o ambiente",
+      "Detalles: velas, luces, conversaciones, risas",
+      "Plano general del espacio lleno de vida"
+    ],
+    hook: "Texto: 'Esto no sale en las fotos de Google.' → plano del ambiente real.",
+    porque: "Las fotos estáticas no venden atmósfera. El vídeo sí. Y la gente reserva por el ambiente.",
+    clientes: ["restaurante"],
+    trabajos: ["clip_movil","video_profesional"],
+    plataformas: ["stories","reels","tiktok"],
+    objetivos: ["marca","captacion"],
+    boost: 8
+  },
+  {
+    id: 19,
+    titulo: "Los nervios antes",
+    formato: "20–25 seg · Silencioso · Música suave",
+    que_grabar: [
+      "El novio/novia en los últimos minutos antes de la ceremonia",
+      "Manos que tiemblan, ajuste del traje, mirada al espejo",
+      "Sin audio de ambiente — solo música"
+    ],
+    hook: "Sin texto. El novio ajusta su corbata por última vez. Silencio.",
+    porque: "La anticipación emociona más que el propio momento. Este vídeo se comparte masivamente.",
+    clientes: ["boda"],
+    trabajos: ["clip_movil","video_profesional"],
+    plataformas: ["tiktok","reels","multi"],
+    objetivos: ["viralizar","marca"],
+    boost: 9
+  },
+  {
+    id: 20,
+    titulo: "La reacción sin filtros",
+    formato: "10–15 seg · Una sola toma · Sin edición",
+    que_grabar: [
+      "El momento exacto en que el novio ve a la novia (o viceversa)",
+      "Plano cerrado a la cara, capturando la reacción real"
+    ],
+    hook: "La cara del novio. Solo eso. Todo lo demás sobra.",
+    porque: "Es el vídeo más compartido de cualquier boda. La autenticidad supera cualquier producción.",
+    clientes: ["boda"],
+    trabajos: ["clip_movil","video_profesional"],
+    plataformas: ["tiktok","reels","multi"],
+    objetivos: ["viralizar"],
+    boost: 10
+  },
+  {
+    id: 21,
+    titulo: "El resumen de 60 segundos",
+    formato: "60 seg · Narrative arc · Música emocional",
+    que_grabar: [
+      "Preparativos → ceremonia → fiesta: un plano representativo de cada momento",
+      "Priorizar: reacciones, detalles íntimos, movimiento"
+    ],
+    hook: "Primer plano: detalle del vestido o los zapatos. El resto de la boda en 55 segundos.",
+    porque: "El vídeo corto de boda bien editado es el mejor portfolio para captar nuevos clientes.",
+    clientes: ["boda"],
+    trabajos: ["video_profesional","fotos_video"],
+    plataformas: ["reels","youtube","multi"],
+    objetivos: ["captacion","marca"],
+    boost: 9
+  },
+  {
+    id: 22,
+    titulo: "Un año después",
+    formato: "30–45 seg · Follow-up · Texto en pantalla",
+    que_grabar: [
+      "La misma pareja un año después en el mismo sitio",
+      "Clips del día de la boda intercalados"
+    ],
+    hook: "'Un año después volvimos al mismo sitio.' → Comparativa.",
+    porque: "El seguimiento genera engagement brutal y posiciona a Pepe como alguien que cuida la relación.",
+    clientes: ["boda"],
+    trabajos: ["clip_movil","fotos_video"],
+    plataformas: ["tiktok","reels"],
+    objetivos: ["engagement","marca"],
+    boost: 8
+  },
+  {
+    id: 23,
+    titulo: "90 días en 30 segundos",
+    formato: "30 seg · Transformación · Texto de progreso",
+    que_grabar: [
+      "Mismo ángulo, misma ropa: día 1, día 30, día 60, día 90",
+      "Texto superpuesto con el número de días"
+    ],
+    hook: "Plano neutro. Texto: 'Día 1.' Corte. 'Día 90.' El cambio habla solo.",
+    porque: "El formato de transformación funciona en todos los nichos fitness sin excepción.",
+    clientes: ["fitness"],
+    trabajos: ["fotos","fotos_video","clip_movil"],
+    plataformas: ["tiktok","reels","multi"],
+    objetivos: ["viralizar","captacion"],
+    boost: 9
+  },
+  {
+    id: 24,
+    titulo: "El entrenamiento sin glamour",
+    formato: "20–30 seg · Raw · Sin música de fondo",
+    que_grabar: [
+      "El entreno real: sudor, esfuerzo, el momento duro",
+      "Sin iluminación especial ni ropa de marca",
+      "Audio del entorno: respiración, pesas"
+    ],
+    hook: "Sin música. Sin filtros. El sonido del esfuerzo real.",
+    porque: "Autenticidad > producción en fitness. La gente sigue a quien parece de verdad.",
+    clientes: ["fitness"],
+    trabajos: ["clip_movil"],
+    plataformas: ["tiktok","stories"],
+    objetivos: ["engagement","marca"],
+    boost: 7
+  },
+  {
+    id: 25,
+    titulo: "Lo que nadie te dice sobre…",
+    formato: "30–45 seg · Educativo directo · Texto en pantalla",
+    que_grabar: [
+      "Coach hablando directo a cámara con demostración",
+      "3 puntos clave en pantalla como texto mientras habla"
+    ],
+    hook: "'3 cosas que llevas haciendo mal en el gym.' → Primer punto de inmediato.",
+    porque: "El formato educativo-controversia genera guardados masivos. El algoritmo premia los saves.",
+    clientes: ["fitness"],
+    trabajos: ["clip_movil","video_profesional"],
+    plataformas: ["tiktok","reels","youtube"],
+    objetivos: ["captacion","engagement"],
+    boost: 8
+  },
+  {
+    id: 26,
+    titulo: "Un día siendo yo",
+    formato: "45–60 seg · Day-in-the-life · Voz en off o texto",
+    que_grabar: [
+      "6–8 clips del día: mañana, trabajo, traslados, cliente, resultado",
+      "Planos cortos, 3–4 segundos cada uno"
+    ],
+    hook: "'La gente me pregunta cómo es mi día. Aquí va.' → Primer clip de la mañana.",
+    porque: "El day-in-the-life es el formato de mayor engagement para construir marca personal.",
+    clientes: ["marca_personal","dj"],
+    trabajos: ["clip_movil","camara_360"],
+    plataformas: ["tiktok","reels","stories"],
+    objetivos: ["engagement","marca"],
+    boost: 8
+  },
+  {
+    id: 27,
+    titulo: "Por qué lo hago",
+    formato: "45–60 seg · Origin story · Cámara estática",
+    que_grabar: [
+      "Una sola toma: el protagonista hablando directo a cámara",
+      "Opcionalmente: fotos antiguas o clips de archivo"
+    ],
+    hook: "'Hubo un momento en el que todo cambió.' → La historia empieza.",
+    porque: "El origen story es el contenido más potente para conectar emocionalmente. Se comparte más que cualquier producción.",
+    clientes: ["marca_personal","fitness","dj"],
+    trabajos: ["clip_movil","video_profesional"],
+    plataformas: ["tiktok","reels","youtube","linkedin"],
+    objetivos: ["marca","engagement"],
+    boost: 9
+  },
+  {
+    id: 28,
+    titulo: "Yo vs lo que la gente cree que hago",
+    formato: "15–20 seg · Comparación · Texto en pantalla",
+    que_grabar: [
+      "Plano A: el cliché exagerado o gracioso",
+      "Plano B: la realidad del trabajo real"
+    ],
+    hook: "Texto: 'Lo que la gente cree que hago' / 'Lo que realmente hago'.",
+    porque: "Humor inteligente + verdad = shares masivos. Formato viral garantizado.",
+    clientes: ["marca_personal","dj","sastreria"],
+    trabajos: ["clip_movil"],
+    plataformas: ["tiktok","reels"],
+    objetivos: ["viralizar","engagement"],
+    boost: 9
+  },
+  {
+    id: 29,
+    titulo: "Cámara 360: punto de vista inmersivo",
+    formato: "15–25 seg · 360° en el punto clave · Sin edición",
+    que_grabar: [
+      "Coloca la 360 en el punto de máxima actividad: cabina, pista, altar, pasarela",
+      "Deja que la acción suceda alrededor — no muevas la cámara"
+    ],
+    hook: "Un plano que nadie más puede hacer: todo el espacio a la vez.",
+    porque: "El contenido 360 sigue siendo novedad en todas las plataformas. Diferenciación instantánea.",
+    clientes: ["discoteca","dj","boda","sastreria"],
+    trabajos: ["camara_360"],
+    plataformas: ["tiktok","reels","youtube","multi"],
+    objetivos: ["viralizar","marca"],
+    boost: 10
+  },
+  {
+    id: 30,
+    titulo: "El clip de 8 segundos que para el scroll",
+    formato: "6–10 seg · Un solo plano · Sin texto",
+    que_grabar: [
+      "El plano más visualmente impactante del trabajo: contraste, movimiento, emoción",
+      "Sin cortes. Una sola toma perfecta."
+    ],
+    hook: "Un solo plano. Sin intro. Directo al impacto visual.",
+    porque: "TikTok/Reels premian la retención temprana. 8s al 100% > 60s al 30%.",
+    clientes: ["sastreria","discoteca","dj","restaurante","boda","fitness","marca_personal"],
+    trabajos: ["clip_movil","camara_360","video_profesional"],
+    plataformas: ["tiktok","reels","multi"],
+    objetivos: ["viralizar"],
+    boost: 9
+  },
+  {
+    id: 31,
+    titulo: "Secuencia de stories que vende",
+    formato: "5–7 stories · Narrativa + CTA final",
+    que_grabar: [
+      "Story 1: Gancho o pregunta directa al espectador",
+      "Stories 2–4: El trabajo o el proceso en pequeñas dosis",
+      "Story 5: El resultado",
+      "Story 6–7: Testimonio o prueba social + CTA claro (DM/enlace)"
+    ],
+    hook: "Primera story: una pregunta. '¿Te has preguntado alguna vez por qué tu contenido no convierte?'",
+    porque: "Las stories en secuencia narrativa tienen 3× más clics en el CTA que una story suelta.",
+    clientes: ["sastreria","discoteca","dj","restaurante","boda","fitness","marca_personal"],
+    trabajos: ["clip_movil","fotos","fotos_video"],
+    plataformas: ["stories"],
+    objetivos: ["captacion"],
+    boost: 8
+  },
+  {
+    id: 32,
+    titulo: "Montaje puro: música + imágenes",
+    formato: "20–40 seg · Sin texto ni voz · Estética total",
+    que_grabar: [
+      "Los mejores 8–12 clips o fotos del trabajo",
+      "Priorizar: movimiento, luz, emoción — no la acción"
+    ],
+    hook: "El primer frame tiene que ser el más impactante visualmente. Todo lo demás viene solo.",
+    porque: "Sin palabras llega a todos los idiomas. El montaje estético puro genera guardados y shares.",
+    clientes: ["sastreria","discoteca","dj","boda","restaurante","fitness","marca_personal"],
+    trabajos: ["clip_movil","fotos_video","video_profesional","fotos"],
+    plataformas: ["tiktok","reels","multi"],
+    objetivos: ["marca","viralizar"],
+    boost: 8
+  },
+  {
+    id: 33,
+    titulo: "El before/after en split screen",
+    formato: "15–25 seg · Split screen o secuencia · Texto simple",
+    que_grabar: [
+      "El 'antes': foto de móvil del cliente o material genérico que tenían",
+      "El 'después': el trabajo profesional de Pepe"
+    ],
+    hook: "Pantalla dividida. Izquierda: móvil de un cliente. Derecha: Pepe Metro. Sin palabras.",
+    porque: "Compara directamente la propuesta de valor. El espectador cierra la venta solo.",
+    clientes: ["sastreria","discoteca","dj","restaurante","boda","fitness"],
+    trabajos: ["fotos","fotos_video","clip_movil"],
+    plataformas: ["tiktok","reels","linkedin","multi"],
+    objetivos: ["captacion"],
+    boost: 9
+  },
+  {
+    id: 34,
+    titulo: "El testimonio de 30 segundos",
+    formato: "25–35 seg · Cliente hablando · Subtítulos automáticos",
+    que_grabar: [
+      "Cliente frente a cámara, sin guión, hablando del resultado",
+      "1–2 clips del trabajo entregado intercalados"
+    ],
+    hook: "El cliente habla primero. Sin intro de Pepe — directamente a la opinión real.",
+    porque: "El testimonio en vídeo tiene 10× más credibilidad que el texto. Es el cierre de venta más potente.",
+    clientes: ["sastreria","restaurante","boda","fitness","marca_personal"],
+    trabajos: ["clip_movil","video_profesional"],
+    plataformas: ["reels","stories","linkedin","multi"],
+    objetivos: ["captacion","marca"],
+    boost: 8
+  },
+  {
+    id: 35,
+    titulo: "Detrás de la magia",
+    formato: "20–30 seg · BTS real · Texto opcional",
+    que_grabar: [
+      "Pepe montando equipo, buscando ángulos, en plena acción",
+      "El trabajo en proceso: no el resultado sino el cómo"
+    ],
+    hook: "La cámara graba a Pepe mientras trabaja. Nadie sabe que existe este momento.",
+    porque: "El BTS del videógrafo es su mejor carta de presentación. Muestra profesionalidad sin decirlo.",
+    clientes: ["sastreria","discoteca","dj","restaurante","boda","fitness","marca_personal"],
+    trabajos: ["clip_movil","camara_360"],
+    plataformas: ["tiktok","stories","reels"],
+    objetivos: ["engagement","marca"],
+    boost: 7
+  }
+];
+
+/* ── STATE ── */
+const state = { cliente: null, trabajo: null, plataforma: null, objetivo: null };
+let shownIds = new Set();
+
+/* ── PILLS ── */
+document.querySelectorAll('.pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    const group = pill.closest('[data-group]').dataset.group;
+    const val   = pill.dataset.value;
+    pill.closest('[data-group]').querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+    if (state[group] === val) {
+      state[group] = null;
+    } else {
+      pill.classList.add('active');
+      state[group] = val;
+    }
+  });
+});
+
+/* ── SCORING ── */
+function score(idea) {
+  let s = 0;
+  if (state.cliente   && idea.clientes.includes(state.cliente))     s += 4;
+  if (state.trabajo   && idea.trabajos.includes(state.trabajo))     s += 2;
+  if (state.plataforma && idea.plataformas.includes(state.plataforma)) s += 3;
+  if (state.objetivo  && idea.objetivos.includes(state.objetivo))   s += 3;
+  s += (idea.boost / 10) * 1.5;
+  return s;
+}
+
+function getIdeas(n = 4) {
+  const scored = IDEAS
+    .map(i => ({ ...i, _score: score(i) + (Math.random() * 0.8) }))
+    .sort((a, b) => b._score - a._score);
+
+  const available = scored.filter(i => !shownIds.has(i.id));
+  const pool = available.length >= n ? available : scored;
+  if (available.length < n) shownIds.clear();
+
+  const picked = pool.slice(0, n);
+  picked.forEach(i => shownIds.add(i.id));
+  return picked;
+}
+
+/* ── RENDER ── */
+function cardHTML(idea, idx) {
+  return `
+    <div class="idea-card">
+      <div class="card-top">
+        <span class="idea-num">IDEA ${String(idx + 1).padStart(2,'0')}</span>
+      </div>
+      <div class="idea-titulo">${idea.titulo}</div>
+      <div class="idea-formato">${idea.formato}</div>
+
+      <div class="row">
+        <div class="row-label">Qué grabar</div>
+        <ul class="grabar-list">
+          ${idea.que_grabar.map(q => `<li>${q}</li>`).join('')}
+        </ul>
+      </div>
+      <div class="row">
+        <div class="row-label">Los primeros 3 segundos</div>
+        <div class="idea-hook">${idea.hook}</div>
+      </div>
+      <div class="row">
+        <div class="row-label">Por qué funciona</div>
+        <div class="idea-porque">${idea.porque}</div>
+      </div>
+
+      <div class="card-footer">
+        <button class="btn-copy" data-id="${idea.id}">COPIAR IDEA</button>
+      </div>
+    </div>`;
+}
+
+let currentIdeas = [];
+
+function bindCopyButtons() {
+  document.querySelectorAll('.btn-copy').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idea = IDEAS.find(i => i.id === parseInt(btn.dataset.id));
+      const txt = `"${idea.titulo}"\n\nFormato: ${idea.formato}\n\nQué grabar:\n${idea.que_grabar.map(q=>`- ${q}`).join('\n')}\n\nHook (primeros 3s):\n${idea.hook}\n\nPor qué funciona:\n${idea.porque}`;
+      navigator.clipboard.writeText(txt).then(() => {
+        btn.textContent = '✓ COPIADO';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'COPIAR IDEA'; btn.classList.remove('copied'); }, 2000);
+      });
+    });
+  });
+}
+
+function showResults(ideas) {
+  currentIdeas = ideas;
+  const grid  = document.getElementById('ideas-grid');
+  const panel = document.getElementById('resultados');
+  grid.innerHTML = ideas.map((idea, i) => cardHTML(idea, i)).join('');
+  panel.style.display = 'block';
+  bindCopyButtons();
+  document.getElementById('wa-panel').classList.remove('visible');
+  panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+/* ── GENERATE ── */
+document.getElementById('btn-generar').addEventListener('click', () => {
+  shownIds.clear();
+  showResults(getIdeas(4));
+});
+
+document.getElementById('btn-regen').addEventListener('click', () => {
+  const grid = document.getElementById('ideas-grid');
+  grid.innerHTML = '';
+  setTimeout(() => showResults(getIdeas(4)), 80);
+});
+
+/* ── WHATSAPP ── */
+document.getElementById('btn-wa').addEventListener('click', () => {
+  const ctx     = document.getElementById('contexto').value.trim();
+  const ctxLine = ctx ? `\nContexto: ${ctx}\n` : '';
+  const cliente = state.cliente ? state.cliente.replace('_',' ') : 'tu negocio';
+
+  let msg = `Hola, te comparto algunas ideas de contenido que he pensado para ${cliente}:${ctxLine}\n`;
+  currentIdeas.forEach((idea, i) => {
+    msg += `${i+1}. *${idea.titulo}*\n`;
+    msg += `   Formato: ${idea.formato}\n`;
+    msg += `   Apertura: ${idea.hook}\n\n`;
+  });
+  msg += `¿Alguna te encaja? Puedo preparte un presupuesto esta semana.\n\n— Pepe Metro`;
+
+  document.getElementById('wa-text').value = msg;
+  const panel = document.getElementById('wa-panel');
+  panel.classList.add('visible');
+  panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+});
+
+document.getElementById('btn-copy-wa').addEventListener('click', () => {
+  const txt = document.getElementById('wa-text').value;
+  navigator.clipboard.writeText(txt).then(() => {
+    const btn = document.getElementById('btn-copy-wa');
+    btn.textContent = '✓ COPIADO';
+    setTimeout(() => btn.textContent = 'COPIAR MENSAJE', 2000);
+  });
+});
+
+document.getElementById('btn-close-wa').addEventListener('click', () => {
+  document.getElementById('wa-panel').classList.remove('visible');
+});
+</script>
+</body>
+</html>
