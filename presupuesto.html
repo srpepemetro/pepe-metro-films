@@ -168,6 +168,13 @@
     .fu { opacity: 0; animation: fu .5s ease forwards; }
     @keyframes fu { to { opacity: 1; } }
   </style>
+  <!-- Meta Pixel -->
+  <script>
+    var PMF_PIXEL='000000000000000';
+    function loadPixel(){if(window.fbq)return;!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init',PMF_PIXEL);fbq('track','PageView');}
+    if(localStorage.getItem('pmf_cookies')==='1')loadPixel();
+    function acceptCookies(){localStorage.setItem('pmf_cookies','1');loadPixel();var b=document.getElementById('cookie-banner');if(b)b.style.display='none';}
+  </script>
 </head>
 <body>
 <div class="app">
@@ -597,5 +604,11 @@ if (!loaded) $('f-num').value = nextNum();
 renderServiceRows();
 updatePreview();
 </script>
+  <!-- Cookie banner -->
+  <div id="cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;background:rgba(8,8,8,.97);border-top:1px solid rgba(240,237,232,.08);padding:14px 32px;align-items:center;justify-content:space-between;gap:16px;font-family:'DM Sans',sans-serif;font-weight:300;font-size:.72rem;color:rgba(240,237,232,.5);flex-wrap:wrap;">
+    <span>Esta web usa cookies de Meta para mejorar la publicidad. <a href="/privacidad.html" style="color:rgba(240,237,232,.35);text-decoration:underline;">Política de privacidad</a></span>
+    <button onclick="acceptCookies()" style="background:#f0ede8;color:#080808;border:none;padding:8px 20px;font-family:'DM Sans',sans-serif;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;flex-shrink:0;">Aceptar</button>
+  </div>
+  <script>if(localStorage.getItem('pmf_cookies')!=='1'){var cb=document.getElementById('cookie-banner');if(cb)cb.style.display='flex';}</script>
 </body>
 </html>
