@@ -70,10 +70,18 @@ exports.handler = async function () {
       };
     }).filter(p => p.proyecto);
 
+    const p0 = txResults[0]?.properties ?? {};
+    const debug = {
+      keys: Object.keys(p0),
+      bruto: p0['Bruto cobrado'],
+      total: p0['Total €'],
+      iva:   p0['IVA €'],
+    };
+
     return {
       statusCode: 200,
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ transactions, projects }),
+      body: JSON.stringify({ transactions, projects, debug }),
     };
   } catch (err) {
     return { statusCode: 502, body: JSON.stringify({ error: err.message }) };
