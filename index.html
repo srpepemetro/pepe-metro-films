@@ -64,12 +64,18 @@
     .reel-progress-fill { height:100%; background:var(--white); width:0%; transition:width .5s linear; border-radius:2px; }
 
     /* ── HERO ── */
-    .hero { height:100vh; display:flex; align-items:flex-end; padding:0 48px 64px; position:relative; overflow:hidden; }
-    @media (max-width:720px) { .hero { padding:0 24px 48px; } }
+    .hero { min-height:100vh; display:flex; flex-direction:column; justify-content:space-between; padding:110px 0 64px; position:relative; overflow:hidden; }
+    @media (max-width:720px) { .hero { padding:90px 0 48px; } }
+    .hero-reel { position:relative; z-index:2; width:100%; aspect-ratio:16/9; overflow:hidden; margin-bottom:44px; flex-shrink:0; }
+    .hero-reel video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+    .hero-reel .reel-controls { opacity:0; transition:opacity .3s; }
+    .hero-reel:hover .reel-controls { opacity:1; }
+    @media (max-width:720px) { .hero-reel { margin-bottom:28px; } }
     .hero-video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:brightness(.42) saturate(.8); z-index:0; }
     .hero-bg { position:absolute; inset:0; z-index:0; background:radial-gradient(ellipse at 25% 65%, rgba(55,50,44,.4) 0%, transparent 60%), var(--black); }
     .hero-overlay { position:absolute; inset:0; z-index:1; background:linear-gradient(to bottom, rgba(8,8,8,.1) 0%, rgba(8,8,8,.05) 40%, rgba(8,8,8,.65) 80%, rgba(8,8,8,.9) 100%); }
-    .hero-content { position:relative; z-index:2; }
+    .hero-content { position:relative; z-index:3; padding:0 48px; }
+    @media (max-width:720px) { .hero-content { padding:0 24px; } }
     .hero-eyebrow { font-size:.66rem; letter-spacing:.32em; text-transform:uppercase; color:rgba(240,237,232,.65); margin-bottom:18px; }
     .hero-title { font-family:var(--fd); font-size:clamp(4.5rem,13vw,14rem); line-height:.88; color:var(--white); }
     .hero-title em { font-style:italic; font-family:var(--fb); font-weight:300; font-size:.21em; letter-spacing:.1em; text-transform:uppercase; display:block; color:rgba(240,237,232,.52); margin-bottom:6px; }
@@ -275,25 +281,25 @@
   </div>
 </nav>
 
-<!-- ══ VÍDEO DE PRESENTACIÓN ══ -->
-<div class="reel-banner" id="reelBanner">
-  <video id="reelVideo" muted playsinline loop preload="metadata">
-    <source src="videos/presentacion.mp4" type="video/mp4">
-  </video>
-  <div class="reel-controls" id="reelControls">
-    <button class="reel-btn" id="reelPlayBtn" aria-label="Play/Pausa">
-      <svg id="reelIcon" width="14" height="16" viewBox="0 0 14 16"><path d="M0 0v16l14-8z"/></svg>
-    </button>
-    <div class="reel-progress" id="reelProgressBar">
-      <div class="reel-progress-fill" id="reelFill"></div>
-    </div>
-  </div>
-</div>
-
 <!-- ══ HERO ══ -->
 <section id="inicio" class="hero">
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
+
+  <div class="hero-reel" id="reelBanner">
+    <video id="reelVideo" muted playsinline loop preload="metadata">
+      <source src="videos/presentacion.mp4" type="video/mp4">
+    </video>
+    <div class="reel-controls" id="reelControls">
+      <button class="reel-btn" id="reelPlayBtn" aria-label="Play/Pausa">
+        <svg id="reelIcon" width="14" height="16" viewBox="0 0 14 16"><path d="M0 0v16l14-8z"/></svg>
+      </button>
+      <div class="reel-progress" id="reelProgressBar">
+        <div class="reel-progress-fill" id="reelFill"></div>
+      </div>
+    </div>
+  </div>
+
   <div class="hero-content">
     <p class="hero-eyebrow">Videógrafo · Sevilla · Desplazamiento nacional</p>
     <h1 class="hero-title"><em>Haz que tu marca</em>DESTAQUE</h1>
