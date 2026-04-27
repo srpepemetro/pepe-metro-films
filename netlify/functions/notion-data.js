@@ -49,7 +49,7 @@ exports.handler = async function () {
         descripcion:  p['Descripción']?.title?.[0]?.plain_text ?? '',
         tipo:         p['Tipo']?.select?.name ?? '',
         categoria:    p['Categoría']?.select?.name ?? '',
-        importe_neto: p['Importe neto']?.number ?? 0,
+        importe_neto: p['Bruto cobrado']?.number ?? p['Total €']?.formula?.number ?? 0,
         iva_pct:      p['IVA %']?.number ?? 0,
         iva_eur:      p['IVA €']?.formula?.number ?? 0,
         estado:       p['Estado']?.select?.name ?? '',
