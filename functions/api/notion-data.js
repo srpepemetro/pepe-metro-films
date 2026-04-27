@@ -73,7 +73,12 @@ export async function onRequestGet(context) {
       };
     }).filter(p => p.proyecto);
 
-    return new Response(JSON.stringify({ transactions, projects }), {
+    const debug = txResults[0] ? {
+      keys: Object.keys(txResults[0].properties),
+      bruto_raw: txResults[0].properties['Bruto cobrado'],
+    } : null;
+
+    return new Response(JSON.stringify({ transactions, projects, debug }), {
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (err) {
