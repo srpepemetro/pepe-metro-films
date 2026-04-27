@@ -52,7 +52,7 @@ export async function onRequestGet(context) {
         descripcion:  p['Descripción']?.title?.[0]?.plain_text ?? '',
         tipo:         p['Tipo']?.select?.name ?? '',
         categoria:    p['Categoría']?.select?.name ?? '',
-        importe_neto: p['Bruto cobrado']?.number ?? 0,
+        importe_neto: p['Bruto cobrado']?.number ?? p['Total €']?.formula?.number ?? 0,
         iva_pct:      p['IVA %']?.number ?? 0,
         iva_eur:      p['IVA €']?.formula?.number ?? 0,
         estado:       p['Estado']?.select?.name ?? '',
@@ -76,6 +76,7 @@ export async function onRequestGet(context) {
     const debug = txResults[0] ? {
       keys: Object.keys(txResults[0].properties),
       bruto_raw: txResults[0].properties['Bruto cobrado'],
+      total_raw: txResults[0].properties['Total €'],
     } : null;
 
     return new Response(JSON.stringify({ transactions, projects, debug }), {

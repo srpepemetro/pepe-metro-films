@@ -127,6 +127,7 @@
     .cuenta-nombre { font-size: .52rem; letter-spacing: .3em; text-transform: uppercase; color: var(--grey); margin-bottom: 12px; }
     .cuenta-saldo { font-family: var(--fd); font-size: 2.2rem; letter-spacing: .02em; line-height: 1; color: var(--white); cursor: pointer; display: flex; align-items: center; gap: 10px; }
     .cuenta-saldo:hover .edit-hint { opacity: 1; }
+    .cuenta-nombre:hover .edit-hint { opacity: 1 !important; }
     .edit-hint { font-size: .5rem; letter-spacing: .2em; color: var(--grey); opacity: 0; transition: opacity .2s; font-family: var(--fb); }
     .cuenta-input { font-family: var(--fd); font-size: 2.2rem; letter-spacing: .02em; background: none; border: none; border-bottom: 1px solid rgba(240,237,232,.3); color: var(--white); width: 100%; outline: none; padding-bottom: 4px; }
     .cuenta-updated { font-size: .58rem; color: rgba(240,237,232,.2); margin-top: 10px; }
@@ -402,7 +403,7 @@ const LS_KEY = 'pmf_personal_v1';
 const DEFAULT_PERSONAL = {
   cuentas: [
     { id:1, nombre:'Nocuenta',   saldo: 9.35,   updated:'2026-04-21' },
-    { id:2, nombre:'Nómina BBVA', saldo: 481.04, updated:'2026-04-21' },
+    { id:2, nombre:'Cuenta Nómina', saldo: 481.04, updated:'2026-04-21' },
   ],
   inversion: {
     fondo:       'Vanguard Global Stock Index',
@@ -420,7 +421,16 @@ const DEFAULT_PERSONAL = {
 function loadPersonal() {
   try {
     const s = localStorage.getItem(LS_KEY);
-    return s ? JSON.parse(s) : DEFAULT_PERSONAL;
+    const p = s ? JSON.parse(s) : DEFAULT_PERSONAL;
+    // migrate legacy names
+    if (p.cuentas) {
+      let changed = false;
+      p.cuentas.forEach(c => {
+        if (c.nombre === 'Nómina BBVA') { c.nombre = 'Cuenta Nómina'; changed = true; }
+      });
+      if (changed) localStorage.setItem(LS_KEY, JSON.stringify(p));
+    }
+    return p;
   } catch { return DEFAULT_PERSONAL; }
 }
 
@@ -645,17 +655,45 @@ function renderCuentas() {
   document.getElementById('cuentasGrid').innerHTML =
     cuentas.map(c => `
       <div class="cuenta-card">
-        <div class="cuenta-nombre">${c.nombre}</div>
+        <div class="cuenta-nombre" style="cursor:pointer;display:flex;align-items:center;gap:8px;" onclick="startEditNombre(${c.id}, this)">
+          <span class="val">${c.nombre}</span>
+          <span class="edit-hint" style="opacity:0;font-size:.45rem;letter-spacing:.2em;color:var(--grey);font-family:var(--fb);">renombrar</span>
+        </div>
         <div class="cuenta-saldo" data-id="${c.id}" onclick="startEditCuenta(${c.id}, this)">
           <span class="val">${eurD(c.saldo)}</span>
           <span class="edit-hint">editar</span>
         </div>
-        <div class="cuenta-updated">Actualizado ${relativeDate(c.updated)}</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;">
+          <div class="cuenta-updated">Actualizado ${relativeDate(c.updated)}</div>
+          <button onclick="deleteCuenta(${c.id})" style="background:none;border:none;color:rgba(240,237,232,.2);cursor:pointer;font-size:.7rem;padding:2px 4px;transition:color .2s;" onmouseover="this.style.color='var(--red)'" onmouseout="this.style.color='rgba(240,237,232,.2)'">✕</button>
+        </div>
       </div>`).join('') +
     `<div class="total-liquido-card">
       <div class="card-label">Total líquido</div>
       <div class="card-value">${eurD(total)}</div>
     </div>`;
+}
+
+function startEditNombre(id, el) {
+  const c = personal.cuentas.find(x => x.id === id);
+  if (!c) return;
+  const prev = c.nombre;
+  el.innerHTML = `<input class="cuenta-input" type="text" value="${prev}" autofocus style="font-family:var(--fb);font-size:.85rem;letter-spacing:.05em;">`;
+  const inp = el.querySelector('input');
+  inp.select();
+  const commit = () => {
+    const val = inp.value.trim();
+    if (val) { c.nombre = val; savePersonal(personal); }
+    renderCuentas();
+  };
+  inp.addEventListener('blur', commit);
+  inp.addEventListener('keydown', e => { if (e.key==='Enter') inp.blur(); if (e.key==='Escape') renderCuentas(); });
+}
+
+function deleteCuenta(id) {
+  personal.cuentas = personal.cuentas.filter(c => c.id !== id);
+  savePersonal(personal);
+  renderCuentas();
 }
 
 function startEditCuenta(id, el) {
