@@ -439,7 +439,7 @@
       <img class="grid-item__thumb" src="images/thumbs/videoclip_chris_dirty_love.webp" alt="Dirty Love">
       <div class="grid-item__ov"><div class="play-btn"><svg width="13" height="15" viewBox="0 0 13 15" fill="none"><path d="M1 1L12 7.5L1 14V1Z" fill="white"/></svg></div><div class="grid-item__title">Chris — Dirty Love</div></div>
     </div>
-    <div class="grid-item grid-item--wide" data-cat="dj" data-title="DJ Franrox — Set" data-ratio="h">
+    <div class="grid-item grid-item--wide" data-cat="dj" data-youtube="RI7dfGa7Y3g" data-title="DJ Franrox — Set" data-ratio="h">
       <div class="grid-item__ph" style="--c:#0a0a14;"></div>
       <img class="grid-item__thumb" src="images/thumbs/set_dj_franrox.webp" alt="DJ Franrox">
       <div class="grid-item__ov"><div class="play-btn"><svg width="13" height="15" viewBox="0 0 13 15" fill="none"><path d="M1 1L12 7.5L1 14V1Z" fill="white"/></svg></div><div class="grid-item__title">DJ Franrox — Set</div></div>
@@ -684,6 +684,14 @@
   document.querySelectorAll('.grid-item[data-vimeo]').forEach(item => {
     item.addEventListener('click', () => {
       lbIf.src = `https://player.vimeo.com/video/${item.dataset.vimeo}?autoplay=1&badge=0&transparent=1`;
+      lbT.textContent = item.dataset.title;
+      lbWrp.classList.toggle('vertical', item.dataset.ratio === 'v');
+      lb.classList.add('open'); document.body.style.overflow = 'hidden';
+    });
+  });
+  document.querySelectorAll('.grid-item[data-youtube]').forEach(item => {
+    item.addEventListener('click', () => {
+      lbIf.src = `https://www.youtube.com/embed/${item.dataset.youtube}?autoplay=1&rel=0`;
       lbT.textContent = item.dataset.title;
       lbWrp.classList.toggle('vertical', item.dataset.ratio === 'v');
       lb.classList.add('open'); document.body.style.overflow = 'hidden';
